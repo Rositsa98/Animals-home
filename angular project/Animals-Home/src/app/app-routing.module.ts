@@ -1,8 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { ProcessRequestsComponent } from './process-requests/process-requests.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'process-requests',
+    component:ProcessRequestsComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
