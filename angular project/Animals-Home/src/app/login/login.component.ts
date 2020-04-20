@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service'
 
 @Component({
   selector: 'app-login',
@@ -16,9 +18,19 @@ export class LoginComponent implements OnInit {
   });
 
   private isInvalidLogin = false;
-  constructor() { }
+  constructor(private authService: AuthenticationService, private route: Router) { }
 
   ngOnInit() {
+  }
+
+  login() {
+    var result = this.authService.login(this.loginForm.get("username").value,
+      this.loginForm.get("password").value).then(redirectUrl => {
+        if (redirectUrl === "/login" || redirectUrl === "" || redirectUrl === null) {
+          this.isInvalidLogin = true;
+        }
+        this.route.navigateByUrl(redirectUrl);
+      });
   }
 
 }
