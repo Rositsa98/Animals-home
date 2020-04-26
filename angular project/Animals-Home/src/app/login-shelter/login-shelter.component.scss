@@ -14,7 +14,7 @@
   }
   
   .loginForm{
-    background-color: rgba(0,0,0,0.55);
+    background-color: rgba(0, 0, 0, 0.55);
     height: auto;
     width: auto;
     display: block;
@@ -24,13 +24,12 @@
     margin-top: auto;
     margin-bottom: auto;
     border-radius: 0%;
-  
     position: absolute;
-    margin-left: 10%;
+    margin-left: -4%;
     margin-right: 40%;
-    margin-top: 15%;
-    width: 550px;
-    height: 450px;
+    margin-top: 9%;
+    width: 444px;
+    height: 427px;
   }
   
   .icon {
@@ -107,5 +106,5 @@
   }
 
   #userButton{
-      margin-left:450px;
+      margin-left:380px;
   }

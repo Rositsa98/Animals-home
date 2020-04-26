@@ -204,6 +204,10 @@
     margin-bottom: 32px;
     border-bottom: 1px solid #e5e5e5;
   }
+
+  .input-group-checkbox {
+    width:20px;
+  }
   
   .input-icon {
     position: absolute;
@@ -276,16 +280,20 @@
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    width: 850px;
+    width: 970px;
     display: table;
+    margin-top:-50px;
+  }
+
+  #regForm {
+    width:500px;
   }
   
-  .card-2 .card-heading {
-    background: url("../../assets/images/Screenshot\ from\ 2020-04-13\ 21-58-06.png") top left/cover no-repeat;
-    width: 29.1%;
-    display: table-cell;
+  .card-2 .image-card {
+    width: 200px;
+    margin-top: 10px;
   }
-  
+    
   .card-2 .card-body {
     display: table-cell;
     padding: 80px 90px;

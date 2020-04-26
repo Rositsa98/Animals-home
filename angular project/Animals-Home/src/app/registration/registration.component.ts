@@ -15,11 +15,13 @@ export class RegistrationComponent implements OnInit {
   
   private regError:boolean = false;
 
+  private agreePolicies:boolean = false;
+  private agreeGDPR:boolean = false;
+
   constructor(private registrationService:RegistrationService, private route:Router) { }
 
   ngOnInit() {
   }
-
 
   registrationForm = new FormGroup({
     username: new FormControl(''),
@@ -27,14 +29,29 @@ export class RegistrationComponent implements OnInit {
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     phoneNumber: new FormControl(''),
-    roles: new FormControl(''),
     email: new FormControl(''),
-    imageUrls: new FormControl('')
+    imageUrls: new FormControl(''),
+
   });
 
   sumbitData(){
 
-    var result = this.registrationService.registerUser(this.registrationForm.value)
+    this.user = 
+    {
+    username : this.registrationForm.get("username").value,
+    password : this.registrationForm.get("password").value,
+    firstName : this.registrationForm.get("firstName").value,
+    lastName : this.registrationForm.get("lastName").value,
+    phoneNumber : this.registrationForm.get("phoneNumber").value,
+    roles : "ROLE_USER",
+    email : this.registrationForm.get("email").value,
+    imageUrls : this.registrationForm.get("imageUrls").value,
+    address : "",
+    shelterCode : "",
+    description : ""
+    }
+
+    var result = this.registrationService.registerUser(this.user)
     .then(result => { if(result===true) {this.route.navigateByUrl("/main"); window.location.reload;} 
                       else {this.regError = true;} window.location.reload; });
 

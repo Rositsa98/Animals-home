@@ -14,6 +14,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { RegistrationService } from './services/registration/registration.service';
 import { RegistrationShelterComponent } from './registration-shelter/registration-shelter.component';
 import { LoginShelterComponent } from './login-shelter/login-shelter.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,11 @@ import { LoginShelterComponent } from './login-shelter/login-shelter.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCifSZ4mMeZTYbNXAoIB802ot5UT_9IJSI',
+      libraries: ['places']
+    })
   ],
   providers: [AuthenticationService, RegistrationService],
   bootstrap: [AppComponent]

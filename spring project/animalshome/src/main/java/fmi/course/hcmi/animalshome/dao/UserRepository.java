@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
     /**
      * Method to retrieve all users in the system.
-     * @return
+     * @return all users
      */
     List<User> findAll();
 
@@ -17,14 +17,15 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * Method used to retrieve user by username.
      * It is used when authenticating user.
      * @param username
-     * @return
+     * @return user
      */
     Optional<User> findByUsername(String username);
 
     /**
+     *Method to retrieve shelter user by shelter code
      *
      * @param shelterCode
-     * @return
+     * @return user
      */
     Optional<User> findByShelterCode(String shelterCode);
 }
