@@ -10,4 +10,7 @@ public interface IUserService {
     List<User> findAllUsers();
     User addUser(User user);
     long usersCount();
+
+    User findUserByShelterCode(String shelterCode);
+
 }

@@ -1,0 +1,49 @@
+<div class="page-wrapper bg p-t-180 p-b-100 font-robo">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-2">
+            <div class="card-heading"></div>
+            <div class="card-body">
+                <h2 class="title">Registration Info</h2>
+
+                <form [formGroup]="registrationForm">
+                    <div id="errorMessage" *ngIf="regError">User with such username already exists!</div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Name" formControlName="username">
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-2" type="password" placeholder="Password" formControlName="password">
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="First Name" formControlName="firstName">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Last Name" formControlName="lastName">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Phone number"
+                            formControlName="phoneNumber">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Roles" formControlName="roles">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Email" formControlName="email">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Image url" formControlName="imageUrls">
+                    </div>
+
+                    <div class="p-t-30">
+                        <button class="btn btn--radius btn--green" type="submit" (click)="sumbitData()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

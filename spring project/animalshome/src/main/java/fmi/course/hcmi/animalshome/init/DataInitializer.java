@@ -26,12 +26,14 @@ public class DataInitializer implements CommandLineRunner {
 
         if (usersCount == 0) {
             List<User> defaultUsers = Arrays.asList(
-                    new User(1l, "admin", "admin", "admin", "admin", "088", "ROLE_ADMIN", true),
-                    new User(2l, "user", "user", "user", "user", "0888", "ROLE_USER", true),
-                    new User(3l, "shelter", "shelter", "shelter", "shelter", "088", "ROLE_SHELTER", true)
+                    new User( 1l,"admin", "admin", "admin", "admin", "088", "ROLE_ADMIN", "admin@email.com", "image_url", "address", "-", "-",true),
+                    new User(2l, "user", "user", "user", "user", "0888", "ROLE_USER","user@email.com", "image_url","address2", "-", "-", true),
+                    new User(3l, "shelter", "shelter",null, null, "088", "ROLE_SHELTER", "shelter@email.com", "image_url",
+                            "53, Green Street, CA", "shelter_code_123","description", true)
             );
 
             userService.createUsersBatch(defaultUsers);
+
         }
 
         log.info("Querying for user records:");

@@ -6,6 +6,7 @@ import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import io.jsonwebtoken.lang.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,13 @@ public class UserService implements IUserService {
     public long usersCount() {
         return userRepository.count();
     }
+
+    @Override
+    public User findUserByShelterCode(String shelterCode) {
+        return userRepository.findByShelterCode(shelterCode).orElseThrow(() ->
+                new BadCredentialsException(String.format("Shelter '%s' not found.", shelterCode)));
+    }
+
 
     @Transactional
     public void createUsersBatch(List<User> users) {

@@ -19,9 +19,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Inheritance(
+        strategy = InheritanceType.TABLE_PER_CLASS
+)
 public class User implements UserDetails {
     @Id
-    @Column(name="id", unique = true, nullable = false)
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
@@ -48,7 +52,23 @@ public class User implements UserDetails {
     @Column(name="roles")
     private String roles;
 
-    private boolean active = true;
+    @Column(name="email")
+    private String email;
+
+    @Column(name="image_urls")
+    private String imageUrls;
+
+    @Column(name="address")
+    private String address;
+
+    @Column(name="shelter_code")
+    private String shelterCode;
+
+    @Column(name="description")
+    private String description;
+
+    private boolean active;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

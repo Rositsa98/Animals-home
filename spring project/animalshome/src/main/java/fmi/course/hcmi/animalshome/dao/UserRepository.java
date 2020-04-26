@@ -15,9 +15,16 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
      * Method used to retrieve user by username.
-     * It is used when authentication user.
+     * It is used when authenticating user.
      * @param username
      * @return
      */
     Optional<User> findByUsername(String username);
+
+    /**
+     *
+     * @param shelterCode
+     * @return
+     */
+    Optional<User> findByShelterCode(String shelterCode);
 }
