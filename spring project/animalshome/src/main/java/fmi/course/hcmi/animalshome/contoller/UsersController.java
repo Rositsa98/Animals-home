@@ -1,5 +1,7 @@
 package fmi.course.hcmi.animalshome.contoller;
 
+import fmi.course.hcmi.animalshome.model.Shelter;
+import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@RequestBody SingleUser user) {
 
         User resultUser = userService.addUser(user);
 
@@ -47,4 +49,20 @@ public class UsersController {
                 ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}").build(resultUser.getId()))
                 .body(resultUser);
     }
+
+    @RequestMapping(value = "/registerShelter", method = RequestMethod.POST)
+    public ResponseEntity<User> registerUser(@RequestBody Shelter shelter) {
+
+        User resultUser = userService.addShelter(shelter);
+
+        if(resultUser == null){
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        return ResponseEntity.created(
+                ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}").build(resultUser.getId()))
+                .body(resultUser);
+    }
+
+
 }

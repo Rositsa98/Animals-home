@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from '../services/request/request.service';
 
 @Component({
   selector: 'app-process-requests',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProcessRequestsComponent implements OnInit {
 
-  constructor() { }
+  private title:string = "Process requests"
+
+  private sideBarTitle = "Requests";
+
+  public requests;
+
+  constructor(private requestService: RequestService) { }
 
   ngOnInit() {
+    this.getRequests();
+  }
+
+  getRequests(){
+    this.requestService.getRequests().then(req => this.requests = this.requests);
+    console.log(this.requests);
   }
 
 }

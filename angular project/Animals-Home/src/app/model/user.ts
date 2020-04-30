@@ -8,6 +8,6 @@ export interface User{
     email:string;
     imageUrls:string;
     address:string;
-    shelterCode:string;
-    description:string;
+    birthday:string;
+    gender:string;
 }

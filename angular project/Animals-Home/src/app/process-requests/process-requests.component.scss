@@ -1,0 +1,21 @@
+.body-content{
+	display: flex;
+	// justify-content: center;
+	background-color: lavenderblush;
+    height: 40px;
+}
+#requests-list{
+	display: inline;
+	margin-right:100px;
+	margin-left: 100px;
+}
+
+#content{
+	display: inline;
+	margin-left: 400px;
+}
+
+#request-list-content{
+	display: table-cell;
+	width: 500px;
+}

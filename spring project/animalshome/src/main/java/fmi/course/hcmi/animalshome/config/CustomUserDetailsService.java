@@ -1,5 +1,6 @@
 package fmi.course.hcmi.animalshome.config;
 
+import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

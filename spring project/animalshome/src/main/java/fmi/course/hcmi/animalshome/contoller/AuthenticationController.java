@@ -54,7 +54,7 @@ public class AuthenticationController {
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
 
-            UserDetails user = userDetailsService.loadUserByShelterCode(authenticationRequest.getShelterCode());
+           UserDetails user = userDetailsService.loadUserByShelterCode(authenticationRequest.getShelterCode());
 
         } catch (BadCredentialsException e) {
             throw new InvalidUserException("Incorrect username, password or shelter code ", e);

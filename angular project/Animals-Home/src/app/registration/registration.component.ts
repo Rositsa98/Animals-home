@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../services/registration/registration.service';
 import { User } from '../model/user';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-registration',
@@ -32,26 +33,29 @@ export class RegistrationComponent implements OnInit {
     email: new FormControl(''),
     imageUrls: new FormControl(''),
 
+    address: new FormControl(''),
+    birthday: new FormControl(''),
+    gender: new FormControl('')
+
   });
 
   sumbitData(){
 
-    this.user = 
-    {
-    username : this.registrationForm.get("username").value,
-    password : this.registrationForm.get("password").value,
-    firstName : this.registrationForm.get("firstName").value,
-    lastName : this.registrationForm.get("lastName").value,
-    phoneNumber : this.registrationForm.get("phoneNumber").value,
-    roles : "ROLE_USER",
-    email : this.registrationForm.get("email").value,
-    imageUrls : this.registrationForm.get("imageUrls").value,
-    address : "",
-    shelterCode : "",
-    description : ""
-    }
+    var username = this.registrationForm.get("username").value;
+    var password = this.registrationForm.get("password").value;
+    var firstName = this.registrationForm.get("firstName").value;
+    var lastName = this.registrationForm.get("lastName").value;
+    var phoneNumber = this.registrationForm.get("phoneNumber").value;
+    var roles = "ROLE_USER";
+    var email = this.registrationForm.get("email").value;
+    var imageUrls = this.registrationForm.get("imageUrls").value;
+    var address = this.registrationForm.get("address").value;
+    var birthday = this.registrationForm.get("birthday").value;
+    var gender = this.registrationForm.get("gender").value;
+    
 
-    var result = this.registrationService.registerUser(this.user)
+    var result = this.registrationService.registerUser(username, password, firstName, lastName,
+      phoneNumber, roles, email, imageUrls, address, birthday, gender)
     .then(result => { if(result===true) {this.route.navigateByUrl("/main"); window.location.reload;} 
                       else {this.regError = true;} window.location.reload; });
 

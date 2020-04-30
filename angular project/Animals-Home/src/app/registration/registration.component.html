@@ -34,6 +34,18 @@
                         <input class="input--style-2" type="text" placeholder="Image url" formControlName="imageUrls">
                     </div>
 
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Address" formControlName="address">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Birthday" formControlName="birthday">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Gender" formControlName="gender">
+                    </div>
+
                     <div>
                         <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR"
                             class="input-group-checkbox" name="gdpr" />

@@ -2,9 +2,12 @@ package fmi.course.hcmi.animalshome.service.impl;
 
 import fmi.course.hcmi.animalshome.dao.UserRepository;
 import fmi.course.hcmi.animalshome.exception.InvalidUserException;
+import fmi.course.hcmi.animalshome.model.Shelter;
+import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import io.jsonwebtoken.lang.Collections;
+import org.apache.catalina.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -48,7 +51,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User addUser(User user) {
+    public SingleUser addUser(SingleUser user) {
         Optional<User> old = userRepository.findByUsername(user.getUsername());
 
         if(old.isPresent()){
@@ -64,12 +67,28 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Shelter addShelter(Shelter user) {
+        Optional<User> old = userRepository.findByUsername(user.getUsername());
+
+        if(old.isPresent()){
+            return null;
+        }
+        if (user.getRoles() == null || user.getRoles().split(",").length == 0) {
+            user.setRoles("ROLE_SHELTER");
+        }
+
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        return userRepository.save(user);
+    }
+
+    @Override
     public long usersCount() {
         return userRepository.count();
     }
 
     @Override
-    public User findUserByShelterCode(String shelterCode) {
+    public Shelter findUserByShelterCode(String shelterCode) {
         return userRepository.findByShelterCode(shelterCode).orElseThrow(() ->
                 new BadCredentialsException(String.format("Shelter '%s' not found.", shelterCode)));
     }
@@ -78,7 +97,11 @@ public class UserService implements IUserService {
     @Transactional
     public void createUsersBatch(List<User> users) {
         users.stream().forEach(user -> {
-                    User resultUser = addUser(user);
+            if(user.getRoles().contains("ROLE_USER")) {
+                User resultUser = addUser((SingleUser)user);
+            }else if(user.getRoles().contains("ROLE_SHELTER")){
+                User resUser = addShelter((Shelter)user);
+            }
                 });
 
     }

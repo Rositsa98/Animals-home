@@ -201,7 +201,7 @@
   /* end input group 1 */
   .input-group {
     position: relative;
-    margin-bottom: 32px;
+    margin-bottom: 22px;
     border-bottom: 1px solid #e5e5e5;
   }
 
@@ -282,7 +282,7 @@
     border-radius: 10px;
     width: 970px;
     display: table;
-    margin-top:-50px;
+    margin-top:-150px;
   }
 
   #regForm {
@@ -307,7 +307,7 @@
     .card-2 .card-heading {
       width: 100%;
       display: block;
-      padding-top: 300px;
+      padding-top: 50px;
       background-position: left center;
     }
     .card-2 .card-body {
@@ -318,4 +318,8 @@
 
   #errorMessage{
     color:red;
+  }
+
+  agm-map {
+    height: 50px;
   }

@@ -2,7 +2,7 @@
     <div class="wrapper wrapper--w960">
         <div class="card card-2">
             <div class="card-body">
-                <h2 class="title">Registration Info</h2>
+                <h2 class="title">Registration Shelter</h2>
 
                 <form [formGroup]="registrationFormShelter">
                     <div id="errorMessage" *ngIf="regError">User with such username already exists!</div>
@@ -28,9 +28,13 @@
                     </div>
 
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Address" formControlName="address">
+                        <input type="text" class="input--style-2" (keydown.enter)="$event.preventDefault()"
+                            placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"
+                            spellcheck="off" type="text" #search formControlName="address">
+
                         <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                                (dragEnd)="markerDragEnd($event)"></agm-marker>
                         </agm-map>
                     </div>
 

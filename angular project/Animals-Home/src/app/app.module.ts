@@ -15,6 +15,7 @@ import { RegistrationService } from './services/registration/registration.servic
 import { RegistrationShelterComponent } from './registration-shelter/registration-shelter.component';
 import { LoginShelterComponent } from './login-shelter/login-shelter.component';
 import { AgmCoreModule } from '@agm/core';
+import { RequestService } from './services/request/request.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { AgmCoreModule } from '@agm/core';
       libraries: ['places']
     })
   ],
-  providers: [AuthenticationService, RegistrationService],
+  providers: [AuthenticationService, RegistrationService, RequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
