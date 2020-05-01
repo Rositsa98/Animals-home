@@ -38,12 +38,23 @@
                         <input class="input--style-2" type="text" placeholder="Address" formControlName="address">
                     </div>
 
-                    <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Birthday" formControlName="birthday">
+                    <div>
+
+                        <mat-form-field class="datepickers">
+                            <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
                     </div>
 
-                    <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Gender" formControlName="gender">
+                    <div class="genderRadioBtns">
+                        <input type="radio" id="male" name="gender" formControlName="gender" class="input-group-radio"
+                            value="MALE">
+                        <label for="male">Male</label>
+
+                        <input type="radio" id="female" name="gender" formControlName="gender" class="input-group-radio"
+                            value="FEMALE">
+                        <label for="female">Female</label>
                     </div>
 
                     <div>

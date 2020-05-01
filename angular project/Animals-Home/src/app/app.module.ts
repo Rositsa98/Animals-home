@@ -16,6 +16,11 @@ import { RegistrationShelterComponent } from './registration-shelter/registratio
 import { LoginShelterComponent } from './login-shelter/login-shelter.component';
 import { AgmCoreModule } from '@agm/core';
 import { RequestService } from './services/request/request.service';
+import { DatePipe } from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -38,9 +43,14 @@ import { RequestService } from './services/request/request.service';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCifSZ4mMeZTYbNXAoIB802ot5UT_9IJSI',
       libraries: ['places']
-    })
+    }),
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  
   ],
-  providers: [AuthenticationService, RegistrationService, RequestService],
+  providers: [AuthenticationService, RegistrationService, RequestService, MatDatepickerModule, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

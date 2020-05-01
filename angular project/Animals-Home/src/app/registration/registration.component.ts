@@ -14,10 +14,10 @@ export class RegistrationComponent implements OnInit {
 
   private user:User;
   
-  private regError:boolean = false;
+  public regError:boolean = false;
 
-  private agreePolicies:boolean = false;
-  private agreeGDPR:boolean = false;
+  public agreePolicies:boolean = false;
+  public agreeGDPR:boolean = false;
 
   constructor(private registrationService:RegistrationService, private route:Router) { }
 

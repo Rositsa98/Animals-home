@@ -14,15 +14,19 @@ export class RegistrationShelterComponent implements OnInit {
 
   private shelter: Shelter;
 
-  private regError: boolean = false;
+  public regError: boolean = false;
+
+  public agreePolicies:boolean=false;
+
+  public agreeGDPR:boolean=false;
 
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
-  private geoCoder;
+  public geoCoder;
   
-  @ViewChild('search', {static:false})
+  @ViewChild('search')
   public searchElementRef: ElementRef;
  
   
