@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class PetAdDto {
+    private Long id;
     @NotNull
     private PetDto petDto;
 

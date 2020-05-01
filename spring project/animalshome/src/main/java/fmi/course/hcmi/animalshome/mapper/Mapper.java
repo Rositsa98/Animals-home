@@ -12,6 +12,7 @@ import fmi.course.hcmi.animalshome.entity.PetHabits;
 import fmi.course.hcmi.animalshome.entity.Photo;
 
 import java.util.List;
+
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
@@ -59,7 +60,7 @@ public interface Mapper {
 
     PhotoDto photoDtoToPhoto(Photo photo);
 
-    List<Photo> photosToPhotoDtos(List<PhotoDto> photoDtos);
+    List<Photo> photoDtosToPhotos(List<PhotoDto> photoDtos);
 
-    List<PhotoDto> photoDtosToPhotos(List<Photo> photos);
+    List<PhotoDto> photosToPhotoDtos(List<Photo> photos);
 }
