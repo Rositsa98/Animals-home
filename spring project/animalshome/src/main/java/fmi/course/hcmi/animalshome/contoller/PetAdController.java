@@ -6,11 +6,16 @@ import fmi.course.hcmi.animalshome.enums.Gender;
 import fmi.course.hcmi.animalshome.service.PetAdService;
 
 import java.util.List;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/pet/ad")
@@ -23,7 +28,7 @@ public class PetAdController {
     }
 
     @PostMapping
-    public ResponseEntity<PetAdDto> createPetAd(@RequestBody PetAdDto petAdDto) {
+    public ResponseEntity<PetAdDto> createPetAd(@Valid @RequestBody final PetAdDto petAdDto) {
         return new ResponseEntity<>(petAdService.createPetAd(petAdDto), HttpStatus.CREATED);
     }
 

@@ -21,25 +21,25 @@ public class SingleUser extends User implements UserDetails {
 
     }
 
-    public SingleUser(Long id,
-                      String username,
-                      String password,
-                      String firstName,
-                      String lastName,
-                      String phoneNumber,
-                      String roles,
-                      String email,
-                      String imageUrl,
-                      String address,
-                      boolean active,
-                      List<PetAd> favouritePets,
-                      String birthday,
-                      Gender gender) {
+    public SingleUser(final Long id,
+                      final String username,
+                      final String password,
+                      final String firstName,
+                      final String lastName,
+                      final String phoneNumber,
+                      final String roles,
+                      final String email,
+                      final String imageUrl,
+                      final String address,
+                      final boolean active,
+                      final List<PetAd> favouritePets,
+                      final String birthday,
+                      final Gender gender) {
         super(id, username, password, phoneNumber, roles, email, imageUrl, address, active, favouritePets);
-        this.birthday = birthday;
-        this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthday = birthday;
+        this.gender = gender;
     }
 
     @Column(name = "first_name")
@@ -53,6 +53,22 @@ public class SingleUser extends User implements UserDetails {
 
     @Column(name = "gender")
     private Gender gender;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getBirthday() {
         return birthday;
@@ -109,21 +125,5 @@ public class SingleUser extends User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return super.active;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 }

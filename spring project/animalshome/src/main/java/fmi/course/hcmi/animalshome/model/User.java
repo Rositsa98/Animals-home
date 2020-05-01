@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "user", schema = "animalshome")
+@Table(name = "user", schema = "animalsHome")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 public abstract class User implements UserDetails {
@@ -27,15 +27,15 @@ public abstract class User implements UserDetails {
     }
 
     public User(final Long id,
-                String username,
-                String password,
+                final String username,
+                final String password,
                 final String phoneNumber,
                 final String roles,
                 final String email,
                 final String imageUrls,
                 final String address,
-                boolean active,
-                List<PetAd> favouritePets) {
+                final boolean active,
+                final List<PetAd> favouritePets) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -81,49 +81,12 @@ public abstract class User implements UserDetails {
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    protected boolean active;
+
+    @ManyToMany
     @JoinTable(name = "favourites_users", joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "favourites_id", referencedColumnName = "id")})
     private List<PetAd> favouritePets;
-
-    protected boolean active;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        String[] roles = getRoles().split(",");
-        List<String> rolesList = Collections.arrayToList(roles);
-
-        return rolesList.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return active;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return active;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return active;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return active;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
 
     public Long getId() {
         return id;
@@ -173,6 +136,14 @@ public abstract class User implements UserDetails {
         this.imageUrls = imageUrls;
     }
 
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -193,7 +164,37 @@ public abstract class User implements UserDetails {
         return favouritePets;
     }
 
-    public void setFavouritePets(List<PetAd> favouritePets) {
+    public void setFavouritePets(final List<PetAd> favouritePets) {
         this.favouritePets = favouritePets;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        String[] roles = getRoles().split(",");
+        List<String> rolesList = Collections.arrayToList(roles);
+
+        return rolesList.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return active;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return active;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return active;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return active;
     }
 }

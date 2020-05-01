@@ -5,15 +5,15 @@ public enum Gender {
 
     private String value;
 
-    Gender(){
+    Gender() {
 
     }
 
-    Gender(String value){
+    Gender(String value) {
         this.value = value;
     }
 
-    public String getValue(){
+    public String getValue() {
         return this.value;
     }
 }

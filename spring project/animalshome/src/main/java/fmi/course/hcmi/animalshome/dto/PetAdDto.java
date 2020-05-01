@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
 public class PetAdDto {
     private Long id;
     @NotNull
+    @Valid
     private PetDto petDto;
 
     @NotNull
