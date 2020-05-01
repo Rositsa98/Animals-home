@@ -3,6 +3,7 @@ package fmi.course.hcmi.animalshome.contoller;
 import fmi.course.hcmi.animalshome.config.CustomUserDetailsService;
 import fmi.course.hcmi.animalshome.exception.InvalidUserException;
 import fmi.course.hcmi.animalshome.model.authentication.AuthenticationRequest;
+import fmi.course.hcmi.animalshome.model.authentication.AuthenticationRequestShelter;
 import fmi.course.hcmi.animalshome.model.authentication.AuthenticationResponse;
 import fmi.course.hcmi.animalshome.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,34 @@ public class AuthenticationController {
     private JwtUtil jwtUtil;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<AuthenticationResponse> createAuthToken(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidUserException {
+    public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidUserException {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
             throw new InvalidUserException("Incorrect username or password", e);
+        }
+
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getUsername());
+
+        final String jwt = jwtUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
+
+    @RequestMapping(value = "/authenticateShelter", method = RequestMethod.POST)
+    public ResponseEntity<AuthenticationResponse> authenticateShelter(@RequestBody AuthenticationRequestShelter authenticationRequest) throws InvalidUserException {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+            );
+
+           UserDetails user = userDetailsService.loadUserByShelterCode(authenticationRequest.getShelterCode());
+
+        } catch (BadCredentialsException e) {
+            throw new InvalidUserException("Incorrect username, password or shelter code ", e);
         }
 
         final UserDetails userDetails = userDetailsService

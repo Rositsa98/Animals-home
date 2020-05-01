@@ -14,33 +14,31 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Entity
-@Table(name="users", schema="animalsHome")
+@Table(name = "user", schema = "animalsHome")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class User implements UserDetails {
+public abstract class User implements UserDetails{
+
     @Id
-    @Column(name="id", unique = true, nullable = false)
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
     @NotNull
     @Size(min = 3, max = 60)
     @Column(name="username", nullable = false)
-    private String username;
+    protected String username;
 
     @NonNull
     @NotBlank
     @Size(min=3, max=12)
     @Column(name="password", nullable = false)
-    private String password;
-
-    @Column(name="first_name")
-    private String firstName;
-
-    @Column(name="last_name")
-    private String lastName;
+    protected String password;
 
     @Column(name="phone_number")
     private String phoneNumber;
@@ -48,36 +46,27 @@ public class User implements UserDetails {
     @Column(name="roles")
     private String roles;
 
-    private boolean active = true;
+    @Column(name="email")
+    private String email;
+
+    @Column(name="image_urls")
+    private String imageUrls;
+
+    @Column(name="address")
+    private String address;
+
+
+    protected  boolean active;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String[] roles = this.roles.split(",");
+        String[] roles = getRoles().split(",");
         List<String> rolesList = Collections.arrayToList(roles);
 
         return rolesList
                 .stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
     }
 
     @Override
@@ -98,5 +87,78 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

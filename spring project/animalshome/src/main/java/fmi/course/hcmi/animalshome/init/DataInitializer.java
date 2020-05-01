@@ -1,5 +1,8 @@
 package fmi.course.hcmi.animalshome.init;
 
+import fmi.course.hcmi.animalshome.enums.Gender;
+import fmi.course.hcmi.animalshome.model.Shelter;
+import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.impl.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,18 +23,21 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Users init
+//         Users init
         long usersCount = userService.usersCount();
         log.info("Users count: {}", usersCount);
 
         if (usersCount == 0) {
             List<User> defaultUsers = Arrays.asList(
-                    new User(1l, "admin", "admin", "admin", "admin", "088", "ROLE_ADMIN", true),
-                    new User(2l, "user", "user", "user", "user", "0888", "ROLE_USER", true),
-                    new User(3l, "shelter", "shelter", "shelter", "shelter", "088", "ROLE_SHELTER", true)
+                    new SingleUser(1l,"admin", "admin", "admin", "admin", "088", "ROLE_ADMIN", "admin@email.com", "image_url", "address", true,"birthday", Gender.MALE),
+                    new SingleUser(2l, "user", "user", "user", "user", "0888", "ROLE_USER","user@email.com", "image_url","address2", true, "-", Gender.FEMALE),
+                    new Shelter(3l, "shelter", "shelter", "088", "ROLE_SHELTER", "shelter@email.com", "image_url",
+                           "53, Green Street, CA", true,"shelter_code_123","description")
+
             );
 
             userService.createUsersBatch(defaultUsers);
+
         }
 
         log.info("Querying for user records:");

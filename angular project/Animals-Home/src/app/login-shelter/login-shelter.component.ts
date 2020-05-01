@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication/authentication.service'
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-login-shelter',
+  templateUrl: './login-shelter.component.html',
+  styleUrls: ['./login-shelter.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginShelterComponent implements OnInit {
 
+  
   title: string = "Login";
 
   loginForm = new FormGroup({
@@ -24,14 +25,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    var result = this.authService.login(this.loginForm.get("username").value,
-      this.loginForm.get("password").value).then(redirectUrl => {
-        if (redirectUrl === "/login" || redirectUrl === "" || redirectUrl === null) {
+  loginShelter() {
+    var result = this.authService.loginShelter(this.loginForm.get("username").value,
+      this.loginForm.get("password").value, this.loginForm.get("shelterCode").value).then(redirectUrl => {
+        if (redirectUrl === "/loginShelter" || redirectUrl === "" || redirectUrl === null) {
           this.isInvalidLogin = true;
         }
         this.route.navigateByUrl(redirectUrl);
       });
   }
+
 
 }

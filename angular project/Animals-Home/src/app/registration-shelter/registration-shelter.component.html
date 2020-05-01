@@ -1,0 +1,75 @@
+<div class="page-wrapper bg p-t-180 p-b-100 font-robo">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-2">
+            <div class="card-body">
+                <h2 class="title">Registration Shelter</h2>
+
+                <form [formGroup]="registrationFormShelter">
+                    <div id="errorMessage" *ngIf="regError">User with such username already exists!</div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Name" formControlName="username">
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-2" type="password" placeholder="Password" formControlName="password">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Phone number"
+                            formControlName="phoneNumber">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Email" formControlName="email">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Image url" formControlName="imageUrls">
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" class="input--style-2" (keydown.enter)="$event.preventDefault()"
+                            placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"
+                            spellcheck="off" type="text" #search formControlName="address">
+
+                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                                (dragEnd)="markerDragEnd($event)"></agm-marker>
+                        </agm-map>
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Shelter code"
+                            formControlName="shelterCode">
+                    </div>
+
+                    <div class="input-group">
+                        <input class="input--style-2" type="text" placeholder="Description"
+                            formControlName="description">
+                    </div>
+
+                    <div>
+                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR"
+                            class="input-group-checkbox" name="gdpr" />
+                        <label for="gdpr"><button routerLink="/login">I agree my data will be consumed according
+                                GDPR.</button></label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies"
+                            class="input-group-checkbox" name="policies" />
+                        <label for="policies"><button routerLink="/login">I agree according to the website
+                                policies.</button></label>
+                    </div>
+
+                    <div class="p-t-30">
+                        <button class="btn btn--radius btn--green" type="submit" (click)="sumbitData()">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+
+            <img class="image-card" src="../../assets/images/logo.png">
+        </div>
+    </div>
+</div>

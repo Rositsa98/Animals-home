@@ -60,6 +60,43 @@ export class AuthenticationService {
 
   }
 
+  loginShelter(username:string, password:string, shelterCode:string): Promise<string> {
+
+    const body = { username, password, shelterCode };
+    const loginUrl = '/clientServer/authenticateShelter';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    var redirectUrl = null;
+
+    return this.http.post<any>(loginUrl, body, {
+      headers,
+    }).toPromise()
+      .then(result => {
+        this.token = result;
+        console.log("Authentication token: " + this.token.jwt);
+        localStorage.setItem("token", this.token.jwt);
+
+      })
+      .then(result => {
+        return this.getRoles(username);
+      }
+      )
+       .then(roles => {
+        console.log("User roles:" + roles);
+        console.log("Determining redirect url" );
+        return redirectUrl = this.determineRedirectByRole(roles);
+      }
+      )
+      .then(redirectUrl =>{
+        return redirectUrl != null ? redirectUrl : "/loginShelter";
+      }
+      );
+
+  }
+
+
   getToken(): string {
     return this.token.jwt;
   }
@@ -84,7 +121,7 @@ export class AuthenticationService {
     switch (role) {
       case "Admin": return "/admin";
       case "User": return "/main";
-      case "Shelter": return "/index";
+      case "Shelter": return "/main";
     }
   }
 

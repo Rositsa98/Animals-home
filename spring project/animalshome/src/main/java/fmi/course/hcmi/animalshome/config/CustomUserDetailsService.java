@@ -1,8 +1,10 @@
 package fmi.course.hcmi.animalshome.config;
 
+import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userService.findUserByUsername(username);
 
         return user;
+    }
+
+    public UserDetails loadUserByShelterCode(String shelterCode){
+
+        User shelter = userService.findUserByShelterCode(shelterCode);
+
+        return shelter;
+
     }
 
 }
