@@ -19,21 +19,14 @@ import org.mapstruct.factory.Mappers;
 public interface Mapper {
     Mapper INSTANCE = Mappers.getMapper(Mapper.class);
 
-    List<Photo> photosToPhotoDtos(List<PhotoDto> photoDtos);
-
-    List<PhotoDto> photoDtosToPhotos(List<Photo> photos);
-
     @Mapping(source = "petDetailsDto", target = "petDetails")
     @Mapping(source = "petHabitsDto", target = "petHabits")
-    //@Mapping(source = "photoDtos", target = "photos")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "petAd", ignore = true)
     Pet petDtoToPet(PetDto petDto);
 
     @Mapping(source = "petDetails", target = "petDetailsDto")
     @Mapping(source = "petHabits", target = "petHabitsDto")
-    // @Mapping(source = "photos", target = "photoDtos")
-    @Mapping(target = "photoDtos", ignore = true)
     PetDto petToPetDto(Pet pet);
 
     List<PetAdDto> petAdsToPetAdsDto(List<PetAd> petAds);
@@ -51,15 +44,22 @@ public interface Mapper {
     PetDetailsDto petDetailsDtoToPetDetails(PetDetails petDetails);
 
     @Mapping(source = "petDto", target = "pet")
+    @Mapping(source = "photosDto", target = "photos")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "users", ignore = true)
+    @Mapping(target = "owner", ignore = true)
     PetAd petAdDtoToPetAd(PetAdDto petAdDto);
 
     @Mapping(source = "pet", target = "petDto")
+    @Mapping(source = "photos", target = "photosDto")
     PetAdDto petAdToPetAdDto(PetAd petAd);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "pet", ignore = true)
     Photo photoDtoToPhoto(PhotoDto photoDto);
 
     PhotoDto photoDtoToPhoto(Photo photo);
+
+    List<Photo> photosToPhotoDtos(List<PhotoDto> photoDtos);
+
+    List<PhotoDto> photoDtosToPhotos(List<Photo> photos);
 }

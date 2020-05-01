@@ -1,7 +1,9 @@
 package fmi.course.hcmi.animalshome.model;
 
+import fmi.course.hcmi.animalshome.entity.PetAd;
 import io.jsonwebtoken.lang.Collections;
 import lombok.*;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,57 +16,83 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Entity
 @Table(name = "user", schema = "animalsHome")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
-@AllArgsConstructor
-@NoArgsConstructor
-public abstract class User implements UserDetails{
+public abstract class User implements UserDetails {
+
+    public User() {
+
+    }
+
+    public User(final Long id,
+                String username,
+                String password,
+                final String phoneNumber,
+                final String roles,
+                final String email,
+                final String imageUrls,
+                final String address,
+                boolean active,
+                List<PetAd> favouritePets) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+        this.email = email;
+        this.imageUrls = imageUrls;
+        this.address = address;
+        this.active = active;
+        this.favouritePets = favouritePets;
+    }
 
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
     @NotNull
     @Size(min = 3, max = 60)
-    @Column(name="username", nullable = false)
+    @Column(name = "username", nullable = false)
     protected String username;
 
     @NonNull
     @NotBlank
-    @Size(min=3, max=12)
-    @Column(name="password", nullable = false)
+    @Size(min = 3, max = 12)
+    @Column(name = "password", nullable = false)
     protected String password;
 
-    @Column(name="phone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name="roles")
+    @Column(name = "roles")
     private String roles;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="image_urls")
+    @Column(name = "image_urls")
     private String imageUrls;
 
-    @Column(name="address")
+    @Column(name = "address")
     private String address;
 
+    @ManyToMany
+    @JoinTable(name = "favourites_users", joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "favourites_id", referencedColumnName = "id")})
+    private List<PetAd> favouritePets;
 
-    protected  boolean active;
+    protected boolean active;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String[] roles = getRoles().split(",");
         List<String> rolesList = Collections.arrayToList(roles);
 
-        return rolesList
-                .stream()
+        return rolesList.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
@@ -92,7 +120,6 @@ public abstract class User implements UserDetails{
     public String getRoles() {
         return roles;
     }
-
 
     public void setRoles(String roles) {
         this.roles = roles;

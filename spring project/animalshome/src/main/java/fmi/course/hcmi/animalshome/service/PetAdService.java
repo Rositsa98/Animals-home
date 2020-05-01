@@ -4,9 +4,11 @@ import fmi.course.hcmi.animalshome.dao.PetAdRepository;
 import fmi.course.hcmi.animalshome.dto.PetAdDto;
 import fmi.course.hcmi.animalshome.entity.PetAd;
 import fmi.course.hcmi.animalshome.mapper.Mapper;
+import fmi.course.hcmi.animalshome.model.User;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +21,9 @@ public class PetAdService {
     }
 
     public PetAdDto createPetAd(final PetAdDto petAdDto) {
-        PetAd petAd = Mapper.INSTANCE.petAdDtoToPetAd(petAdDto);
+        //The user must be registered
+        final PetAd petAd = Mapper.INSTANCE.petAdDtoToPetAd(petAdDto);
+        petAd.setOwner(getCurrentUser());
 
         return Mapper.INSTANCE.petAdToPetAdDto(petAdRepository.save(petAd));
     }
@@ -33,11 +37,27 @@ public class PetAdService {
     //    }
 
     public List<PetAdDto> getAllPetAds() {
-        List<PetAd> petAds = (List) petAdRepository.findAll();
+        final List<PetAd> petAds = (List) petAdRepository.findAll();
+
         return Mapper.INSTANCE.petAdsToPetAdsDto(petAds);
     }
 
-    //TODO getPetAdsByUsername
+    private User getCurrentUser() {
+        final User user = (User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        return user;
+    }
+    //TODO getPetAdsOfCurrentUser
     //TODO getPetAdsPerPage
+    //TODO getAllAds
+    //TODO getPetAdByID
     //TODO filterPetAds
+    //TODO add ad to favourite
+    //TODO remove ad to favourite
+    //TODO get user favourite ads
+    //TODO delete ad
+    //TODO update ad
+    //TODO find ad by pet type
 }

@@ -64,5 +64,6 @@ public class UsersController {
                 .body(resultUser);
     }
 
-
+    //TODO update user profile
+    //TODO delete user profile
 }

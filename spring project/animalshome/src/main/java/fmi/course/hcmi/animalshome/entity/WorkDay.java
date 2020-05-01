@@ -1,31 +1,40 @@
 package fmi.course.hcmi.animalshome.entity;
 
+import fmi.course.hcmi.animalshome.model.Shelter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Table(name = "photo", schema = "animalsHome")
+@Table(name = "work_day", schema = "animalsHome")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Photo {
+public class WorkDay {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "photo_name")
-    private String photoName;
+    @Column
+    private LocalTime from;
+
+    @Column
+    private LocalTime to;
+
+    @OneToOne(mappedBy = "workDay")
+    private Shelter shelter;
 }

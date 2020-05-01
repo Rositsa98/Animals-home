@@ -7,19 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
 @Getter
 @Setter
-public class PetAdDto {
-    @NotNull
-    private PetDto petDto;
-
-    @NotNull
-    private List<PhotoDto> photosDto;
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+public class WorkDayDto {
+    private LocalTime from;
+    private LocalTime to;
 }
