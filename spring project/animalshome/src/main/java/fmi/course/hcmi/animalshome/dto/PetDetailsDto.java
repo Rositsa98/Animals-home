@@ -29,6 +29,9 @@ public class PetDetailsDto {
     @NotNull
     private String color;
 
+    @NotNull
+    private String city;
+
     @Range(min = 0, max = 20)
     private int age;
 

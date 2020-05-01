@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "user", schema = "animalsHome")
+@Table(name = "user", schema = "animalshome")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 public abstract class User implements UserDetails {
@@ -80,7 +80,7 @@ public abstract class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "favourites_users", joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "favourites_id", referencedColumnName = "id")})
     private List<PetAd> favouritePets;
@@ -187,5 +187,13 @@ public abstract class User implements UserDetails {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<PetAd> getFavouritePets() {
+        return favouritePets;
+    }
+
+    public void setFavouritePets(List<PetAd> favouritePets) {
+        this.favouritePets = favouritePets;
     }
 }

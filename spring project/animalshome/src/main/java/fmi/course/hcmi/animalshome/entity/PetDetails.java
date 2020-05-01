@@ -41,6 +41,9 @@ public class PetDetails {
     private String color;
 
     @Column
+    private String city;
+
+    @Column
     private int age;
 
     @Column
