@@ -7,7 +7,6 @@ import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import io.jsonwebtoken.lang.Collections;
-import org.apache.catalina.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;

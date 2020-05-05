@@ -81,12 +81,11 @@ public abstract class User implements UserDetails {
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    protected boolean active;
-
-    @ManyToMany
     @JoinTable(name = "favourites_users", joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "favourites_id", referencedColumnName = "id")})
     private List<PetAd> favouritePets;
+
+    protected boolean active;
 
     public Long getId() {
         return id;
