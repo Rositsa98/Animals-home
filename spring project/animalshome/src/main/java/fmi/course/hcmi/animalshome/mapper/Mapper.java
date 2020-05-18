@@ -32,6 +32,8 @@ public interface Mapper {
 
     List<PetAdDto> petAdsToPetAdsDto(List<PetAd> petAds);
 
+    List<PetAd> petAdsDtoToPetAds(List<PetAdDto> petAds);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "pet", ignore = true)
     PetHabits petHabitsDtoToPetHabits(PetHabitsDto petHabitsDto);
