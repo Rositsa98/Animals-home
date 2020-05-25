@@ -16,6 +16,18 @@ import java.util.stream.Collectors;
 @Entity
 @DiscriminatorValue(value = "shelter")
 public class Shelter extends User implements UserDetails {
+    @Column(name = "shelter_code")
+    private String shelterCode;
+
+    @Column(name = "description")
+    private String description;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "work_day_id", referencedColumnName = "id")
+    private WorkDay workDay;
+
+    //    @Transient
+    //    private List<String> visitRequests;//TODO
 
     public Shelter() {
 
@@ -39,19 +51,6 @@ public class Shelter extends User implements UserDetails {
         this.description = description;
         this.workDay = workDay;
     }
-
-    @Column(name = "shelter_code")
-    private String shelterCode;
-
-    @Column(name = "description")
-    private String description;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "work_day_id", referencedColumnName = "id")
-    private WorkDay workDay;
-
-    //    @Transient
-    //    private List<String> visitRequests;//TODO
 
     public String getShelterCode() {
         return shelterCode;

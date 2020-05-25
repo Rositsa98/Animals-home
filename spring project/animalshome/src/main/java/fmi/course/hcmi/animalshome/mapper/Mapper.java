@@ -10,6 +10,12 @@ import fmi.course.hcmi.animalshome.entity.PetAd;
 import fmi.course.hcmi.animalshome.entity.PetDetails;
 import fmi.course.hcmi.animalshome.entity.PetHabits;
 import fmi.course.hcmi.animalshome.entity.Photo;
+import fmi.course.hcmi.animalshome.model.Shelter;
+import fmi.course.hcmi.animalshome.model.ShelterInfo;
+import fmi.course.hcmi.animalshome.model.SingleUser;
+import fmi.course.hcmi.animalshome.model.SingleUserInfo;
+import fmi.course.hcmi.animalshome.model.User;
+import fmi.course.hcmi.animalshome.model.UserInfo;
 
 import java.util.List;
 
@@ -61,6 +67,11 @@ public interface Mapper {
     Photo photoDtoToPhoto(PhotoDto photoDto);
 
     PhotoDto photoDtoToPhoto(Photo photo);
+
+    @Mapping(source = "workDay", target = "workDayDto")
+    ShelterInfo userToUserInfo(Shelter shelter);
+
+    SingleUserInfo userToUserInfo(SingleUser singleUser);
 
     List<Photo> photoDtosToPhotos(List<PhotoDto> photoDtos);
 

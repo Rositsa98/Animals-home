@@ -21,33 +21,6 @@ import java.util.stream.Collectors;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 public abstract class User implements UserDetails {
-
-    public User() {
-
-    }
-
-    public User(final Long id,
-                final String username,
-                final String password,
-                final String phoneNumber,
-                final String roles,
-                final String email,
-                final String imageUrls,
-                final String address,
-                final boolean active,
-                final List<PetAd> favouritePets) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.roles = roles;
-        this.email = email;
-        this.imageUrls = imageUrls;
-        this.address = address;
-        this.active = active;
-        this.favouritePets = favouritePets;
-    }
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,6 +59,32 @@ public abstract class User implements UserDetails {
     private List<PetAd> favouritePets;
 
     protected boolean active;
+
+    public User() {
+
+    }
+
+    public User(final Long id,
+                final String username,
+                final String password,
+                final String phoneNumber,
+                final String roles,
+                final String email,
+                final String imageUrls,
+                final String address,
+                final boolean active,
+                final List<PetAd> favouritePets) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+        this.email = email;
+        this.imageUrls = imageUrls;
+        this.address = address;
+        this.active = active;
+        this.favouritePets = favouritePets;
+    }
 
     public Long getId() {
         return id;

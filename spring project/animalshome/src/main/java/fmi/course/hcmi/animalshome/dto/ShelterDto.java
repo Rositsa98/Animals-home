@@ -1,7 +1,6 @@
 package fmi.course.hcmi.animalshome.dto;
 
 import fmi.course.hcmi.animalshome.entity.PetAd;
-import fmi.course.hcmi.animalshome.entity.WorkDay;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +23,7 @@ public class ShelterDto extends UserDto {
     @Size(min = 10, max = 500, message = "The description must be between 10 and 500 characters long!")
     private String description;
 
-    private WorkDay workDay;
+    private WorkDayDto workDayDto;
 
     public ShelterDto(final String username,
                       final String password,
@@ -36,11 +35,11 @@ public class ShelterDto extends UserDto {
                       final List<PetAd> favouritePets,
                       final String shelterCode,
                       final String description,
-                      final WorkDay workDay) {
+                      final WorkDayDto workDayDto) {
         super(username, password, phoneNumber, roles, email, imageUrls, address, favouritePets);
         this.shelterCode = shelterCode;
         this.description = description;
-        this.workDay = workDay;
+        this.workDayDto = workDayDto;
     }
 
     //private List<String> visitRequests;

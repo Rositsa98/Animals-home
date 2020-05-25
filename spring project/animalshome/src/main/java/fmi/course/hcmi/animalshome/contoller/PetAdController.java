@@ -2,7 +2,9 @@ package fmi.course.hcmi.animalshome.contoller;
 
 import fmi.course.hcmi.animalshome.dto.FilterCriteria;
 import fmi.course.hcmi.animalshome.dto.PetAdDto;
+import fmi.course.hcmi.animalshome.dto.PetAdWithUser;
 import fmi.course.hcmi.animalshome.dto.PetType;
+import fmi.course.hcmi.animalshome.dto.PhotoDto;
 import fmi.course.hcmi.animalshome.exception.ResourceNotFoundException;
 import fmi.course.hcmi.animalshome.service.PetAdService;
 
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,9 +25,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@CrossOrigin()
 @RestController
 @RequestMapping("/api/pet/ad")
 public class PetAdController {
@@ -36,7 +41,8 @@ public class PetAdController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<PetAdDto> createPetAd(@Valid @RequestBody final PetAdDto petAdDto, @RequestParam("files") List<MultipartFile> files) throws IOException {
+    public ResponseEntity<PetAdDto> createPetAd(@Valid @RequestPart("petAdDto") final PetAdDto petAdDto,
+                                                @RequestPart("files") List<MultipartFile> files) throws IOException {
         return new ResponseEntity<>(petAdService.createPetAd(petAdDto, files), HttpStatus.CREATED);
     }
 
@@ -55,6 +61,11 @@ public class PetAdController {
         return new ResponseEntity<>(petAdService.getPetAdById(id), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/view/{id}")
+    public ResponseEntity<PetAdWithUser> getPetAdByIdWithUserInfo(@PathVariable long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(petAdService.getPedAdWithUserInfo(id), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/all/type")
     public ResponseEntity<List<PetAdDto>> getAllPetAdsByPetType(@RequestParam PetType petType) {
         return new ResponseEntity<>(petAdService.getAllPetAdsByPetType(petType), HttpStatus.OK);
@@ -70,9 +81,12 @@ public class PetAdController {
         return new ResponseEntity<>(petAdService.getCurrentUserFavoritePetAds(), HttpStatus.OK);
     }
 
-    //TODO
+    //TODO remove existing photos and add new photos
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<PetAdDto> updatePetAd(@PathVariable long id, @RequestBody PetAdDto petAdDto, @RequestParam("files") List<MultipartFile> files) {
+    public ResponseEntity<PetAdDto> updatePetAd(@PathVariable long id,
+                                                @RequestPart("petAdDto") final PetAdDto petAdDto,
+                                                @RequestPart("deletedPhotos") final List<PhotoDto> deletedPhotos,
+                                                @RequestPart("files") final List<MultipartFile> files) {
         return new ResponseEntity<>(petAdService.updatePetAd(id, petAdDto), HttpStatus.OK);
     }
 

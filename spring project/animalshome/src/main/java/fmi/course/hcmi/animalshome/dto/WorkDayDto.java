@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalTime;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -16,6 +14,6 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class WorkDayDto {
-    private LocalTime from;
-    private LocalTime to;
+    private String startWork;
+    private String endWork;
 }

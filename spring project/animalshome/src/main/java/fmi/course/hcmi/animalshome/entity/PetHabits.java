@@ -1,7 +1,5 @@
 package fmi.course.hcmi.animalshome.entity;
 
-import lombok.EqualsAndHashCode;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +10,6 @@ import javax.persistence.Table;
 
 @Table(name = "pet_habits", schema = "animalsHome")
 @Entity
-@EqualsAndHashCode
 public class PetHabits {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

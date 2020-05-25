@@ -4,14 +4,17 @@ import fmi.course.hcmi.animalshome.dao.PetAdRepository;
 import fmi.course.hcmi.animalshome.dao.UserRepository;
 import fmi.course.hcmi.animalshome.dto.FilterCriteria;
 import fmi.course.hcmi.animalshome.dto.PetAdDto;
+import fmi.course.hcmi.animalshome.dto.PetAdWithUser;
 import fmi.course.hcmi.animalshome.dto.PetType;
 import fmi.course.hcmi.animalshome.dto.PhotoDto;
 import fmi.course.hcmi.animalshome.entity.PetAd;
-import fmi.course.hcmi.animalshome.entity.Photo;
 import fmi.course.hcmi.animalshome.exception.ResourceNotFoundException;
 import fmi.course.hcmi.animalshome.mapper.Mapper;
+import fmi.course.hcmi.animalshome.model.Shelter;
+import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.enums.Gender;
+import fmi.course.hcmi.animalshome.model.UserInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PetAdService {
+    private static final String PET_AD_PHOTOS_PATH = "/petPhotos/";
+
     private final PetAdRepository petAdRepository;
     private final UserRepository userRepository;
     private final FileUploadService fileUploadService;
@@ -43,11 +48,9 @@ public class PetAdService {
         final PetAd petAd = Mapper.INSTANCE.petAdDtoToPetAd(petAdDto);
         petAd.setOwner(getCurrentUser());
         List<PhotoDto> photos = new ArrayList<>();
-        PhotoDto currentPhoto;
         for (MultipartFile file : files) {
             String photoName = generateUniqueImageName() + getExtensionOfFile(file);
-            currentPhoto = new PhotoDto(photoName);
-            photos.add(currentPhoto);
+            photos.add(new PhotoDto(photoName));
             fileUploadService.addPetPhoto(photoName, file);
         }
         petAd.setPhotos(Mapper.INSTANCE.photoDtosToPhotos(photos));
@@ -56,22 +59,49 @@ public class PetAdService {
 
     public List<PetAdDto> getAllPetAds() {
         final List<PetAd> petAds = (List<PetAd>) petAdRepository.findAll();
-        return Mapper.INSTANCE.petAdsToPetAdsDto(petAds);
+        final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAds);
+        for (int i = 0; i < petAdDtos.size(); i++) {
+            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+        }
+
+        return petAdDtos;
+    }
+
+    private void setRootImageFolder(final List<PhotoDto> photos) {
+        photos.forEach(photo -> photo.setPhotoName(PET_AD_PHOTOS_PATH + photo.getPhotoName()));
     }
 
     public List<PetAdDto> getPetAdsOfCurrentUser() {
         User currentUser = getCurrentUser();
-        List<PetAd> petAds = petAdRepository.findByOwner(currentUser);
+        final List<PetAd> petAds = petAdRepository.findByOwner(currentUser);
+        final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAds);
+        for (int i = 0; i < petAdDtos.size(); i++) {
+            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+        }
 
-        return Mapper.INSTANCE.petAdsToPetAdsDto(petAds);
+        return petAdDtos;
     }
 
     public PetAdDto getPetAdById(long id) throws ResourceNotFoundException {
-        Optional<PetAd> petAd = petAdRepository.findById(id);
-        if (!petAd.isPresent()) {
-            throw new ResourceNotFoundException("The ad is not found");
+        final PetAdDto petAdDto = Mapper.INSTANCE.petAdToPetAdDto(getAdById(id));
+        setRootImageFolder(petAdDto.getPhotosDto());
+        return petAdDto;
+    }
+
+    public PetAdWithUser getPedAdWithUserInfo(long id) throws ResourceNotFoundException {
+        final PetAd petAd = getAdById(id);
+        final PetAdDto petAdDto = Mapper.INSTANCE.petAdToPetAdDto(petAd);
+        setRootImageFolder(petAdDto.getPhotosDto());
+        UserInfo owner;
+        if (petAd.getOwner()
+                .getRoles()
+                .equals("ROLE_USER")) {
+            owner = Mapper.INSTANCE.userToUserInfo((SingleUser) petAd.getOwner());
+        } else {
+            owner = Mapper.INSTANCE.userToUserInfo((Shelter) petAd.getOwner());
         }
-        return Mapper.INSTANCE.petAdToPetAdDto(petAd.get());
+
+        return new PetAdWithUser(petAdDto, owner);
     }
 
     public void deletePetAd(long id) throws ResourceNotFoundException {
@@ -85,7 +115,10 @@ public class PetAdService {
     public List<PetAdDto> getAllPetAdsByPetType(PetType petType) {
         List<PetAd> allPetAds = (List<PetAd>) petAdRepository.findAll();
         List<PetAd> petAdsByPetType = allPetAds.stream()
-                .filter(ad -> ad.getPet().getPetDetails().getPetType().equals(petType))
+                .filter(ad -> ad.getPet()
+                        .getPetDetails()
+                        .getPetType()
+                        .equals(petType))
                 .collect(Collectors.toList());
 
         return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByPetType);
@@ -93,7 +126,11 @@ public class PetAdService {
 
     public List<PetAdDto> getCurrentUserFavoritePetAds() {
         User currentUser = getCurrentUser();
-        return Mapper.INSTANCE.petAdsToPetAdsDto(currentUser.getFavouritePets());
+        final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(currentUser.getFavouritePets());
+        for (int i = 0; i < petAdDtos.size(); i++) {
+            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+        }
+        return petAdDtos;
     }
 
     public void removePetAdFromFavorites(long id) {
@@ -102,7 +139,8 @@ public class PetAdService {
         List<PetAd> currentUserFavoritePets = currentUser.getFavouritePets();
         if (petAdToBeRemoved.isPresent()) {
             for (int i = 0; i < currentUserFavoritePets.size(); i++) {
-                if (currentUserFavoritePets.get(i).getId() == id) {
+                if (currentUserFavoritePets.get(i)
+                        .getId() == id) {
                     currentUserFavoritePets.remove(i);
                     break;
                 }
@@ -125,9 +163,12 @@ public class PetAdService {
 
     public PetAdDto updatePetAd(long id, PetAdDto petAdDto) {
         Optional<PetAd> petAd = petAdRepository.findById(id);
+        //TODO
         if (petAd.isPresent()) {
-            petAd.get().setPet(Mapper.INSTANCE.petDtoToPet(petAdDto.getPetDto()));
-            petAd.get().setPhotos(Mapper.INSTANCE.photoDtosToPhotos(petAdDto.getPhotosDto()));
+            petAd.get()
+                    .setPet(Mapper.INSTANCE.petDtoToPet(petAdDto.getPetDto()));
+            petAd.get()
+                    .setPhotos(Mapper.INSTANCE.photoDtosToPhotos(petAdDto.getPhotosDto()));
         }
         return Mapper.INSTANCE.petAdToPetAdDto(petAd.get());
     }
@@ -161,27 +202,42 @@ public class PetAdService {
     }
 
     private List<PetAdDto> getPetAdsByShelter(List<PetAdDto> petAdsDto) {
-        List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
-        List<PetAd> petAdsByShelter = petAds.stream().
-                filter(ad -> ad.getOwner().getRoles().equals("ROLE_SHELTER"))
+        final List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
+        final List<PetAd> petAdsByShelter = petAds.stream()
+                .filter(ad -> ad.getOwner()
+                        .getRoles()
+                        .equals("ROLE_SHELTER"))
                 .collect(Collectors.toList());
+        final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByShelter);
+        for (int i = 0; i < petAdDtos.size(); i++) {
+            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+        }
 
-        return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByShelter);
+        return petAdDtos;
     }
 
     private List<PetAdDto> getPetAdsBySingleUser(List<PetAdDto> petAdsDto) {
-        List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
-        List<PetAd> petAdsBySingleUser = petAds.stream().
-                filter(ad -> ad.getOwner().getRoles().equals("ROLE_USER"))
+        final List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
+        final List<PetAd> petAdsBySingleUser = petAds.stream()
+                .filter(ad -> ad.getOwner()
+                        .getRoles()
+                        .equals("ROLE_USER"))
                 .collect(Collectors.toList());
+        final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAdsBySingleUser);
+        for (int i = 0; i < petAdDtos.size(); i++) {
+            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+        }
 
-        return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsBySingleUser);
+        return petAdDtos;
     }
 
     private List<PetAdDto> getPetAdsByCity(List<PetAdDto> petAdsDto, String city) {
         List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
-        List<PetAd> petAdsByCity = petAds.stream().
-                filter(ad -> ad.getPet().getPetDetails().getCity().equals(city))
+        List<PetAd> petAdsByCity = petAds.stream()
+                .filter(ad -> ad.getPet()
+                        .getPetDetails()
+                        .getCity()
+                        .equals(city))
                 .collect(Collectors.toList());
 
         return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByCity);
@@ -189,8 +245,11 @@ public class PetAdService {
 
     private List<PetAdDto> getPetAdsByGender(List<PetAdDto> petAdsDto, Gender gender) {
         List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
-        List<PetAd> petAdsByGender = petAds.stream().
-                filter(ad -> ad.getPet().getPetDetails().getGender().equals(gender))
+        List<PetAd> petAdsByGender = petAds.stream()
+                .filter(ad -> ad.getPet()
+                        .getPetDetails()
+                        .getGender()
+                        .equals(gender))
                 .collect(Collectors.toList());
 
         return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByGender);
@@ -198,8 +257,10 @@ public class PetAdService {
 
     private List<PetAdDto> getPetAdsByPetAge(List<PetAdDto> petAdsDto, int age) {
         List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
-        List<PetAd> petAdsByPetAge = petAds.stream().
-                filter(ad -> ad.getPet().getPetDetails().getAge() == age)
+        List<PetAd> petAdsByPetAge = petAds.stream()
+                .filter(ad -> ad.getPet()
+                        .getPetDetails()
+                        .getAge() == age)
                 .collect(Collectors.toList());
 
         return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByPetAge);
@@ -207,8 +268,11 @@ public class PetAdService {
 
     public List<PetAdDto> getPetAdsByBreed(List<PetAdDto> petAdsDto, String breed) {
         List<PetAd> petAds = Mapper.INSTANCE.petAdsDtoToPetAds(petAdsDto);
-        List<PetAd> petAdsByPetBreed = petAds.stream().
-                filter(ad -> ad.getPet().getPetDetails().getBreed().equals(breed))
+        List<PetAd> petAdsByPetBreed = petAds.stream()
+                .filter(ad -> ad.getPet()
+                        .getPetDetails()
+                        .getBreed()
+                        .equals(breed))
                 .collect(Collectors.toList());
 
         return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByPetBreed);
@@ -224,7 +288,8 @@ public class PetAdService {
     }
 
     private String generateUniqueImageName() {
-        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = UUID.randomUUID()
+                .toString();
         return uniqueID;
     }
 
@@ -235,6 +300,15 @@ public class PetAdService {
         }
         String extension = "." + name.split("\\.")[1];
         return extension;
+    }
+
+    private PetAd getAdById(long id) throws ResourceNotFoundException {
+        Optional<PetAd> petAd = petAdRepository.findById(id);
+        if (!petAd.isPresent()) {
+            throw new ResourceNotFoundException("The ad is not found");
+        }
+
+        return petAd.get();
     }
 
     //TODO getPetAdsPerPage
