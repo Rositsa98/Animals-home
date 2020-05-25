@@ -12,12 +12,12 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class RegistrationComponent implements OnInit {
 
-  private user:User;
+  user:User;
   
-  private regError:boolean = false;
+  regError:boolean = false;
 
-  private agreePolicies:boolean = false;
-  private agreeGDPR:boolean = false;
+  agreePolicies:boolean = false;
+  agreeGDPR:boolean = false;
 
   constructor(private registrationService:RegistrationService, private route:Router) { }
 

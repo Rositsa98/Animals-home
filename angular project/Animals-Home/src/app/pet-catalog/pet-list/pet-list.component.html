@@ -1,0 +1,5 @@
+<mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let ad of petAds">
+        <app-pet-item [isHidenContent]="isHidenContent" [isHiddenFavoriteButton]="isHiddenFavoriteButton" [isHidenButtonsControls]="isHidenButtonsControls" (deletedPetAd)="deleteCurrentAd($event)" (favoritePetAd)="addToFavorites($event)" [petAd]="ad"></app-pet-item>
+    </mat-grid-tile>
+</mat-grid-list>

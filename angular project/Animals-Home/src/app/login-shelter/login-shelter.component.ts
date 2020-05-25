@@ -19,7 +19,7 @@ export class LoginShelterComponent implements OnInit {
     shelterCode: new FormControl('')
   });
 
-  private isInvalidLogin = false;
+  isInvalidLogin = false;
   constructor(private authService: AuthenticationService, private route: Router) { }
 
   ngOnInit() {

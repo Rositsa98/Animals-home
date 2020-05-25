@@ -8,6 +8,11 @@ import { ProcessRequestsComponent } from './process-requests/process-requests.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { MatCardModule } from '@angular/material/card';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatButtonModule, MatIconModule } from '@angular/material/'
+import { MatGridListModule } from '@angular/material/grid-list';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { MainPanelComponent } from './main-panel/main-panel.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -16,6 +21,21 @@ import { RegistrationShelterComponent } from './registration-shelter/registratio
 import { LoginShelterComponent } from './login-shelter/login-shelter.component';
 import { AgmCoreModule } from '@agm/core';
 import { RequestService } from './services/request/request.service';
+import { PetCatalogComponent } from './pet-catalog/pet-catalog.component';
+import { CreatePetComponent } from './pet-catalog/create-pet/create-pet.component';
+import { EditPetComponent } from './pet-catalog/edit-pet/edit-pet.component';
+import { PetListComponent } from './pet-catalog/pet-list/pet-list.component';
+import { PetItemComponent } from './pet-catalog/pet-list/pet-item/pet-item.component';
+import { UserAdsComponent } from './user-ads/user-ads.component';
+import { UserFavoriteAdsComponent } from './user-favorite-ads/user-favorite-ads.component';
+import { PetFormComponent } from './pet-catalog/pet-form/pet-form.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { InternalServerErrorComponent } from './internal-server-error/internal-server-error.component';
+import { AlertModule } from './alert/';
+import { DialogContentComponent } from './dialog-content/dialog-content.component';
+import { ConfirmationDialogService } from './dialog-content/confirmation-dialog.service';
+import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +47,19 @@ import { RequestService } from './services/request/request.service';
     RegistrationComponent,
     RegistrationShelterComponent,
     LoginShelterComponent,
-
+    PetCatalogComponent,
+    CreatePetComponent,
+    EditPetComponent,
+    PetListComponent,
+    PetItemComponent,
+    UserAdsComponent,
+    UserFavoriteAdsComponent,
+    PetFormComponent,
+    NavigationComponent,
+    NotFoundComponent,
+    InternalServerErrorComponent,
+    DialogContentComponent,
+    AdViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -35,12 +67,20 @@ import { RequestService } from './services/request/request.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatCardModule,
+    ButtonsModule,
+    MatButtonModule,
+    AlertModule,
+    MatIconModule,
+    MatGridListModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCifSZ4mMeZTYbNXAoIB802ot5UT_9IJSI',
       libraries: ['places']
-    })
+    }),
+    NgbModule
   ],
-  providers: [AuthenticationService, RegistrationService, RequestService],
-  bootstrap: [AppComponent]
+  providers: [AuthenticationService, RegistrationService, RequestService, ConfirmationDialogService],
+  bootstrap: [AppComponent],
+  entryComponents: [ DialogContentComponent ]
 })
 export class AppModule { }

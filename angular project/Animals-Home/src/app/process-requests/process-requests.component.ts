@@ -8,9 +8,9 @@ import { RequestService } from '../services/request/request.service';
 })
 export class ProcessRequestsComponent implements OnInit {
 
-  private title:string = "Process requests"
+  title:string = "Process requests"
 
-  private sideBarTitle = "Requests";
+  sideBarTitle = "Requests";
 
   public requests;
 

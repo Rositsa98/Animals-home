@@ -1,0 +1,37 @@
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.container img {
+    width: 95%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container button {
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.container button:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
