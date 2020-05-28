@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.Range;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,26 +20,32 @@ import org.hibernate.validator.constraints.Range;
 @Getter
 @Setter
 public class PetDetailsDto {
-    @NotEmpty
-    @Size(min = 2, max = 50)
+    @NotBlank
+    @Size(min = 2, max = 50, message = "The name of the pet must be between 2 and 50 characters long!")
     private String petName;
 
-    @NotNull
+    @NotBlank
     private String breed;
 
-    @NotNull
+    @NotBlank
     private String color;
 
-    @Range(min = 0, max = 20)
+    @NotNull
+    private String city;
+
+    @Min(value = 0)
+    @Max(value = 20)
     private int age;
 
-    @Range(min = 0, max = 11)
+    @Min(value = 0)
+    @Max(value = 11)
     private int months;
 
     @NotNull
     private Gender gender;
 
-    @Range(max = 500)//TODO add min validation
+    @Min(value = 1)
+    @Max(value = 500)
     private double weight;
 
     @NotNull

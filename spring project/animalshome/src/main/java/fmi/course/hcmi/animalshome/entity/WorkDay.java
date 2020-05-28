@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,11 +28,11 @@ public class WorkDay {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private LocalTime from;
+    @Column(name= "start_work")
+    private String startWork;
 
-    @Column
-    private LocalTime to;
+    @Column(name= "end_work")
+    private String endWork;
 
     @OneToOne(mappedBy = "workDay")
     private Shelter shelter;

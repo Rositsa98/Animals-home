@@ -9,7 +9,6 @@ import { AuthenticationService } from '../services/authentication/authentication
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   title: string = "Login";
 
   loginForm = new FormGroup({
@@ -18,7 +17,9 @@ export class LoginComponent implements OnInit {
     shelterCode: new FormControl('')
   });
 
+
   public isInvalidLogin = false;
+
   constructor(private authService: AuthenticationService, private route: Router) { }
 
   ngOnInit() {

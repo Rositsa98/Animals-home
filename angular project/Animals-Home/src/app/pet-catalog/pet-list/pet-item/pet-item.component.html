@@ -1,0 +1,22 @@
+<mat-card class="card">
+    <img class="rounded imageStyle" (click)="showPetAd()" md-card-image src="{{ petAd.photosDto[0].photoName }}">
+    <div class="content">
+        <mat-card-content *ngIf="! isHidenContent">
+            <h6>Name: {{ petAd.petDto.petDetailsDto.petName }}</h6>
+            <h6>City: {{ petAd.petDto.petDetailsDto.city }}</h6>
+            <h6>Gender: {{ petAd.petDto.petDetailsDto.gender }}</h6>
+        </mat-card-content>
+        <mat-card-actions *ngIf="! isHiddenFavoriteButton" fxLayout="row" fxLayoutAlign="end center">
+            <button type="button" id="favorite-button-position" class="btn btn-danger" (click)="addToFavorites()">
+            <i class="fa fa-heart"></i>
+        </button>
+        </mat-card-actions>
+        <mat-card-actions class="remove-favorite-button" *ngIf="isHiddenFavoriteButton && isHidenButtonsControls">
+            <button type="button" class="btn btn-danger" (click)="deleteAd()"><i class=" fa fa-trash "></i> Remove from favorite</button>
+        </mat-card-actions>
+        <mat-card-actions class="buttons-controls " *ngIf="! isHidenButtonsControls " fxLayout="row " fxLayoutAlign="end center ">
+            <button type="button " class="btn btn-warning " (click)="editAd() "><i class="fa fa-pencil "></i> </button>
+            <button type="button " class="btn btn-danger " (click)="deleteAd() "><i class="fa fa-trash-o "></i> </button>
+        </mat-card-actions>
+    </div>
+</mat-card>

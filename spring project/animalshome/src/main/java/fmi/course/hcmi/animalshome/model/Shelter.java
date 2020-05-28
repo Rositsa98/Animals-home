@@ -3,11 +3,9 @@ package fmi.course.hcmi.animalshome.model;
 import fmi.course.hcmi.animalshome.entity.PetAd;
 import fmi.course.hcmi.animalshome.entity.WorkDay;
 import io.jsonwebtoken.lang.Collections;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,9 +56,14 @@ public class Shelter extends User implements UserDetails {
     @JoinColumn(name = "work_day_id", referencedColumnName = "id")
     private WorkDay workDay;
 
+
     @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL,
     orphanRemoval = true)
     private List<VisitRequest> visitRequests; // received visit requests
+
+    //    @Transient
+    //    private List<String> visitRequests;//TODO
+
 
     public String getShelterCode() {
         return shelterCode;

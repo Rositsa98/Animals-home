@@ -10,8 +10,15 @@ import fmi.course.hcmi.animalshome.entity.PetAd;
 import fmi.course.hcmi.animalshome.entity.PetDetails;
 import fmi.course.hcmi.animalshome.entity.PetHabits;
 import fmi.course.hcmi.animalshome.entity.Photo;
+import fmi.course.hcmi.animalshome.model.Shelter;
+import fmi.course.hcmi.animalshome.model.ShelterInfo;
+import fmi.course.hcmi.animalshome.model.SingleUser;
+import fmi.course.hcmi.animalshome.model.SingleUserInfo;
+import fmi.course.hcmi.animalshome.model.User;
+import fmi.course.hcmi.animalshome.model.UserInfo;
 
 import java.util.List;
+
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
@@ -30,6 +37,8 @@ public interface Mapper {
     PetDto petToPetDto(Pet pet);
 
     List<PetAdDto> petAdsToPetAdsDto(List<PetAd> petAds);
+
+    List<PetAd> petAdsDtoToPetAds(List<PetAdDto> petAds);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "pet", ignore = true)
@@ -59,7 +68,12 @@ public interface Mapper {
 
     PhotoDto photoDtoToPhoto(Photo photo);
 
-    List<Photo> photosToPhotoDtos(List<PhotoDto> photoDtos);
+    @Mapping(source = "workDay", target = "workDayDto")
+    ShelterInfo userToUserInfo(Shelter shelter);
 
-    List<PhotoDto> photoDtosToPhotos(List<Photo> photos);
+    SingleUserInfo userToUserInfo(SingleUser singleUser);
+
+    List<Photo> photoDtosToPhotos(List<PhotoDto> photoDtos);
+
+    List<PhotoDto> photosToPhotoDtos(List<Photo> photos);
 }

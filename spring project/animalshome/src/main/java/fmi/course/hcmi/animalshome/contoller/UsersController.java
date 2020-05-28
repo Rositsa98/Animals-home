@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")
@@ -38,7 +39,7 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-    public ResponseEntity<User> registerUser(@RequestBody SingleUser user) {
+    public ResponseEntity<User> registerUser(@Valid @RequestBody SingleUser user) {
 
         User resultUser = userService.addUser(user);
 

@@ -1,6 +1,7 @@
 package fmi.course.hcmi.animalshome.service.impl;
 
 import fmi.course.hcmi.animalshome.dao.UserRepository;
+import fmi.course.hcmi.animalshome.entity.WorkDay;
 import fmi.course.hcmi.animalshome.exception.InvalidUserException;
 import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.SingleUser;
@@ -8,7 +9,6 @@ import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.model.VisitRequest;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import io.jsonwebtoken.lang.Collections;
-import org.apache.catalina.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +80,6 @@ public class UserService implements IUserService {
         }
 
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
         return userRepository.save(user);
     }
 

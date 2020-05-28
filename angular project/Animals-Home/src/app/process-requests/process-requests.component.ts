@@ -11,6 +11,7 @@ export class ProcessRequestsComponent implements OnInit {
 
   public reqTitle:string = "Requests information"
   public sideBarTitle = "Request list";
+
   public requests;
   
   public haveLoadedRequests:boolean = false;

@@ -1,7 +1,6 @@
 package fmi.course.hcmi.animalshome.dao;
 
 import fmi.course.hcmi.animalshome.model.Shelter;
-import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.model.VisitRequest;
 import org.springframework.data.repository.CrudRepository;

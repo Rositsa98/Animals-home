@@ -83,7 +83,7 @@ public abstract class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "favourites_users", joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "favourites_id", referencedColumnName = "id")})
     private List<PetAd> favouritePets;
@@ -92,44 +92,6 @@ public abstract class User implements UserDetails {
     private List<String> notifications;
 
     protected boolean active;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        String[] roles = getRoles().split(",");
-        List<String> rolesList = Collections.arrayToList(roles);
-
-        return rolesList.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return active;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return active;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return active;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return active;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
 
     public Long getId() {
         return id;
@@ -179,6 +141,14 @@ public abstract class User implements UserDetails {
         this.imageUrls = imageUrls;
     }
 
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -193,5 +163,43 @@ public abstract class User implements UserDetails {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<PetAd> getFavouritePets() {
+        return favouritePets;
+    }
+
+    public void setFavouritePets(final List<PetAd> favouritePets) {
+        this.favouritePets = favouritePets;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        String[] roles = getRoles().split(",");
+        List<String> rolesList = Collections.arrayToList(roles);
+
+        return rolesList.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return active;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return active;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return active;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return active;
     }
 }

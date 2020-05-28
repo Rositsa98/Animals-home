@@ -29,7 +29,7 @@ public class AuthenticationController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/authenticate", method = RequestMethod.POST)
     public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidUserException {
         try {
             authenticationManager.authenticate(
@@ -47,14 +47,14 @@ public class AuthenticationController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
-    @RequestMapping(value = "/authenticateShelter", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/authenticateShelter", method = RequestMethod.POST)
     public ResponseEntity<AuthenticationResponse> authenticateShelter(@RequestBody AuthenticationRequestShelter authenticationRequest) throws InvalidUserException {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
-
-           UserDetails user = userDetailsService.loadUserByShelterCode(authenticationRequest.getShelterCode());
+            //load
+           UserDetails user = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         } catch (BadCredentialsException e) {
             throw new InvalidUserException("Incorrect username, password or shelter code ", e);

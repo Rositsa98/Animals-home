@@ -7,10 +7,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AuthenticationService {
 
   constructor(private http: HttpClient) {
-
   }
 
-  isAuth = false;
+  isAuth: boolean = false;
 
   username: string;
   password: string;
@@ -19,15 +18,19 @@ export class AuthenticationService {
 
 
   public isAuthenticated(): boolean {
-
+    if (localStorage.getItem('token')) {
+      this.isAuth = true;
+    } else {
+      this.isAuth = false;
+    }
     return this.isAuth;
   }
 
 
   login(username: string, password: string): Promise<string> {
-
+    this.username = username;
     const body = { username, password };
-    const loginUrl = '/clientServer/authenticate';
+    const loginUrl = '/api/authenticate';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -39,7 +42,6 @@ export class AuthenticationService {
     }).toPromise()
       .then(result => {
         this.token = result;
-        console.log("Authentication token: " + this.token.jwt);
         localStorage.setItem("token", this.token.jwt);
         localStorage.setItem("username", username);
 
@@ -48,23 +50,20 @@ export class AuthenticationService {
         return this.getRoles(username);
       }
       )
-       .then(roles => {
-        console.log("User roles:" + roles);
-        console.log("Determining redirect url" );
+      .then(roles => {
         return redirectUrl = this.determineRedirectByRole(roles);
       }
       )
-      .then(redirectUrl =>{
+      .then(redirectUrl => {
         return redirectUrl != null ? redirectUrl : "/login";
       }
       );
 
   }
 
-  loginShelter(username:string, password:string, shelterCode:string): Promise<string> {
-
+  loginShelter(username: string, password: string, shelterCode: string): Promise<string> {
     const body = { username, password, shelterCode };
-    const loginUrl = '/clientServer/authenticateShelter';
+    const loginUrl = '/api/authenticateShelter';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -76,7 +75,6 @@ export class AuthenticationService {
     }).toPromise()
       .then(result => {
         this.token = result;
-        console.log("Authentication token: " + this.token.jwt);
         localStorage.setItem("token", this.token.jwt);
         sessionStorage.setItem("shelterName", username);
 
@@ -85,19 +83,15 @@ export class AuthenticationService {
         return this.getRoles(username);
       }
       )
-       .then(roles => {
-        console.log("User roles:" + roles);
-        console.log("Determining redirect url" );
+      .then(roles => {
         return redirectUrl = this.determineRedirectByRole(roles);
       }
       )
-      .then(redirectUrl =>{
+      .then(redirectUrl => {
         return redirectUrl != null ? redirectUrl : "/loginShelter";
       }
       );
-
   }
-
 
   getToken(): string {
     return this.token.jwt;
@@ -105,14 +99,13 @@ export class AuthenticationService {
 
   getRoles(username: string): Promise<string> {
     let roles: string;
-    const rolesUrl = '/clientServer/api/user/roles';
+    const rolesUrl = '/api/user/roles';
     const headers = {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
       username: username
     };
     return this.http.get<string>(rolesUrl, { headers, responseType: 'text' as 'json' }).toPromise().then(data => {
       roles = data;
-      console.log("getRoles of user:" + data);
       localStorage.setItem("role", data);
       return roles;
     });
@@ -122,8 +115,8 @@ export class AuthenticationService {
   determineRedirectByRole(role: string): string {
     switch (role) {
       case "Admin": return "/admin";
-      case "User": return "/main";
-      case "Shelter": return "/main";
+      case "User": return "/all";
+      case "Shelter": return "/all";
     }
   }
 

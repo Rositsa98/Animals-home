@@ -1,10 +1,8 @@
 package fmi.course.hcmi.animalshome.config;
 
-import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

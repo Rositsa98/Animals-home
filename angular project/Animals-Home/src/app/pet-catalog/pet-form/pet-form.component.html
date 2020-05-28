@@ -1,0 +1,98 @@
+<div class="background">
+    <div class="photos-wrapper">
+        <div class="content-wrapper">
+            <div class="close-button-wrapper">
+                <img src="{{mainPhoto.photoName}}" id="main-photo" class="rounded float-left">
+                <button type="button" id="main-photo-close" class="btn btn-light close" *ngIf="isDefaultCloseButtonShown" (click)="removeMainPhoto()"><i class="fa fa-close"></i></button>
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <div *ngFor="let photo of photosName | slice:1; let i = index">
+                <div class="close-button-wrapper">
+                    <img [src]="photo.photoName" id="pet-photo" class="rounded mb-3">
+                    <div class="img-overlay">
+                        <button type="button" id="pet-photo-close" class="btn btn-light close" (click)="removeSelectedPhoto(photo)"><i class="fa fa-close"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <label for="file-upload" class="custom-file-upload btn btn-outline-secondary">
+        <i class="fa fa-cloud-upload"></i> Upload Photo
+    </label>
+        <input id="file-upload" type="file" accept="image/*" multiple (change)="onFileChanged($event)" required/>
+    </div>
+    <div class="content-wrapper">
+        <div class="card bg-light mb-3 panel">
+            <div class="card-header">Facts about Me:</div>
+            <div class="card-body">
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/petType.png" class="icon"> Type:</label>
+                    <select class="form-control" on-change="changeBreedIcon()" [(ngModel)]="petDetails.petType" required>
+                    <option *ngFor="let type of petTypes ">{{type}}</option>
+                </select>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="{{breedIcon}}" class="icon"> Breed:</label>
+                    <input type="text" [(ngModel)]="petDetails.breed" required>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/name.png" class="icon"> Name:</label>
+                    <input type="text" [(ngModel)]="petDetails.petName" required>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/cityIcon.png" class="icon"> City:</label>
+                    <input type="text" [(ngModel)]="petDetails.city" required>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/color.png" class="icon"> Color:</label>
+                    <input type="color" [(ngModel)]="petDetails.color" required>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/age.png" class="icon"> Age:</label>
+                    <select class="form-control" [(ngModel)]="petDetails.age" required>
+                    <option *ngFor="let age of ages ">{{age}}</option>
+                </select>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/months.png" class="icon"> Months:</label>
+                    <select class="form-control" [(ngModel)]="petDetails.months" required>
+                    <option *ngFor="let month of months ">{{month}}</option>
+                </select>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/weight.png" class="icon"> Weight:</label>
+                    <input type="text" [(ngModel)]="petDetails.weight" required>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/gender.png" class="icon"> Gender:</label>
+                    <select class="form-control" [(ngModel)]="petDetails.gender" required>
+                    <option *ngFor="let gender of genderTypes ">{{gender}}</option>
+                </select>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-light mb-3 panel">
+            <div class="card-header ">My Info:</div>
+            <div class="card-body ">
+                <div class="info-wrapper">
+                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isNeutered"> Neutered</label>
+                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isHouseTrained"> House trained</label>
+                </div>
+                <div class="info-wrapper">
+                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isGoodWithKids"> Good with Kids</label>
+                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isGoodWithDogs"> Good with Dogs</label>
+                </div>
+                <div class="info-wrapper">
+                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isGoodWithCats"> Good with Cats</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <textarea [(ngModel)]="pet.petDescription" placeholder="My story... "></textarea>
+    </div>
+    <div class="create-ad-wrapper">
+        <button type="button" *ngIf="isCreateAd" id="create-button" class="btn btn-outline-info" (click)="createAd()"> Create Ad</button>
+        <button type="button" *ngIf="!isCreateAd" id="create-button" class="btn btn-outline-info" (click)="saveAd()"> Save Ad</button>
+    </div>
+</div>

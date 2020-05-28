@@ -3,13 +3,13 @@ package fmi.course.hcmi.animalshome.dto;
 import fmi.course.hcmi.animalshome.entity.PetAd;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @EqualsAndHashCode
@@ -17,6 +17,30 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public abstract class UserDto {
+    @Size(min = 3, max = 60, message = "The username must be between 3 and 60 characters long!")
+    @NotBlank
+    protected String username;
+
+    @Size(min = 3, max = 12, message = "The password must be between 3 and 12 characters long!")
+    @NotBlank
+    protected String password;
+
+    @Pattern(regexp = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}")//TODO find other regex
+    private String phoneNumber;
+
+    @NotBlank
+    private String roles;
+
+    @NotBlank
+    @Email(message = "Must be a valid email address")
+    private String email;
+
+    private String imageUrls;
+
+    @Size(max = 100, message = "Enter a maximum of 100 characters for the address!")
+    private String address;
+
+    private List<PetAd> favouritePets;
 
     public UserDto() {
 
@@ -39,26 +63,4 @@ public abstract class UserDto {
         this.address = address;
         this.favouritePets = favouritePets;
     }
-
-    @NonNull
-    @NotNull
-    @Size(min = 3, max = 60)
-    protected String username;
-
-    @NonNull
-    @NotBlank
-    @Size(min = 3, max = 12)
-    protected String password;
-
-    private String phoneNumber;
-
-    private String roles;
-
-    private String email;
-
-    private String imageUrls;
-
-    private String address;
-
-    private List<PetAd> favouritePets;
 }

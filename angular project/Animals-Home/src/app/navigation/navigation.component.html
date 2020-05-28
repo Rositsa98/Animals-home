@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <img src="../assets/images/logo.png">
+    <a class="navbar-brand">Animals-Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation"> -->
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <button class="btn btn-info" type="button" [routerLink]="['/all']">All ads</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-search"></i> Find a pet
+                </button>
+                <div class="dropdown show">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Dog</a>
+                        <a class="dropdown-item" href="#">Cat</a>
+                        <a class="dropdown-item" href="#">Rabbit</a>
+                        <a class="dropdown-item" href="#">Bird</a>
+                        <a class="dropdown-item" href="#">Other</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-info" type="button" (click)="createAd()"><i class="fa fa-plus-square"></i> New pet</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-info" type="button" (click)="showFavoritePets()"><i class="fa fa-heart"></i> Favorite pets</button>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            <button class="btn btn-info" type="button" *ngIf="!isLoggedInUser"><i class="fa fa-user"></i> Login/Signup</button>
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="isLoggedInUser"><i class="fa fa-user"></i> {{name}}</button>
+            <div *ngIf="isLoggedInUser" class="dropdown show">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" [routerLink]="['/my-ads']">My ads</a>
+                    <a class="dropdown-item" [routerLink]="['/edit-profil']">Edit my profil</a>
+                    <a class="dropdown-item" [routerLink]="['/logout']">Log out</a>
+                </div>
+            </div>
+      </span>
+    </div>
+</nav>

@@ -81,7 +81,7 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         log.info("Querying for user records:");
-        List<User> users = userService.findAllUsers();
+        final List<User> users = userService.findAllUsers();
         users.forEach(user -> log.info("{}", user.getUsername()));
 
     }

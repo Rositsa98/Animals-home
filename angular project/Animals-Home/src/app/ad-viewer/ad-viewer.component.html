@@ -1,0 +1,89 @@
+<div class="background">
+    <h2>My name is {{petDetails.petName}}</h2>
+    <div class="main-photo-wrapper">
+        <div class="content-wrapper">
+            <div class="close-button-wrapper">
+                <img src="{{mainPhoto.photoName}}" id="main-photo" class="rounded float-left">
+            </div>
+        </div>
+        <div class="owner-info">
+            <button type="button" id="favorite-button-position" class="btn btn-danger" (click)="addToFavorites()">
+                <i class="fa fa-heart"></i> Add to favorite
+            </button>
+            <div class="owner-wrapper">
+                <label *ngIf="!isAdFromUser"><i class="fa fa-building"></i> Shelter name: {{owner.username}}</label>
+                <label *ngIf="isAdFromUser"><i class="fa fa-user"></i> Owner name: {{owner.username}}</label>
+                <label><i class="fa fa-map-marker"></i> Location address: {{owner.address}}</label>
+                <label><i class="fa fa-envelope"></i> {{owner.email}}</label>
+                <label><i class="fa fa-phone"></i> {{owner.phoneNumber}}</label>
+                <label *ngIf="!isAdFromUser"><i class="fa fa-clock-o"></i> {{workDayDto.startWork}} - {{workDayDto.endWork}} h.</label>
+                <label *ngIf="!isAdFromUser">Visit the shelter: <button type="button" class="btn btn-info" (click)="requestToVisitShelter()"> Send Request</button></label>
+            </div>
+        </div>
+    </div>
+    <div class="photos-wrapper">
+        <div class="content-wrapper">
+            <div *ngFor="let photo of photosName">
+                <div class="photo-view">
+                    <img [src]="photo.photoName" id="pet-photo" class="rounded mb-3" (click)="changeMainPhoto(photo)">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <div class="card bg-light mb-3 panel">
+            <div class="card-header">Facts about Me:</div>
+            <div class="card-body">
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/petType.png" class="icon"> Type: {{petDetails.petType}}</label>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="{{breedIcon}}" class="icon"> Breed: {{petDetails.breed}}</label>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/cityIcon.png" class="icon"> City: {{petDetails.city}}</label>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/color.png" class="icon"> Color:</label>
+                    <input type="color" [(ngModel)]="petDetails.color" disabled>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/age.png" class="icon"> Age: {{petDetails.age}}</label>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/months.png" class="icon"> Months: {{petDetails.months}}</label>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/weight.png" class="icon"> Weight: {{petDetails.weight}}</label>
+                </div>
+                <div class="facts-wrapper">
+                    <label class="card-text"><img src="../assets/images/gender.png" class="icon"> Gender: {{petDetails.gender}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-light mb-3 panel">
+            <div class="card-header ">My Info:</div>
+            <div class="card-body ">
+                <div class="info-wrapper ">
+                    <label class="card-text "><input type="checkbox" [checked]="petHabits.isNeutered" disabled="disabled"> Neutered</label>
+                    <label class="card-text "><input type="checkbox" [checked]="petHabits.isHouseTrained" disabled="disabled"> House trained</label>
+                </div>
+                <div class="info-wrapper">
+                    <label class="card-text "><input type="checkbox" [checked]="petHabits.isGoodWithKids" disabled="disabled"> Good with Kids</label>
+                    <label class="card-text "><input type="checkbox" [checked]="petHabits.isGoodWithDogs" disabled="disabled"> Good with Dogs</label>
+                </div>
+                <div class="info-wrapper">
+                    <label class="card-text "><input type="checkbox" [checked]="petHabits.isGoodWithCats" disabled="disabled"> Good with Cats</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="story-wrapper">
+        <div class="card bg-light mb-3">
+            <div class="card-header ">My Story:</div>
+            <div class="card-body ">
+                <p>{{pet.petDescription}}</p>
+            </div>
+        </div>
+    </div>
+</div>

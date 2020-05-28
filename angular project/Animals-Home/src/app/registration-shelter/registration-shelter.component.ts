@@ -12,7 +12,7 @@ import { AgmMap, MapsAPILoader } from '@agm/core';
 })
 export class RegistrationShelterComponent implements OnInit {
 
-  private shelter: Shelter;
+  shelter: Shelter;
 
   public regError: boolean = false;
 
@@ -20,11 +20,14 @@ export class RegistrationShelterComponent implements OnInit {
 
   public agreeGDPR:boolean=false;
 
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
+
+  public latitude: number;
+  public longitude: number;
+  public zoom: number;
+  public address: string;
+
   public geoCoder;
+
   
   @ViewChild('search')
   public searchElementRef: ElementRef;

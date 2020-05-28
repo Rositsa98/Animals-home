@@ -1,0 +1,37 @@
+    #favorite-button-position,
+    mat-card-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #favorite-button-position {
+        margin-left: 90px;
+    }
+    
+    .buttons-controls,
+    .remove-favorite-button {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .buttons-controls>button {
+        margin-left: 8px;
+    }
+    
+    .content {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    img {
+        margin-bottom: 10px;
+    }
+    
+    .card>img {
+        cursor: pointer;
+    }
+    
+    .card>img {
+        width: 300px;
+        height: 200px;
+    }

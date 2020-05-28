@@ -1,16 +1,15 @@
-#title{
-  font-size: x-large;
-  color: white;
-  font-family: sans-serif;
-  padding-top: 3%;
-  margin-left:43%;
-  margin-bottom:10%;
+#title {
+    font-size: x-large;
+    color: white;
+    font-family: sans-serif;
+    padding-top: 3%;
+    margin-left: 43%;
+    margin-bottom: 10%;
 }
 
-
-.loginPageContent{
-  align-items: center;
-  justify-content: center;
+.loginPageContent {
+    align-items: center;
+    justify-content: center;
 }
 
 .loginForm{
@@ -34,47 +33,44 @@
 }
 
 .icon {
-  background: transparent;
-  color: white;
-  margin-left:10%;
+    background: transparent;
+    color: white;
+    margin-left: 10%;
 }
 
-.loginForm input{
-  margin-top:10%;
-  display:block;
-  margin:auto;
-  width:60%;
-  outline:none;
-  background:transparent;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
-
-  position:relative;
-
-  font-family: sans-serif;
-  color:white;
+.loginForm input {
+    margin-top: 10%;
+    display: block;
+    margin: auto;
+    width: 60%;
+    outline: none;
+    background: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    position: relative;
+    font-family: sans-serif;
+    color: white;
 }
 
-.loginForm input::placeholder{
-  color:white;
-  background-color:transparent;
-  font-family: sans-serif;
+.loginForm input::placeholder {
+    color: white;
+    background-color: transparent;
+    font-family: sans-serif;
 }
 
-.loginForm button{
-  background: transparent;
-  border-color: transparent;
-  outline: none;
-  font-size: medium;
-  color: white;
-
-  font-family: sans-serif;
+.loginForm button {
+    background: transparent;
+    border-color: transparent;
+    outline: none;
+    font-size: medium;
+    color: white;
+    font-family: sans-serif;
 }
 
 .login-container{
 
-  background-image:url("../../assets/images/cat.png");
+  background-image:url("../../assets/images/loggedInPicture.png");
   background-repeat: no-repeat;
 
   -webkit-background-size: cover;
@@ -88,24 +84,24 @@
   
 }
 
-.form-group{
-  margin-bottom:17px;
+.form-group {
+    margin-bottom: 17px;
 }
 
 .form-group-btns {
-  margin-left: 35%;
-  margin-top: 10%;
+    margin-left: 35%;
+    margin-top: 10%;
 }
 
 #errorMessage {
-  color:red;
+    color: red;
 }
 
-#logo{
-  width: 100px;
-  height: 80px;
+#logo {
+    width: 100px;
+    height: 80px;
 }
 
-#shelterButton{
-  margin-left:450px;
+#shelterButton {
+    margin-left: 450px;
 }
