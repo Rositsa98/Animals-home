@@ -1,0 +1,16 @@
+
+  <h1 mat-dialog-title>Notifications</h1>
+  <mat-dialog-content>
+    <div id="notifications" *ngIf="haveLoadedNotifications">
+        <div *ngFor="let notif of notifications">
+          <div class="column">
+            <table class="table table-bordered table-inverse" id="info1-table">
+              <tr><td>{{notif}}</td></tr>
+            </table>
+          </div>
+        </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="button" class="btn btn--radius btn--black" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>

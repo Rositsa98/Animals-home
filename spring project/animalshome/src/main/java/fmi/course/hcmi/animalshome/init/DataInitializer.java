@@ -42,7 +42,8 @@ public class DataInitializer implements CommandLineRunner {
                             true,
                             Collections.emptyList(),
                             "birthday",
-                            Gender.MALE),
+                            Gender.MALE,
+                            Collections.emptyList()),
                     new SingleUser(2l,
                             "user",
                             "user",
@@ -56,7 +57,8 @@ public class DataInitializer implements CommandLineRunner {
                             true,
                             Collections.emptyList(),
                             "-",
-                            Gender.FEMALE),
+                            Gender.FEMALE,
+                            Collections.emptyList()),
                     new Shelter(3l,
                             "shelter",
                             "shelter",
@@ -69,7 +71,8 @@ public class DataInitializer implements CommandLineRunner {
                             Collections.emptyList(),
                             "shelter_code_123",
                             "description",
-                            null)
+                            null,
+                            Collections.emptyList())
 
             );
 

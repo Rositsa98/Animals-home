@@ -1,4 +1,4 @@
-package fmi.course.hcmi.animalshome.service;
+package fmi.course.hcmi.animalshome.service.impl;
 
 import fmi.course.hcmi.animalshome.dao.PetAdRepository;
 import fmi.course.hcmi.animalshome.dto.PetAdDto;

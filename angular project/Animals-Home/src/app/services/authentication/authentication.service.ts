@@ -41,6 +41,7 @@ export class AuthenticationService {
         this.token = result;
         console.log("Authentication token: " + this.token.jwt);
         localStorage.setItem("token", this.token.jwt);
+        localStorage.setItem("username", username);
 
       })
       .then(result => {
@@ -77,6 +78,7 @@ export class AuthenticationService {
         this.token = result;
         console.log("Authentication token: " + this.token.jwt);
         localStorage.setItem("token", this.token.jwt);
+        sessionStorage.setItem("shelterName", username);
 
       })
       .then(result => {

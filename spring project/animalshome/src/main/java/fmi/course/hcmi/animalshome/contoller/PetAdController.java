@@ -1,7 +1,7 @@
 package fmi.course.hcmi.animalshome.contoller;
 
 import fmi.course.hcmi.animalshome.dto.PetAdDto;
-import fmi.course.hcmi.animalshome.service.PetAdService;
+import fmi.course.hcmi.animalshome.service.impl.PetAdService;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

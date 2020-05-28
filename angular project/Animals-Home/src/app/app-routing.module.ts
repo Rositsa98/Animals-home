@@ -7,7 +7,8 @@ import { MainPanelComponent } from './main-panel/main-panel.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginShelterComponent } from './login-shelter/login-shelter.component';
 import { RegistrationShelterComponent } from './registration-shelter/registration-shelter.component';
-
+import { SendRequestComponent } from './send-request/send-request.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
     component: ProcessRequestsComponent
   },
   {
+    path: 'send-request',
+    component: SendRequestComponent
+  },
+  {
     path:'admin',
     component: AdminPanelComponent
   },
@@ -42,6 +47,10 @@ const routes: Routes = [
   {
     path:'shelterRegistration',
     component:RegistrationShelterComponent
+  },
+  {
+    path:'chat',
+    component:ChatComponent
   }
 
 ];

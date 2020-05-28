@@ -1,16 +1,97 @@
+<header>Requests processing</header>
+
+<img id="logo" src="../assets/images/logo.png">
+
 <div class="body-content">
 
-    
-    <div id="requests-list">
-        <div id="title">{{sideBarTitle}}</div>
-        <div id="request-list-content">
-            <div class="request" *ngFor="let request of requests">
-                <div class="requestName">{{request.name}}</div>
-            </div>
-        </div>
+  <aside class="request-list" id="article-meta">
+
+    <div id="title">{{sideBarTitle}}</div>
+
+    <div  class="requests" *ngFor="let req of requests" (click)="displayRequestInformation(req)">
+      {{req.userName}}
     </div>
 
-    <div id="content">
-        <div id="title">{{title}}</div>
+  </aside>
+
+    <section class="request-information">
+      <div  class="reqInfo" *ngIf="shouldDisplayRequestInformation">
+        
+        <div class="topReqPart">
+          <div class="leftReqPart">
+          <p>Id:</p>
+          <p>Name: {{displayedReq.petName}}</p>
+          <p id="calendarCompatibility">
+            <input type="checkbox" disabled="true">
+            Calendar compatibility
+            <button class="btn btn--radius btn--blue">Check</button>
+          </p>
+          </div>
+
+          <div class="rightReqPart">
+          <p>From user: {{displayedReq.userName}}</p>
+          <span>When:</span>
+          <p> <input class="inputs" type="text" value={{displayedReq.date}} disabled="true"></p>
+
+      </div>
     </div>
+
+    <div class="bottomLeftReqPart">
+        <p>
+          <input type="checkbox" disabled="true">
+          Animal - Person compatibility
+          <button class="btn btn--radius btn--blue">Check</button>
+        </p>    
+
+        <img id="mockDiagram" src="../../assets/images/diagram.png">
+      </div>
+        <div class="bottomRightReqPart">
+        <div id="notes"><span>Notes:</span>
+        <p><input class="inputs" type="text" disabled="true" value="Consider again!"></p>
+        </div>
+
+        <div class="responsePart">
+        <p>
+          <input type="checkbox"> <span>Send a response now</span>
+        </p>
+
+        <button class="btn btn--radius btn--green">Approve</button>
+        <button class="btn btn--radius btn--red">Reject</button>
+        </div>
+        </div>
+
+      </div>
+
+      <div class="table" *ngIf="shouldDisplayRequestInformation">
+      
+      <input type="text" id="searchAnimalInput" value="Search an animal..." disabled="true">
+
+       <table class="animalsTable">
+          <thead class="thead-light">
+              <tr>
+                  <th scope="col">Animal name</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">Nickname</th>
+                  <th scope="col">Available</th>
+              </tr>
+          </thead>
+          <tbody>
+                  <tr ><!--*ngFor="let pet pets"-->
+                      <td>Andy</td>
+                      <td>4</td>
+                      <td>ANDY</td>
+                      <td><input type="checkbox" checked="true"></td>
+                  </tr>
+              
+          </tbody>
+      </table>
+
+      
+        <!--div id="line_chart" [chartData]="line_ChartData" [chartOptions]= "line_ChartOptions" chartType="LineChart" GoogleChart></div-->
+      
+    </div>
+
+  </section>
+
+   
 </div>

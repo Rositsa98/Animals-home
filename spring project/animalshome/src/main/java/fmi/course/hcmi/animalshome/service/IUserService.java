@@ -3,6 +3,7 @@ package fmi.course.hcmi.animalshome.service;
 import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
+import fmi.course.hcmi.animalshome.model.VisitRequest;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface IUserService {
     long usersCount();
 
     Shelter findUserByShelterCode(String shelterCode);
+
+    List<String> getNotificationsForUser(String username);
 
 }

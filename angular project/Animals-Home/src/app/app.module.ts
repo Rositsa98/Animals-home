@@ -21,6 +21,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SendRequestComponent } from './send-request/send-request.component';
+import { ChatComponent } from './chat/chat.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
+import { SendRequestDialogComponent } from './send-request-dialog/send-request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +38,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     RegistrationComponent,
     RegistrationShelterComponent,
     LoginShelterComponent,
+    SendRequestComponent,
+    ChatComponent,
+    NotificationsDialogComponent,
+    SendRequestDialogComponent
 
   ],
   imports: [
@@ -48,9 +58,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  
+    NgbModule,
+    MatDialogModule
   ],
   providers: [AuthenticationService, RegistrationService, RequestService, MatDatepickerModule, DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NotificationsDialogComponent]
 })
 export class AppModule { }

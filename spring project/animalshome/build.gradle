@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.1.13.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'war'
 }
 
 group = 'fmi.course.hcmi'
@@ -22,6 +23,9 @@ configurations {
 	}
 }
 
+
+
+//Get dependencies from Maven central repository
 repositories {
 	mavenCentral()
 }

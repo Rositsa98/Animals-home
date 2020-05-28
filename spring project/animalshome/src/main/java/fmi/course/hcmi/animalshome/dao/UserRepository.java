@@ -3,6 +3,7 @@ package fmi.course.hcmi.animalshome.dao;
 import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
+import fmi.course.hcmi.animalshome.model.VisitRequest;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -30,4 +31,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @return user
      */
     Optional<Shelter> findByShelterCode(String shelterCode);
+
 }

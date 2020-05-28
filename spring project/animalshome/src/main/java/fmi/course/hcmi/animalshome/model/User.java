@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 @Table(name = "user", schema = "animalsHome")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
+@Getter
+@Setter
 public abstract class User implements UserDetails {
 
     public User() {
@@ -35,7 +38,7 @@ public abstract class User implements UserDetails {
                 final String imageUrls,
                 final String address,
                 boolean active,
-                List<PetAd> favouritePets) {
+                List<PetAd> favouritePets){
         this.id = id;
         this.username = username;
         this.password = password;
@@ -84,6 +87,9 @@ public abstract class User implements UserDetails {
     @JoinTable(name = "favourites_users", joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "favourites_id", referencedColumnName = "id")})
     private List<PetAd> favouritePets;
+
+    @ElementCollection
+    private List<String> notifications;
 
     protected boolean active;
 
