@@ -47,8 +47,6 @@ export class RequestService {
     var visitRequestAnswer = request.visitRequestAnswer;
     var date = request.date;
 
-
-
     const body = {petName, userName, shelterName, visitRequestAnswer, date};
     const sendRequestUrl = "/api/visit/sendRequest";
     const headers = new HttpHeaders({
@@ -65,6 +63,31 @@ export class RequestService {
       return null;
     });
   }
+
+  answerRequest(request:VisitRequest):Promise<VisitRequest>{
+
+    var petName = request.petName;
+    var userName = request.userName;
+    var shelterName = request.shelterName;
+    var visitRequestAnswer = request.visitRequestAnswer;
+    var date = request.date;
+
+    const body = {petName, userName, shelterName, visitRequestAnswer, date};
+    const url = "/api/visit/answerRequest";
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    });
+
+    return this.http.put<VisitRequest>(url, body, {
+      headers,
+    }).toPromise().then(result => { 
+      console.log(body);
+      console.log(result); return result;})
+    .catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return null;
+    });
+}
 
   getAllAds() {
     return this.http.get<PetAdDto[]>(`${this.baseUrl}/all`);

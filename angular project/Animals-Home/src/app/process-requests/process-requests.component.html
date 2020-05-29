@@ -24,9 +24,9 @@
           <p>Id:</p>
           <p>Name: {{displayedReq.petName}}</p>
           <p id="calendarCompatibility">
-            <input type="checkbox" disabled="true">
+            <input id="calCompCheck" type="checkbox" disabled="true">
             Calendar compatibility
-            <button class="btn btn--radius btn--blue">Check</button>
+            <button class="btn btn--radius btn--blue" (click)="checkCalendarCompatibility()">Check</button>
           </p>
           </div>
 
@@ -57,8 +57,8 @@
           <input type="checkbox"> <span>Send a response now</span>
         </p>
 
-        <button class="btn btn--radius btn--green">Approve</button>
-        <button class="btn btn--radius btn--red">Reject</button>
+        <button class="btn btn--radius btn--green" (click)="approveReq()">Approve</button>
+        <button class="btn btn--radius btn--red" (click)="rejectReq()">Reject</button>
         </div>
         </div>
 

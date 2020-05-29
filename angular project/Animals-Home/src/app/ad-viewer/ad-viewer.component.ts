@@ -129,7 +129,7 @@ export class AdViewerComponent implements OnInit {
 
   requestToVisitShelter() {
     if (this.isLoggedInUser) {
-      this.router.navigate(['/process-requests'])
+      this.router.navigate(['/send-request'])
     } else {
       this.showLoggedInMessage('You must sign in to see your list with favorite pets.');
     }

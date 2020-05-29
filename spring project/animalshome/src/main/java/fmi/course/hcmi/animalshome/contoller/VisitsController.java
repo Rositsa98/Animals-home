@@ -44,15 +44,20 @@ public class VisitsController {
     }
 
     @PutMapping(value = "/answerRequest")
-    public VisitRequest answerRequest(@RequestBody VisitRequest visitRequest, VisitRequestAnswer answer){
+    public ResponseEntity<VisitShelterRequest> answerRequest(@RequestBody VisitShelterRequest visitRequest){
 
-        if(answer.equals(VisitRequestAnswer.APPROVED)){
-           return visitService.approveRequest(visitRequest);
-        } else if(answer.equals(VisitRequestAnswer.REJECTED)){
-            return visitService.rejectRequest(visitRequest);
+        VisitRequest visitRequestConverted = convertToVisitRequest(visitRequest);
+
+        VisitShelterRequest convertedReq = visitRequest;
+
+        if(visitRequest.getVisitRequestAnswer().equals(VisitRequestAnswer.APPROVED.getValue())){
+           convertedReq = convertToShelterRequest(visitService.approveRequest(visitRequestConverted));
+        } else if(visitRequest.getVisitRequestAnswer().equals(VisitRequestAnswer.REJECTED.getValue())){
+            convertedReq = convertToShelterRequest(visitService.rejectRequest(visitRequestConverted));
         }
 
-        return null;
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}").build(1)).
+                body(convertedReq);
     }
 
     @GetMapping(value="/getRequests")
@@ -63,7 +68,7 @@ public class VisitsController {
         User user = userService.findUserByUsername(username);
         if(user.getRoles().contains("ROLE_SHELTER")) {
             Shelter shelter = (Shelter) user;
-            resultRequests = allRequests.stream().filter(r -> r.getShelter().getUsername().equals(username)).
+            resultRequests = allRequests.stream().filter(r -> r.getShelter().getUsername().equals(username) && r.getVisitRequestAnswer().equals(VisitRequestAnswer.NOTDEFINED)).
                                 map(r -> convertToShelterRequest(r)).
                                 collect(Collectors.toList());
         }
@@ -75,8 +80,13 @@ public class VisitsController {
         VisitRequest visitRequest = new VisitRequest();
 
         visitRequest.setPetName(visitShelterRequest.getPetName());
-        visitRequest.setDate(new Date(visitShelterRequest.getDate()));
-        visitRequest.setVisitRequestAnswer(visitRequest.getVisitRequestAnswer());
+        visitRequest.setDate(new Date());
+
+        if(visitShelterRequest.getVisitRequestAnswer().equals("rejected")){
+            visitRequest.setVisitRequestAnswer(VisitRequestAnswer.REJECTED);
+        } else if (visitShelterRequest.getVisitRequestAnswer().equals("approved")){
+            visitRequest.setVisitRequestAnswer(VisitRequestAnswer.APPROVED);
+        }
 
         User user = userService.findUserByUsername(visitShelterRequest.getUserName());
         Shelter shelter = (Shelter) userService.findUserByUsername(visitShelterRequest.getShelterName());

@@ -69,4 +69,18 @@ export class ProcessRequestsComponent implements OnInit {
     this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
   }
 
+  checkCalendarCompatibility(){
+    document.getElementById("calCompCheck")
+  }
+
+  approveReq(){
+    this.displayedReq.visitRequestAnswer = "approved";
+    this.requestService.answerRequest(this.displayedReq);
+  }
+
+  rejectReq(){
+    this.displayedReq.visitRequestAnswer = "rejected";
+    this.requestService.answerRequest(this.displayedReq);
+  }
+
 }
