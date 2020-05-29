@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog.service';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
 
 @Component({
   selector: 'app-navigation',
@@ -12,12 +14,24 @@ export class NavigationComponent implements OnInit {
   name: string;
   isLoggedInUser: boolean = false;
 
-  constructor(private authService: AuthenticationService, private confirmationDialogService: ConfirmationDialogService, private router: Router) { }
+  notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
+
+  constructor(private authService: AuthenticationService, 
+    private confirmationDialogService: ConfirmationDialogService, private router: Router, private dialog:MatDialog) { }
+
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      this.name = this.authService.username;
-      this.isLoggedInUser = true;
+
+      if(localStorage.getItem("username")!=null){
+        this.name = localStorage.getItem("username");
+      } else if(localStorage.getItem("shelterName")!=null){
+        this.name = localStorage.getItem("shelterName");
+      }
+
+      if(this.name!=null && this.name!=""){
+        this.isLoggedInUser = true;
+      }
     } else {
       this.isLoggedInUser = false;
     }
@@ -49,5 +63,27 @@ export class NavigationComponent implements OnInit {
         }
       });
   }
+
+  logout() {
+
+    if (localStorage.getItem("token") != null) {
+      localStorage.removeItem("token");
+
+      if (localStorage.getItem("shelterName") != null) {
+        localStorage.removeItem("shelterName");
+      } else if (localStorage.getItem("username") != null) {
+        localStorage.removeItem("username");
+      }
+
+      this.router.navigate(['/login']).then(() => window.location.reload());
+
+    } 
+
+  }
+
+  openNofitificationsModal(){
+    this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
+  }
+
 
 }

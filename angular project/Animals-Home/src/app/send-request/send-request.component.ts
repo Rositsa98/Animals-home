@@ -3,6 +3,7 @@ import { RequestService } from '../services/request/request.service';
 import { VisitRequest } from '../model/request';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { SendRequestDialogComponent } from '../send-request-dialog/send-request-dialog.component';
+import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
 
 @Component({
   selector: 'app-send-request',
@@ -21,6 +22,7 @@ export class SendRequestComponent implements OnInit {
   public isMonthJuly:boolean = false;
 
   confirmSendReqDialogRef: MatDialogRef<SendRequestDialogComponent>;
+  notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
 
   constructor(private requestService:RequestService, private dialog:MatDialog) { }
 
@@ -69,4 +71,9 @@ export class SendRequestComponent implements OnInit {
     this.confirmSendReqDialogRef = this.dialog.open(SendRequestDialogComponent);
 
   }
+
+  openNofitificationsModal(){
+    this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
+  }
+
 }

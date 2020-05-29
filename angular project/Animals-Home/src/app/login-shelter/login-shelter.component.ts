@@ -34,7 +34,7 @@ export class LoginShelterComponent implements OnInit {
           this.isInvalidLogin = true;
         }
         this.route.navigateByUrl(redirectUrl);
-      });
+      }).then(()=>window.location.reload);
   }
 
 

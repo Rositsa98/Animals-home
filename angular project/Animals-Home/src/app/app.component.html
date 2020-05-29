@@ -1,11 +1,10 @@
-<button id="logoutBtn" class="btn btn--radius btn--black" *ngIf="isUserLoggedIn" (click)="logout()"> Logout</button>
-<img src="../assets/images/bell.png" *ngIf="isUserLoggedIn" id="notifications" (click)="openNofitificationsModal()">
 
+<div *ngIf="isUserLoggedIn">
 <app-navigation></app-navigation>
+</div>
 <div *ngIf="isUserLoggedIn" class="jumbotron p-4">
     <div class="container text-center">
         <alert></alert>
     </div>
 </div>
-
 <router-outlet></router-outlet>

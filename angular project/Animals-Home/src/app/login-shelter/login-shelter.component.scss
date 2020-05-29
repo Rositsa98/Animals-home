@@ -1,110 +1,110 @@
 #title{
-    font-size: x-large;
-    color: white;
-    font-family: sans-serif;
-    padding-top: 3%;
-    margin-left:43%;
-    margin-bottom:10%;
-  }
-  
-  
-  .loginPageContent{
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .loginForm{
-    background-color: rgba(0, 0, 0, 0.55);
-    height: auto;
-    width: auto;
-    display: block;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    border-radius: 0%;
-    position: absolute;
-    margin-left: -4%;
-    margin-right: 40%;
-    margin-top: 9%;
-    width: 444px;
-    height: 527px;
-  }
-  
-  .icon {
-    background: transparent;
-    color: white;
-    margin-left:10%;
-  }
-  
-  .loginForm input{
-    margin-top:10%;
-    display:block;
-    margin:auto;
-    width:60%;
-    outline:none;
-    background:transparent;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-right-color: transparent;
-  
-    position:relative;
-  
-    font-family: sans-serif;
-    color:white;
-  }
-  
-  .loginForm input::placeholder{
-    color:white;
-    background-color:transparent;
-    font-family: sans-serif;
-  }
-  
-  .loginForm button{
-    background: transparent;
-    border-color: transparent;
-    outline: none;
-    font-size: medium;
-    color: white;
-  
-    font-family: sans-serif;
-  }
-  
-  .login-shelter-container{
-  
-    background-image:url("../../assets/images/Screenshot\ from\ 2020-04-13\ 21-58-06.png");
-    background-repeat: no-repeat;
-  
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-  
-    width: 100% !important ;
-    height: 100vh !important;
-    display: flex;
-    background-repeat: no-repeat;
-    background-size:cover;
-    
-  }
-  
-  .form-group{
-    margin-bottom:17px;
-  }
-  
-  .form-group-btns {
-    margin-left: 35%;
-    margin-top: 10%;
-  }
-  
-  #errorMessage {
-    color:red;
-  }
-  
-  #logo{
-    width: 100px;
-    height: 80px;
-  }
+  font-size: x-large;
+  color: white;
+  font-family: sans-serif;
+  padding-top: 3%;
+  margin-left:43%;
+  margin-bottom:10%;
+}
 
-  #userButton{
-      margin-left:380px;
-  }
+
+.loginPageContent{
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm{
+  background-color: rgba(0, 0, 0, 0.55);
+  height: auto;
+  width: auto;
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 0%;
+  position: absolute;
+  margin-left: -4%;
+  margin-right: 40%;
+  margin-top: 9%;
+  width: 444px;
+  height: 527px;
+}
+
+.icon {
+  background: transparent;
+  color: white;
+  margin-left:10%;
+}
+
+.loginForm input{
+  margin-top:10%;
+  display:block;
+  margin:auto;
+  width:60%;
+  outline:none;
+  background:transparent;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+
+  position:relative;
+
+  font-family: sans-serif;
+  color:white;
+}
+
+.loginForm input::placeholder{
+  color:white;
+  background-color:transparent;
+  font-family: sans-serif;
+}
+
+.loginForm button{
+  background: transparent;
+  border-color: transparent;
+  outline: none;
+  font-size: medium;
+  color: white;
+
+  font-family: sans-serif;
+}
+
+.login-shelter-container{
+
+  background-image:url("../../assets/images/Screenshot\ from\ 2020-04-13\ 21-58-06.png");
+  background-repeat: no-repeat;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+
+  width: 100% !important ;
+  height: 100vh !important;
+  display: flex;
+  background-repeat: no-repeat;
+  background-size:cover;
+  
+}
+
+.form-group{
+  margin-bottom:17px;
+}
+
+.form-group-btns {
+  margin-left: 35%;
+  margin-top: 10%;
+}
+
+#errorMessage {
+  color:red;
+}
+
+#logo{
+  width: 100px;
+  height: 80px;
+}
+
+#userButton{
+    margin-left:380px;
+}

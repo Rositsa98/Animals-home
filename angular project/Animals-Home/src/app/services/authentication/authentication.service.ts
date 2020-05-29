@@ -11,9 +11,6 @@ export class AuthenticationService {
 
   isAuth: boolean = false;
 
-  username: string;
-  password: string;
-
   private token: MyJSON = null;
 
 
@@ -28,7 +25,6 @@ export class AuthenticationService {
 
 
   login(username: string, password: string): Promise<string> {
-    this.username = username;
     const body = { username, password };
     const loginUrl = '/api/authenticate';
     const headers = new HttpHeaders({
@@ -44,7 +40,6 @@ export class AuthenticationService {
         this.token = result;
         localStorage.setItem("token", this.token.jwt);
         localStorage.setItem("username", username);
-
       })
       .then(result => {
         return this.getRoles(username);
@@ -76,8 +71,7 @@ export class AuthenticationService {
       .then(result => {
         this.token = result;
         localStorage.setItem("token", this.token.jwt);
-        sessionStorage.setItem("shelterName", username);
-
+        localStorage.setItem("shelterName", username);
       })
       .then(result => {
         return this.getRoles(username);

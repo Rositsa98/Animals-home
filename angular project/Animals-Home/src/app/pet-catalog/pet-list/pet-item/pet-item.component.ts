@@ -16,6 +16,8 @@ export class PetItemComponent implements OnInit {
   @Output() deletedPetAd = new EventEmitter();
   @Output() favoritePetAd = new EventEmitter();
 
+  public haveLoadedPets:boolean = false;
+
   constructor(private router: Router) { }
 
   ngOnInit() {

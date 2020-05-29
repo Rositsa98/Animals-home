@@ -11,8 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { MatCardModule } from '@angular/material/card';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatIconModule } from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule, MatIconModule } from '@angular/material/'
 import { MatGridListModule } from '@angular/material/grid-list';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { MainPanelComponent } from './main-panel/main-panel.component';
@@ -22,18 +21,6 @@ import { RegistrationShelterComponent } from './registration-shelter/registratio
 import { LoginShelterComponent } from './login-shelter/login-shelter.component';
 import { AgmCoreModule } from '@agm/core';
 import { RequestService } from './services/request/request.service';
-
-import { DatePipe } from '@angular/common';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { SendRequestComponent } from './send-request/send-request.component';
-import { ChatComponent } from './chat/chat.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
-import { SendRequestDialogComponent } from './send-request-dialog/send-request-dialog.component';
-
 import { PetCatalogComponent } from './pet-catalog/pet-catalog.component';
 import { CreatePetComponent } from './pet-catalog/create-pet/create-pet.component';
 import { EditPetComponent } from './pet-catalog/edit-pet/edit-pet.component';
@@ -49,7 +36,16 @@ import { AlertModule } from './alert/';
 import { DialogContentComponent } from './dialog-content/dialog-content.component';
 import { ConfirmationDialogService } from './dialog-content/confirmation-dialog.service';
 import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
-
+import { DatePipe } from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SendRequestComponent } from './send-request/send-request.component';
+import { ChatComponent } from './chat/chat.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
+import { SendRequestDialogComponent } from './send-request-dialog/send-request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -61,12 +57,6 @@ import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
     RegistrationComponent,
     RegistrationShelterComponent,
     LoginShelterComponent,
-
-    SendRequestComponent,
-    ChatComponent,
-    NotificationsDialogComponent,
-    SendRequestDialogComponent,
-
     PetCatalogComponent,
     CreatePetComponent,
     EditPetComponent,
@@ -79,8 +69,11 @@ import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
     NotFoundComponent,
     InternalServerErrorComponent,
     DialogContentComponent,
-    AdViewerComponent
-
+    AdViewerComponent,
+    SendRequestComponent,
+    ChatComponent,
+    NotificationsDialogComponent,
+    SendRequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +91,6 @@ import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
       apiKey: 'AIzaSyCifSZ4mMeZTYbNXAoIB802ot5UT_9IJSI',
       libraries: ['places']
     }),
-
     BrowserAnimationsModule,
     MatInputModule,
     MatDatepickerModule,
@@ -107,10 +99,9 @@ import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
     MatDialogModule,
     NgbModule
   ],
-  providers: [AuthenticationService, RegistrationService, RequestService, MatDatepickerModule, DatePipe
-    , ConfirmationDialogService],
+  providers: [AuthenticationService, RegistrationService, RequestService, ConfirmationDialogService, 
+    SendRequestDialogComponent, MatDatepickerModule, DatePipe, NotificationsDialogComponent],
   bootstrap: [AppComponent],
-  entryComponents: [NotificationsDialogComponent, DialogContentComponent]
-
+  entryComponents: [NotificationsDialogComponent, SendRequestDialogComponent ]
 })
 export class AppModule { }

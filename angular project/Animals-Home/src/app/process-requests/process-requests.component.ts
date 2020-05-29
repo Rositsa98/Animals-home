@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../services/request/request.service';
 import { VisitRequest } from '../model/request';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
 
 @Component({
   selector: 'app-process-requests',
@@ -16,6 +18,8 @@ export class ProcessRequestsComponent implements OnInit {
   
   public haveLoadedRequests:boolean = false;
   public shouldDisplayRequestInformation:boolean = false;
+
+  private notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
   
   public displayedReq:VisitRequest;
 
@@ -37,7 +41,7 @@ export class ProcessRequestsComponent implements OnInit {
   //     }
   // };
 
-  constructor(private requestService: RequestService) { }
+  constructor(private requestService: RequestService, private dialog:MatDialog) { }
 
   ngOnInit() {
      this.getRequests();
@@ -59,6 +63,10 @@ export class ProcessRequestsComponent implements OnInit {
     this.shouldDisplayRequestInformation = true;
    
     this.displayedReq = req;
+  }
+
+  openNofitificationsModal(){
+    this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
   }
 
 }

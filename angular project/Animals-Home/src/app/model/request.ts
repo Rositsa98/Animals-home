@@ -4,5 +4,4 @@ export interface VisitRequest{
     shelterName:string;
     date:string;
     visitRequestAnswer:string;
-        
 }

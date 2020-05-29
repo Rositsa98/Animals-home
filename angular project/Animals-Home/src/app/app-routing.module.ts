@@ -7,10 +7,6 @@ import { MainPanelComponent } from './main-panel/main-panel.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginShelterComponent } from './login-shelter/login-shelter.component';
 import { RegistrationShelterComponent } from './registration-shelter/registration-shelter.component';
-
-import { SendRequestComponent } from './send-request/send-request.component';
-import { ChatComponent } from './chat/chat.component';
-
 import { PetCatalogComponent } from "./pet-catalog/pet-catalog.component";
 import { CreatePetComponent } from "./pet-catalog/create-pet/create-pet.component";
 import { UserAdsComponent } from './user-ads/user-ads.component';
@@ -20,7 +16,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { InternalServerErrorComponent } from './internal-server-error/internal-server-error.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
-
+import { ChatComponent } from './chat/chat.component';
+import { SendRequestComponent } from './send-request/send-request.component';
 
 const routes: Routes = [
   {
@@ -45,8 +42,7 @@ const routes: Routes = [
     component: SendRequestComponent
   },
   {
-    path:'admin',
-
+    path: 'admin',
     component: AdminPanelComponent
   },
   {
@@ -58,9 +54,8 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-
-    path:'shelterRegistration',
-    component:RegistrationShelterComponent
+    path: 'shelterRegistration',
+    component: RegistrationShelterComponent
   },
   {
     path:'chat',
@@ -98,7 +93,6 @@ const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent
-
   }
 ];
 

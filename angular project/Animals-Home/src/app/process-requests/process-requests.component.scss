@@ -16,7 +16,7 @@ header {
 .body-content{
   // background-image: url('../../assets/images/petFormBackground.png');
 
-  //   background-repeat: no-repeat;
+     background-repeat: no-repeat;
 
   //   -webkit-background-size: cover;
   //   -moz-background-size: cover;
@@ -179,10 +179,6 @@ header {
   width:60%;
 }
 
-#calendarCompatibility{
- 
-}
-
 .responsePart{
     margin-left: -45px;
     margin-top: 100px;
@@ -191,11 +187,17 @@ header {
 #logo{
   width: 100px;
   height: 80px;
-  margin-top: -120px;
+  margin-top: -140px;
   height: 43px;
   width: 63px;
   position: relative;
   z-index: 1;
 }
 
+#notifications{
+    float: right;
+    height: 30px;
+	margin-right: 30px;
+    margin-top: -100px;
+}
 

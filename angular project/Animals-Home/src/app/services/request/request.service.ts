@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { VisitRequest } from 'src/app/model/request';
+import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { PetAdDto } from 'src/app/model/petAdDto';
 import { PhotoDto } from 'src/app/model/photoDto';
 import { PetAdWithUser } from 'src/app/model/petAdWithUser';
+import { VisitRequest } from 'src/app/model/request';
 
 const httpOptionsShelter = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 
   Authorization: 'Bearer ' + localStorage.getItem('token'),
-  username: sessionStorage.getItem("shelterName") })
+  username: localStorage.getItem("shelterName") })
 };
 
 const httpOptionsUser = {
@@ -18,9 +18,6 @@ const httpOptionsUser = {
  })
 };
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +25,6 @@ export class RequestService {
   private baseUrl = '/api/pet/ad';
 
   constructor(private http: HttpClient) { }
-
 
   getRequests() {
     const requestsUrl = '/api/visit/getRequests';
@@ -41,6 +37,7 @@ export class RequestService {
 
     return this.http.get(requestsUrl, httpOptionsShelter);
   }
+
 
   sendRequest(request: VisitRequest):Promise<VisitRequest>{
 
@@ -122,7 +119,6 @@ export class RequestService {
     });
 
     return headers;
-
   }
 
 }
