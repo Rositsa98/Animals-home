@@ -57,7 +57,7 @@ export class RegistrationComponent implements OnInit {
 
     var result = this.registrationService.registerUser(username, password, firstName, lastName,
       phoneNumber, roles, email, imageUrls, address, birthday, gender)
-    .then(result => { if(result===true) {this.route.navigateByUrl("/all"); window.location.reload;} 
+    .then(result => { if(result===true) {this.route.navigateByUrl("/login"); window.location.reload;} 
                       else {this.regError = true;} window.location.reload; });
 
     console.log("User registered: " + result);

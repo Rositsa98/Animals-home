@@ -3,9 +3,9 @@ import { RequestService } from '../services/request/request.service';
 import { VisitRequest } from '../model/request';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { SendRequestDialogComponent } from '../send-request-dialog/send-request-dialog.component';
-import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
 import { Router } from '@angular/router';
 import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog.service';
+import { NotificationsDialogService } from '../dialog-content/notifications-dialog.service';
 
 @Component({
   selector: 'app-send-request',
@@ -23,11 +23,9 @@ export class SendRequestComponent implements OnInit {
   public isMonthJune:boolean = true;
   public isMonthJuly:boolean = false;
 
-  confirmSendReqDialogRef: MatDialogRef<SendRequestDialogComponent>;
-  notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
-
   constructor(private requestService:RequestService, private dialog:MatDialog, private route: Router,
-    private confirmationDialogService:ConfirmationDialogService) { }
+    private confirmationDialogService:ConfirmationDialogService,
+    private notificationsDialogService:NotificationsDialogService) { }
 
   ngOnInit(): void {
     this.visitRequest = {
@@ -81,7 +79,9 @@ export class SendRequestComponent implements OnInit {
   }
 
   openNofitificationsModal(){
-    this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
+    this.notificationsDialogService.notify()
+    .then(()=> window.location.reload)
+  
   }
 
   logout() {

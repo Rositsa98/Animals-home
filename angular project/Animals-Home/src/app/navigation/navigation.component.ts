@@ -3,7 +3,7 @@ import { AuthenticationService } from '../services/authentication/authentication
 import { Router } from '@angular/router';
 import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog.service';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
+import { NotificationsDialogService } from '../dialog-content/notifications-dialog.service';
 
 @Component({
   selector: 'app-navigation',
@@ -15,10 +15,9 @@ export class NavigationComponent implements OnInit {
   public isLoggedInUser: boolean = false;
   public isShelter:boolean = localStorage.getItem("shelterName")!=null ? true: false;
 
-  notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
-
   constructor(private authService: AuthenticationService, 
-    private confirmationDialogService: ConfirmationDialogService, private router: Router, private dialog:MatDialog) { }
+    private confirmationDialogService: ConfirmationDialogService, private router: Router, private dialog:MatDialog,
+    private notificationsDialogService:NotificationsDialogService) { }
 
 
   ngOnInit() {
@@ -87,7 +86,9 @@ export class NavigationComponent implements OnInit {
   }
 
   openNofitificationsModal(){
-    this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
+    this.notificationsDialogService.notify()
+    .then(()=> window.location.reload)
+  
   }
 
 

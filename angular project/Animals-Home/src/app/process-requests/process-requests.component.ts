@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../services/request/request.service';
 import { VisitRequest } from '../model/request';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
 import { AlertService } from '../alert';
 import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog.service';
 import { Router } from '@angular/router';
+import { NotificationsDialogService } from '../dialog-content/notifications-dialog.service';
 
 @Component({
   selector: 'app-process-requests',
@@ -22,7 +22,6 @@ export class ProcessRequestsComponent implements OnInit {
   public haveLoadedRequests:boolean = false;
   public shouldDisplayRequestInformation:boolean = false;
 
-  private notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
   
   public displayedReq:VisitRequest;
 
@@ -61,7 +60,8 @@ export class ProcessRequestsComponent implements OnInit {
    height = 250;
 
   constructor(private requestService: RequestService, private dialog:MatDialog, private alert: AlertService,
-    private confirmationDialogService: ConfirmationDialogService, private route:Router) { 
+    private confirmationDialogService: ConfirmationDialogService, private route:Router,
+    private notificationsDialogService:NotificationsDialogService) { 
     
   }
 
@@ -107,7 +107,9 @@ export class ProcessRequestsComponent implements OnInit {
   }
 
   openNofitificationsModal(){
-    this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
+    this.notificationsDialogService.notify()
+    .then(()=> window.location.reload)
+  
   }
 
   approveReq(){

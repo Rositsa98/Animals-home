@@ -44,11 +44,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { SendRequestComponent } from './send-request/send-request.component';
 import { ChatComponent } from './chat/chat.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
 import { SendRequestDialogComponent } from './send-request-dialog/send-request-dialog.component';
 import {GoogleChartsModule} from 'angular-google-charts';
 import { UserGuardComponent } from './guard/user-guard/user-guard.component';
-import { ShelterGuardComponent } from './guard/shelter-guard/shelter-guard.component';
+import {NotificationsDialogService} from "./dialog-content/notifications-dialog.service";
+import { NotificationsDialogComponent } from './dialog-content/notifications-dialog/notifications-dialog.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +105,9 @@ import { ShelterGuardComponent } from './guard/shelter-guard/shelter-guard.compo
     GoogleChartsModule
   ],
   providers: [AuthenticationService, RegistrationService, RequestService, ConfirmationDialogService, 
-    SendRequestDialogComponent, MatDatepickerModule, DatePipe, NotificationsDialogComponent],
-  bootstrap: [AppComponent]
+    SendRequestDialogComponent, MatDatepickerModule, DatePipe, NotificationsDialogComponent,
+     NotificationsDialogService],
+  bootstrap: [AppComponent],
+  entryComponents:[DialogContentComponent, NotificationsDialogComponent]
 })
 export class AppModule { }

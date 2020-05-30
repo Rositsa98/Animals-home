@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
-import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +14,7 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this.isUserLoggedIn = (localStorage.getItem("token") != null) &&
                       !( window.location.href.includes("send-request") || 
-                        window.location.href.includes("process-requests")||
-                        window.location.href.includes("chat"));
+                        window.location.href.includes("process-requests"));
   }
 
 

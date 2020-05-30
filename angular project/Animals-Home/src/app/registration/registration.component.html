@@ -40,11 +40,14 @@
 
                     <div>
 
-                        <mat-form-field class="datepickers">
+                        <div class="input-group">
+                            <input class="input--style-2" type="date" placeholder="Birthday" formControlName="birthday">
+                        </div>
+                        <!-- <mat-form-field class="datepickers">
                             <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
+                        </mat-form-field> -->
                     </div>
 
                     <div class="genderRadioBtns">
@@ -60,14 +63,14 @@
                     <div>
                         <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR"
                             class="input-group-checkbox" name="gdpr" />
-                        <label for="gdpr"><button routerLink="/login">I agree my data will be consumed according
+                        <label for="gdpr"><button>I agree my data will be consumed according
                                 GDPR.</button></label>
                     </div>
 
                     <div>
                         <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies"
                             class="input-group-checkbox" name="policies" />
-                        <label for="policies"><button routerLink="/login">I agree according to the website
+                        <label for="policies"><button>I agree according to the website
                                 policies.</button></label>
                     </div>
 
