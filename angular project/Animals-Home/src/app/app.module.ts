@@ -43,10 +43,12 @@ import {MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SendRequestComponent } from './send-request/send-request.component';
 import { ChatComponent } from './chat/chat.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
 import { SendRequestDialogComponent } from './send-request-dialog/send-request-dialog.component';
 import {GoogleChartsModule} from 'angular-google-charts';
+import { UserGuardComponent } from './guard/user-guard/user-guard.component';
+import { ShelterGuardComponent } from './guard/shelter-guard/shelter-guard.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import {GoogleChartsModule} from 'angular-google-charts';
     SendRequestComponent,
     ChatComponent,
     NotificationsDialogComponent,
-    SendRequestDialogComponent
+    SendRequestDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,6 @@ import {GoogleChartsModule} from 'angular-google-charts';
   ],
   providers: [AuthenticationService, RegistrationService, RequestService, ConfirmationDialogService, 
     SendRequestDialogComponent, MatDatepickerModule, DatePipe, NotificationsDialogComponent],
-  bootstrap: [AppComponent],
-  entryComponents: [NotificationsDialogComponent, SendRequestDialogComponent, DialogContentComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

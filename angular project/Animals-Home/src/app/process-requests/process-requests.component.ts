@@ -84,6 +84,7 @@ export class ProcessRequestsComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.location.reload;
      this.getRequests();
   }
 

@@ -130,7 +130,7 @@ export class RegistrationShelterComponent implements OnInit {
 
     var result = this.registrationService.registerShelter(this.shelter)
       .then(result => {
-        if (result === true) { this.route.navigateByUrl("/main"); window.location.reload; }
+        if (result === true) { this.route.navigateByUrl("/all"); window.location.reload; }
         else { this.regError = true; } window.location.reload;
       });
 

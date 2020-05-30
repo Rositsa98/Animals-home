@@ -11,8 +11,9 @@ import { NotificationsDialogComponent } from '../notifications-dialog/notificati
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  name: string;
-  isLoggedInUser: boolean = false;
+  public name: string;
+  public isLoggedInUser: boolean = false;
+  public isShelter:boolean = localStorage.getItem("shelterName")!=null ? true: false;
 
   notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
 
@@ -62,6 +63,10 @@ export class NavigationComponent implements OnInit {
           this.router.navigate(['/registration'])
         }
       });
+  }
+
+  processReq(){
+    this.router.navigate(['/process-requests']).then(() => window.location.reload());
   }
 
   logout() {

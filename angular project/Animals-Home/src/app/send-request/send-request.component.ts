@@ -4,6 +4,8 @@ import { VisitRequest } from '../model/request';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { SendRequestDialogComponent } from '../send-request-dialog/send-request-dialog.component';
 import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
+import { Router } from '@angular/router';
+import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog.service';
 
 @Component({
   selector: 'app-send-request',
@@ -24,7 +26,8 @@ export class SendRequestComponent implements OnInit {
   confirmSendReqDialogRef: MatDialogRef<SendRequestDialogComponent>;
   notifDialogRef: MatDialogRef<NotificationsDialogComponent>;
 
-  constructor(private requestService:RequestService, private dialog:MatDialog) { }
+  constructor(private requestService:RequestService, private dialog:MatDialog, private route: Router,
+    private confirmationDialogService:ConfirmationDialogService) { }
 
   ngOnInit(): void {
     this.visitRequest = {
@@ -68,7 +71,12 @@ export class SendRequestComponent implements OnInit {
 
   openConfirmModal(){
     this.sendRequest();
-    this.confirmSendReqDialogRef = this.dialog.open(SendRequestDialogComponent);
+    this.confirmationDialogService.confirm('Request is sent!', 'You have successfully sent the request.')
+        .then((isConfirmed) => {
+            window.location.reload;
+          
+        }).then(()=> window.location.reload)
+      ;
 
   }
 
@@ -76,4 +84,20 @@ export class SendRequestComponent implements OnInit {
     this.notifDialogRef = this.dialog.open(NotificationsDialogComponent);
   }
 
+  logout() {
+
+    if (localStorage.getItem("token") != null) {
+      localStorage.removeItem("token");
+
+      if (localStorage.getItem("shelterName") != null) {
+        localStorage.removeItem("shelterName");
+      } else if (localStorage.getItem("username") != null) {
+        localStorage.removeItem("username");
+      }
+
+      this.route.navigate(['/login']).then(() => window.location.reload());
+
+    } 
+
+  }
 }

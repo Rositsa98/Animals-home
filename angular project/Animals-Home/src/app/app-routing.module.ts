@@ -18,6 +18,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
 import { ChatComponent } from './chat/chat.component';
 import { SendRequestComponent } from './send-request/send-request.component';
+import { ShelterGuardComponent } from './guard/shelter-guard/shelter-guard.component';
+import { UserGuardComponent } from './guard/user-guard/user-guard.component';
 
 const routes: Routes = [
   {
@@ -35,19 +37,13 @@ const routes: Routes = [
   },
   {
     path: 'process-requests',
-    component: ProcessRequestsComponent
+    component: ProcessRequestsComponent,
+    canActivate: [ShelterGuardComponent]
   },
   {
     path: 'send-request',
-    component: SendRequestComponent
-  },
-  {
-    path: 'admin',
-    component: AdminPanelComponent
-  },
-  {
-    path: 'main',
-    component: MainPanelComponent
+    component: SendRequestComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'registration',
@@ -59,32 +55,39 @@ const routes: Routes = [
   },
   {
     path:'chat',
-    component:ChatComponent
+    component:ChatComponent,
+    canActivate: [UserGuardComponent]
     
   },
   {
     path: 'all',
     component: PetCatalogComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'create-ad',
-    component: CreatePetComponent
+    component: CreatePetComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'edit/:id',
-    component: EditPetComponent
+    component: EditPetComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'my-ads',
-    component: UserAdsComponent
+    component: UserAdsComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'ads/favorites',
-    component: UserFavoriteAdsComponent
+    component: UserFavoriteAdsComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'view-ad/:id',
-    component: AdViewerComponent
+    component: AdViewerComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'error/internal-server-error',

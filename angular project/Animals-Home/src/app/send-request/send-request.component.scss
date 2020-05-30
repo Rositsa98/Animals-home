@@ -304,7 +304,7 @@
   #prevMonth{
     height: 28px;
     margin-left: 10px;
-    margin-right: -600px;
+    margin-right: -300px;
   }
 
   #notifications{
@@ -312,4 +312,30 @@
     height: 30px;
     margin-right: -50px;
     margin-top: -40px;
+}
+
+.btn {
+  line-height: 25px;
+  display: inline-block;
+  padding: 0 25px;
+  cursor: pointer;
+  // color: #fff;
+  font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  font-size: 14px;
+  font-weight: 700;
+  margin-left:10px;
+}
+.btn--black {
+  background-color: black;
+  color: white;
+
+}
+
+#logoutBtn{
+  margin-top: -41px;
+  margin-left: -250px;
 }
