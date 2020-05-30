@@ -47,7 +47,6 @@ import { ChatComponent } from './chat/chat.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { SendRequestDialogComponent } from './send-request-dialog/send-request-dialog.component';
 import {GoogleChartsModule} from 'angular-google-charts';
-import { UserGuardComponent } from './guard/user-guard/user-guard.component';
 import {NotificationsDialogService} from "./dialog-content/notifications-dialog.service";
 import { NotificationsDialogComponent } from './dialog-content/notifications-dialog/notifications-dialog.component';
 
@@ -74,7 +73,7 @@ import { NotificationsDialogComponent } from './dialog-content/notifications-dia
     InternalServerErrorComponent,
     DialogContentComponent,
     AdViewerComponent,
-    FinderComponent
+    FinderComponent,
     AdViewerComponent,
     SendRequestComponent,
     ChatComponent,

@@ -41,7 +41,6 @@ export class AuthenticationService {
         this.token = result;
         localStorage.setItem("username", username);
         localStorage.setItem("token", this.token.jwt);
-        localStorage.setItem("username", username);
       })
       .then(result => {
         return this.getRoles(username);
@@ -74,7 +73,6 @@ export class AuthenticationService {
         this.token = result;
         localStorage.setItem("username", username);
         localStorage.setItem("token", this.token.jwt);
-        localStorage.setItem("shelterName", username);
       })
       .then(result => {
         return this.getRoles(username);

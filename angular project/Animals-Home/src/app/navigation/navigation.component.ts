@@ -61,7 +61,7 @@ export class NavigationComponent implements OnInit, DoCheck {
   processReq(){
     this.router.navigate(['/process-requests']).then(() => window.location.reload());
   }
-
+//TODO
   logout() {
 
     if (localStorage.getItem("token") != null) {

@@ -16,6 +16,4 @@ export class AppComponent implements OnInit{
                       !( window.location.href.includes("send-request") || 
                         window.location.href.includes("process-requests"));
   }
-
-
 }
