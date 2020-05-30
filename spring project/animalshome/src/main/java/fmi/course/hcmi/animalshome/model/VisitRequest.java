@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="visit_request", schema="animalsHome")
+@Table(name="visit_request", schema="dko8s14veb65m")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

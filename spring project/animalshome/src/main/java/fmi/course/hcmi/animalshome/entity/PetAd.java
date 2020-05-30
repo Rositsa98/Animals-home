@@ -15,7 +15,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Table(name = "pet_ad", schema = "animalsHome")
+@Table(name = "pet_ad", schema = "dko8s14veb65m")
 @Entity
 @Getter
 @Setter

@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Table(name = "work_day", schema = "animalsHome")
+@Table(name = "work_day", schema = "dko8s14veb65m")
 @Entity
 @Getter
 @Setter

@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Table(name = "pet", schema = "animalsHome")
+@Table(name = "pet", schema = "dko8s14veb65m")
 @Entity
 @Getter
 @Setter
