@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavbarService } from '../navigation/navbar.service';
 
 @Component({
   selector: 'app-not-found',
@@ -8,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class NotFoundComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private navigation: NavbarService, private router: Router) { }
 
   ngOnInit() {
+    this.navigation.hide();
   }
 
   goHome() {

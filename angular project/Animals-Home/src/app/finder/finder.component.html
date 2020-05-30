@@ -1,0 +1,28 @@
+<div class="wrapper">
+    <div class="filter">
+        <h5>Filter by:</h5>
+        <select class="form-control">
+            <option value="" disabled selected>Owner</option>
+            <option *ngFor="let owner of owners">{{owner}}</option>
+        </select>
+        <select class="form-control">
+            <option value="" disabled selected>City</option>
+        </select>
+        <select class="form-control">
+            <option value="" disabled selected>Breed</option>
+        </select>
+        <select class="form-control">
+            <option value="" disabled selected>Gender</option>
+            <option *ngFor="let gender of genderTypes">{{gender}}</option>
+        </select>
+        <select class="form-control">
+            <option value="" disabled selected>Age</option>
+            <option *ngFor="let age of ages">{{age}}</option>
+        </select>
+        <select class="form-control">
+            <option value="" disabled selected>Good with</option>
+            <option *ngFor="let habit of habits">{{habit}}</option>
+        </select>
+    </div>
+    <app-pet-list class="result" [isHidenContent]="false" [isHiddenFavoriteButton]="false" [isHidenButtonsControls]="true" (favoritePetAd)="addPetAdToFavorites($event)" [petAds]="petAds"></app-pet-list>
+</div>

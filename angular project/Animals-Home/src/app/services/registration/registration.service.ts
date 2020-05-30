@@ -25,13 +25,9 @@ export class RegistrationService {
       'Content-Type': 'application/json'
     });
 
-    console.log(body);
-
-    var redirectUrl = null;
-
     return this.http.post<any>(registerUrl, body, {
       headers,
-    }).toPromise().then(result => { console.log(result); return true; })
+    }).toPromise().then(result => { return true; })
       .catch((err: HttpErrorResponse) => {
         console.error('An error occurred:', err.error);
         return false;
@@ -56,13 +52,9 @@ export class RegistrationService {
       'Content-Type': 'application/json'
     });
 
-    console.log(body);
-
-    var redirectUrl = null;
-
     return this.http.post<any>(registerUrl, body, {
       headers,
-    }).toPromise().then(result => { console.log(result); return true; })
+    }).toPromise().then(result => { return true; })
       .catch((err: HttpErrorResponse) => {
         console.error('An error occurred:', err.error);
         return false;

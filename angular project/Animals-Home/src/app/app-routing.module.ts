@@ -16,6 +16,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { InternalServerErrorComponent } from './internal-server-error/internal-server-error.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
+import { FinderComponent } from './finder/finder.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'all',
     component: PetCatalogComponent,
+  },
+  {
+    path: 'all/type/:type',
+    component: FinderComponent,
   },
   {
     path: 'create-ad',

@@ -4,6 +4,7 @@ import { AdService } from '../services/ad/ad.service';
 import { Gender } from '../model/gender';
 import { AlertService } from '../alert/alert.service';
 import { Router } from '@angular/router';
+import { NavbarService } from '../navigation/navbar.service';
 
 @Component({
   selector: 'app-pet-catalog',
@@ -20,10 +21,11 @@ export class PetCatalogComponent implements OnInit {
   gender: Gender;
   petAds: PetAdDto[] = [];
 
-  constructor(private adService: AdService, private alert: AlertService, private router: Router) {
+  constructor(private adService: AdService, private alert: AlertService, private navigation: NavbarService, private router: Router) {
   }
 
   ngOnInit() {
+    this.navigation.show();
     this.getAds();
   }
 

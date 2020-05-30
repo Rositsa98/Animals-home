@@ -16,6 +16,10 @@ export class AdService {
     return this.request.getAllAds();
   }
 
+  getPetAdsByType(type: string): Observable<PetAdDto[]> {
+    return this.request.getAdsByType(type);
+  }
+
   createPetAd(petAd: PetAdDto, photos: Array<File>): Observable<any> {
     const data = this.formDataBuilder(petAd, photos);
 
@@ -26,7 +30,7 @@ export class AdService {
     const id = petAd.id;
     const data = this.formDataBuilder(petAd, newPetAdPhotos);
 
-    
+    //TODO
     var dataBuilder = new FormData();
 
     dataBuilder.append('petAdDto', new Blob([JSON.stringify(petAd)], { type: "application/json" }));

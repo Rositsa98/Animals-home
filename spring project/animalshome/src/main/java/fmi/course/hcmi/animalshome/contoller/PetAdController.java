@@ -5,6 +5,7 @@ import fmi.course.hcmi.animalshome.dto.PetAdDto;
 import fmi.course.hcmi.animalshome.dto.PetAdWithUser;
 import fmi.course.hcmi.animalshome.dto.PetType;
 import fmi.course.hcmi.animalshome.dto.PhotoDto;
+import fmi.course.hcmi.animalshome.exception.DeletePetPhotoException;
 import fmi.course.hcmi.animalshome.exception.ResourceNotFoundException;
 import fmi.course.hcmi.animalshome.service.PetAdService;
 
@@ -81,13 +82,13 @@ public class PetAdController {
         return new ResponseEntity<>(petAdService.getCurrentUserFavoritePetAds(), HttpStatus.OK);
     }
 
-    //TODO remove existing photos and add new photos
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PetAdDto> updatePetAd(@PathVariable long id,
                                                 @RequestPart("petAdDto") final PetAdDto petAdDto,
                                                 @RequestPart("deletedPhotos") final List<PhotoDto> deletedPhotos,
-                                                @RequestPart("files") final List<MultipartFile> files) {
-        return new ResponseEntity<>(petAdService.updatePetAd(id, petAdDto), HttpStatus.OK);
+                                                @RequestPart("files") final List<MultipartFile> files) throws ResourceNotFoundException,
+            DeletePetPhotoException, IOException {
+        return new ResponseEntity<>(petAdService.updatePetAd(id, petAdDto, deletedPhotos, files), HttpStatus.OK);
     }
 
     @PatchMapping(value = "/remove/user/favorite")

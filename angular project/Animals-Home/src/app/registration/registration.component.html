@@ -3,71 +3,54 @@
         <div class="card card-2">
             <div class="card-body">
                 <h2 class="title">Registration Info</h2>
-
                 <form [formGroup]="registrationForm" id="regForm">
-                    <div id="errorMessage" *ngIf="regError">User with such username already exists!</div>
-
+                    <div id="errorMessage" *ngIf="regError">Please, field the form with correct data!</div>
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Name" formControlName="username">
+                        <input class="input--style-2" type="text" placeholder="Name*" formControlName="username" required>
                     </div>
                     <div class="input-group">
-                        <input class="input--style-2" type="password" placeholder="Password" formControlName="password">
+                        <input class="input--style-2" type="password" placeholder="Password*" formControlName="password" required>
                     </div>
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="First Name" formControlName="firstName">
+                        <input class="input--style-2" type="text" placeholder="First Name*" formControlName="firstName" required>
                     </div>
-
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Last Name" formControlName="lastName">
+                        <input class="input--style-2" type="text" placeholder="Last Name*" formControlName="lastName" required>
                     </div>
-
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Phone number"
-                            formControlName="phoneNumber">
+                        <input class="input--style-2" type="text" placeholder="Phone number*" formControlName="phoneNumber" required>
                     </div>
-
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Email" formControlName="email">
+                        <input class="input--style-2" type="text" placeholder="Email*" formControlName="email" required>
                     </div>
-
                     <div class="input-group">
                         <input class="input--style-2" type="text" placeholder="Image url" formControlName="imageUrls">
                     </div>
-
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Address" formControlName="address">
+                        <input class="input--style-2" type="text" placeholder="Address*" formControlName="address" required>
                     </div>
-
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Birthday" formControlName="birthday">
+                        <input class="input--style-2" type="text" placeholder="Birthday*" formControlName="birthday" required>
                     </div>
-
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Gender" formControlName="gender">
+                        <select class="form-control" formControlName="gender" required>
+                            <option *ngFor="let gender of genderTypes">{{gender}}</option>
+                        </select>
                     </div>
-
                     <div>
-                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR"
-                            class="input-group-checkbox" name="gdpr" />
-                        <label for="gdpr"><button routerLink="/login">I agree my data will be consumed according
-                                GDPR.</button></label>
+                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR" class="input-group-checkbox" name="gdpr" />
+                        <label for="gdpr">I agree my data will be consumed according GDPR.</label>
                     </div>
-
                     <div>
-                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies"
-                            class="input-group-checkbox" name="policies" />
-                        <label for="policies"><button routerLink="/login">I agree according to the website
-                                policies.</button></label>
+                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies" class="input-group-checkbox" name="policies" />
+                        <label for="policies">I agree according to the website policies.</label>
                     </div>
-
                     <div class="p-t-30">
                         <button class="btn btn--radius btn--green" type="submit" (click)="sumbitData()">Submit</button>
                     </div>
                 </form>
             </div>
-
             <img class="image-card" src="../../assets/images/logo.png">
-
         </div>
     </div>
 </div>

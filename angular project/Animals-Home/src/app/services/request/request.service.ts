@@ -20,6 +20,13 @@ export class RequestService {
     return this.http.get<PetAdDto[]>(`${this.baseUrl}/all`);
   }
 
+  getAdsByType(type: string) {
+    let params = new HttpParams()
+      .set('petType', type);
+
+    return this.http.get<PetAdDto[]>(`${this.baseUrl}/all/type`, {params: params });
+  }
+
   getAdById(id: number) {
     return this.http.get<PetAdDto>(`${this.baseUrl}/${id}`);
   }
@@ -33,7 +40,7 @@ export class RequestService {
   }
 
   editAd(id: number, newAd: FormData) {
-    return this.http.patch<PetAdDto>(`${this.baseUrl}/${id}`, newAd, { headers: this.setUserHeaders() }); //TODO
+    return this.http.patch<PetAdDto>(`${this.baseUrl}/${id}`, newAd, { headers: this.setUserHeaders() });
   }
 
   deleteAd(id: number) {
@@ -50,15 +57,14 @@ export class RequestService {
 
   addAdToFavorites(id: number) {
     let body = new HttpParams()
-    .set('id', id.toString());
+      .set('id', id.toString());
 
-    console.log(body);
     return this.http.patch<PetAdDto>(`${this.baseUrl}/add/user/favorite`, body, { headers: this.setUserHeaders() });
   }
 
   removeAdFromFavorites(id: number) {
     let body = new HttpParams()
-    .set('id', id.toString());
+      .set('id', id.toString());
 
     return this.http.patch<PetAdDto>(`${this.baseUrl}/remove/user/favorite/`, body, { headers: this.setUserHeaders() });
   }

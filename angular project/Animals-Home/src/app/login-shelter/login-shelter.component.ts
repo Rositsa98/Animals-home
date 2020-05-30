@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { Router } from '@angular/router';
+import { NavbarService } from '../navigation/navbar.service';
 
 @Component({
   selector: 'app-login-shelter',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginShelterComponent implements OnInit {
 
-  
+
   title: string = "Login";
 
   loginForm = new FormGroup({
@@ -20,9 +21,10 @@ export class LoginShelterComponent implements OnInit {
   });
 
   isInvalidLogin = false;
-  constructor(private authService: AuthenticationService, private route: Router) { }
+  constructor(private authService: AuthenticationService, private navigation: NavbarService, private route: Router) { }
 
   ngOnInit() {
+    this.navigation.hide();
   }
 
   loginShelter() {

@@ -36,6 +36,7 @@ import { AlertModule } from './alert/';
 import { DialogContentComponent } from './dialog-content/dialog-content.component';
 import { ConfirmationDialogService } from './dialog-content/confirmation-dialog.service';
 import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
+import { FinderComponent } from './finder/finder.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
     NotFoundComponent,
     InternalServerErrorComponent,
     DialogContentComponent,
-    AdViewerComponent
+    AdViewerComponent,
+    FinderComponent
   ],
   imports: [
     BrowserModule,

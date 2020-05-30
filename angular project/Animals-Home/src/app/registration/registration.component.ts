@@ -3,7 +3,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../services/registration/registration.service';
 import { User } from '../model/user';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { NavbarService } from '../navigation/navbar.service';
+import { Gender } from '../model/gender';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,16 +14,23 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class RegistrationComponent implements OnInit {
 
-  user:User;
-  
-  regError:boolean = false;
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
 
-  agreePolicies:boolean = false;
-  agreeGDPR:boolean = false;
+  user: User;
+  genderTypes: string[] = Object.keys(Gender);
 
-  constructor(private registrationService:RegistrationService, private route:Router) { }
+  regError: boolean = false;
+
+  agreePolicies: boolean = false;
+  agreeGDPR: boolean = false;
+
+  constructor(private registrationService: RegistrationService, private alert: AlertService, private navigation: NavbarService, private route: Router) { }
 
   ngOnInit() {
+    this.navigation.hide();
   }
 
   registrationForm = new FormGroup({
@@ -35,11 +44,11 @@ export class RegistrationComponent implements OnInit {
 
     address: new FormControl(''),
     birthday: new FormControl(''),
-    gender: new FormControl('')
+    gender: new FormControl(Gender["MALE"])
 
   });
 
-  sumbitData(){
+  sumbitData() {
 
     var username = this.registrationForm.get("username").value;
     var password = this.registrationForm.get("password").value;
@@ -52,15 +61,17 @@ export class RegistrationComponent implements OnInit {
     var address = this.registrationForm.get("address").value;
     var birthday = this.registrationForm.get("birthday").value;
     var gender = this.registrationForm.get("gender").value;
-    
 
     var result = this.registrationService.registerUser(username, password, firstName, lastName,
       phoneNumber, roles, email, imageUrls, address, birthday, gender)
-    .then(result => { if(result===true) {this.route.navigateByUrl("/main"); window.location.reload;} 
-                      else {this.regError = true;} window.location.reload; });
-
-    console.log("User registered: " + result);
-  
+      .then(result => {
+        if (result === true) {
+          this.route.navigateByUrl("/all");
+          window.location.reload;
+          this.alert.success("<strong>Success!</strong> You are now registered.", this.options)
+        }
+        else { this.regError = true; } window.location.reload;
+      });
   }
 
 }

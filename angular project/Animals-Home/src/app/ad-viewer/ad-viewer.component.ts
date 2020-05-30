@@ -12,7 +12,7 @@ import { AdService } from '../services/ad/ad.service';
 import { PetAdWithUser } from '../model/petAdWithUser';
 import { UserInfo } from '../model/userInfo';
 import { WorkDayDto } from '../model/workDayDto';
-import { resolve } from 'url';
+import { NavbarService } from '../navigation/navbar.service';
 
 @Component({
   selector: 'app-ad-viewer',
@@ -44,10 +44,11 @@ export class AdViewerComponent implements OnInit {
   isLoggedInUser: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private alert: AlertService, private authService: AuthenticationService,
-    private confirmationDialogService: ConfirmationDialogService, private router: Router, private adService: AdService) {
+    private confirmationDialogService: ConfirmationDialogService, private router: Router, private navigation: NavbarService, private adService: AdService) {
   }
 
   async ngOnInit() {
+    this.navigation.show();
     if (this.authService.isAuthenticated()) {
       this.isLoggedInUser = true;
     } else {
@@ -131,7 +132,7 @@ export class AdViewerComponent implements OnInit {
     if (this.isLoggedInUser) {
       this.router.navigate(['/process-requests'])
     } else {
-      this.showLoggedInMessage('You must sign in to see your list with favorite pets.');
+      this.showLoggedInMessage('You must sign in order to send request.');
     }
   }
 

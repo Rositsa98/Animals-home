@@ -7,6 +7,7 @@ import { PetDetailsDto } from 'src/app/model/petDetailsDto';
 import { PetHabitsDto } from 'src/app/model/petHabitsDto';
 import { AdArguments } from 'src/app/model/adArguments';
 import { PhotoDto } from 'src/app/model/photoDto';
+import { NavbarService } from 'src/app/navigation/navbar.service';
 
 @Component({
   selector: 'app-pet-form',
@@ -15,7 +16,7 @@ import { PhotoDto } from 'src/app/model/photoDto';
 })
 export class PetFormComponent implements OnChanges {
   DEFAULT_IMAGE: string = '../assets/images/default-img.jpg';
-
+  DEFAULT_COLOR: string = '#000000';
   BREED_ICONS: Array<string> = ['../assets/images/dog.png', '../assets/images/cat.png',
     '../assets/images/rabbit.png', '../assets/images/bird.png', '../assets/images/other.png'];
 
@@ -38,13 +39,14 @@ export class PetFormComponent implements OnChanges {
   petDetails: PetDetailsDto;
   petHabits: PetHabitsDto;
 
-  constructor() {
+  constructor(private navigation: NavbarService) {
     //TODO add validation
     //TODO show breed in select tag
     //TODO show city in select tag
   }
 
   ngOnChanges() {
+    this.navigation.show();
     if (typeof this.existingPetAd !== "undefined" && this.existingPetAd !== null) {
       this.displayExistingPetInfo();
     } else {
@@ -83,6 +85,7 @@ export class PetFormComponent implements OnChanges {
         this.mainPhoto = new PhotoDto(this.DEFAULT_IMAGE);
         this.isDefaultCloseButtonShown = false;
       }
+      this.deletedPhotosName.push(this.photosName[index]);
       this.removePhoto(index);
     }
   }
@@ -106,7 +109,6 @@ export class PetFormComponent implements OnChanges {
 
   displayExistingPetInfo() {
     this.petAd = this.existingPetAd;
-    console.log(this.existingPetAd);
     this.pet = this.petAd.petDto;
     this.petDetails = this.petAd.petDto.petDetailsDto;
     this.petHabits = this.petAd.petDto.petHabitsDto;
@@ -128,6 +130,7 @@ export class PetFormComponent implements OnChanges {
     this.petHabits = new PetHabitsDto();
 
     this.petDetails.petType = PetType["DOG"];
+    this.petDetails.color = this.DEFAULT_COLOR;
     this.petDetails.age = this.ages[0];
     this.petDetails.months = this.months[0];
     this.petDetails.gender = Gender["MALE"];

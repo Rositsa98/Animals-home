@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PetAdDto } from 'src/app/model/petAdDto';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { ConfirmationDialogService } from 'src/app/dialog-content/confirmation-dialog.service';
 
 @Component({
   selector: 'app-pet-item',
@@ -16,7 +18,7 @@ export class PetItemComponent implements OnInit {
   @Output() deletedPetAd = new EventEmitter();
   @Output() favoritePetAd = new EventEmitter();
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthenticationService, private confirmationDialogService: ConfirmationDialogService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -31,12 +33,24 @@ export class PetItemComponent implements OnInit {
     this.deletedPetAd.emit(currentId);
   }
 
-  addToFavorites(){
-    const currentId = this.petAd.id;
-    this.favoritePetAd.emit(currentId);
+  addToFavorites() {
+    if (this.authService.isAuthenticated()) {
+      const currentId = this.petAd.id;
+      this.favoritePetAd.emit(currentId);
+    } else {
+      this.confirmationDialogService.confirm('Warrning!', 'You must sign in to add in favorites.', 'Log in', 'Sign up')
+      .then((isConfirmed) => {
+        if (isConfirmed) {
+          this.router.navigate(['/login'])
+        } else {
+          this.router.navigate(['/registration'])
+        }
+      });
+    }
+
   }
 
-  showPetAd(){
+  showPetAd() {
     this.router.navigate(['view-ad/', this.petAd.id]);
   }
 }

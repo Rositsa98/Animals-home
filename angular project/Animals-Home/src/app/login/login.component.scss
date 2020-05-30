@@ -24,7 +24,6 @@
     margin-bottom: auto;
     border-radius: 0%;
     position: absolute;
-    margin-left: 10%;
     margin-right: 40%;
     margin-top: 15%;
     width: 550px;
@@ -75,6 +74,7 @@
     width: 100% !important;
     height: 100vh !important;
     display: flex;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -8,6 +8,8 @@ import fmi.course.hcmi.animalshome.dto.PetAdWithUser;
 import fmi.course.hcmi.animalshome.dto.PetType;
 import fmi.course.hcmi.animalshome.dto.PhotoDto;
 import fmi.course.hcmi.animalshome.entity.PetAd;
+import fmi.course.hcmi.animalshome.entity.Photo;
+import fmi.course.hcmi.animalshome.exception.DeletePetPhotoException;
 import fmi.course.hcmi.animalshome.exception.ResourceNotFoundException;
 import fmi.course.hcmi.animalshome.mapper.Mapper;
 import fmi.course.hcmi.animalshome.model.Shelter;
@@ -61,7 +63,8 @@ public class PetAdService {
         final List<PetAd> petAds = (List<PetAd>) petAdRepository.findAll();
         final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAds);
         for (int i = 0; i < petAdDtos.size(); i++) {
-            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+            setRootImageFolder(petAdDtos.get(i)
+                    .getPhotosDto());
         }
 
         return petAdDtos;
@@ -76,7 +79,8 @@ public class PetAdService {
         final List<PetAd> petAds = petAdRepository.findByOwner(currentUser);
         final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAds);
         for (int i = 0; i < petAdDtos.size(); i++) {
-            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+            setRootImageFolder(petAdDtos.get(i)
+                    .getPhotosDto());
         }
 
         return petAdDtos;
@@ -128,7 +132,8 @@ public class PetAdService {
         User currentUser = getCurrentUser();
         final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(currentUser.getFavouritePets());
         for (int i = 0; i < petAdDtos.size(); i++) {
-            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+            setRootImageFolder(petAdDtos.get(i)
+                    .getPhotosDto());
         }
         return petAdDtos;
     }
@@ -154,23 +159,56 @@ public class PetAdService {
     public void addPetAdToFavorites(long id) {
         User currentUser = getCurrentUser();
         Optional<PetAd> petAdToBeAdded = petAdRepository.findById(id);
+        if (!petAdToBeAdded.isPresent()) {
+            return;
+        }
         List<PetAd> currentUserFavoritePets = currentUser.getFavouritePets();
-        petAdToBeAdded.ifPresent(currentUserFavoritePets::add);
-
+        final PetAd newAd = petAdToBeAdded.get();
+        for (int i = 0; i < currentUserFavoritePets.size(); i++) {
+            if (currentUserFavoritePets.get(i)
+                    .getId() == newAd.getId()) {
+                return;
+            }
+        }
+        currentUserFavoritePets.add(newAd);
         currentUser.setFavouritePets(currentUserFavoritePets);
         userRepository.save(currentUser);
     }
 
-    public PetAdDto updatePetAd(long id, PetAdDto petAdDto) {
+    public PetAdDto updatePetAd(long id, PetAdDto petAdDto, final List<PhotoDto> deletedPhotos, final List<MultipartFile> files) throws
+            ResourceNotFoundException, DeletePetPhotoException, IOException {
         Optional<PetAd> petAd = petAdRepository.findById(id);
-        //TODO
-        if (petAd.isPresent()) {
-            petAd.get()
-                    .setPet(Mapper.INSTANCE.petDtoToPet(petAdDto.getPetDto()));
-            petAd.get()
-                    .setPhotos(Mapper.INSTANCE.photoDtosToPhotos(petAdDto.getPhotosDto()));
+        if (!petAd.isPresent()) {
+            throw new ResourceNotFoundException("The ad is not found");
         }
-        return Mapper.INSTANCE.petAdToPetAdDto(petAd.get());
+        //TODO refactoring
+        final List<Photo> photos = petAd.get()
+                .getPhotos();
+        if (!deletedPhotos.isEmpty()) {
+            final List<Photo> photoToRemove = Mapper.INSTANCE.photoDtosToPhotos(deletedPhotos);
+            for (int i = 0; i < photoToRemove.size(); i++) {
+                final Photo currentPhoto = photoToRemove.get(i);
+                final String currentPhotoName= currentPhoto.getPhotoName().split("/")[2];
+                currentPhoto.setPhotoName(currentPhotoName);
+
+                //TODO check if currentPhoto is existing
+                photos.remove(currentPhoto);
+                fileUploadService.deletePetPhoto(currentPhotoName);
+            }
+        }
+        if (!files.isEmpty()) {
+            for (MultipartFile file : files) {
+                String photoName = generateUniqueImageName() + getExtensionOfFile(file);
+                photos.add(new Photo(photoName));
+                fileUploadService.addPetPhoto(photoName, file);
+            }
+        }
+        petAd.get()
+                .setPet(Mapper.INSTANCE.petDtoToPet(petAdDto.getPetDto()));
+        petAd.get()
+                .setPhotos(photos);
+
+        return Mapper.INSTANCE.petAdToPetAdDto(petAdRepository.save(petAd.get()));
     }
 
     public List<PetAdDto> getFilteredPetAds(PetType petType, FilterCriteria filterCriteria) {
@@ -210,7 +248,8 @@ public class PetAdService {
                 .collect(Collectors.toList());
         final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByShelter);
         for (int i = 0; i < petAdDtos.size(); i++) {
-            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+            setRootImageFolder(petAdDtos.get(i)
+                    .getPhotosDto());
         }
 
         return petAdDtos;
@@ -225,7 +264,8 @@ public class PetAdService {
                 .collect(Collectors.toList());
         final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAdsBySingleUser);
         for (int i = 0; i < petAdDtos.size(); i++) {
-            setRootImageFolder(petAdDtos.get(i).getPhotosDto());
+            setRootImageFolder(petAdDtos.get(i)
+                    .getPhotosDto());
         }
 
         return petAdDtos;

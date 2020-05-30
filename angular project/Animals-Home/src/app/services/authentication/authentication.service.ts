@@ -17,18 +17,18 @@ export class AuthenticationService {
   private token: MyJSON = null;
 
 
-  public isAuthenticated(): boolean {
-    if (localStorage.getItem('token')) {
-      this.isAuth = true;
-    } else {
-      this.isAuth = false;
+  public isAuthenticated() {
+    if (localStorage.getItem("token")) {
+      return true;
     }
-    return this.isAuth;
+    return false;
   }
 
+  public getUsername(){
+      return localStorage.getItem("username");
+  }
 
   login(username: string, password: string): Promise<string> {
-    this.username = username;
     const body = { username, password };
     const loginUrl = '/api/authenticate';
     const headers = new HttpHeaders({
@@ -42,6 +42,7 @@ export class AuthenticationService {
     }).toPromise()
       .then(result => {
         this.token = result;
+        localStorage.setItem("username", username);
         localStorage.setItem("token", this.token.jwt);
       })
       .then(result => {
@@ -73,6 +74,7 @@ export class AuthenticationService {
     }).toPromise()
       .then(result => {
         this.token = result;
+        localStorage.setItem("username", username);
         localStorage.setItem("token", this.token.jwt);
       })
       .then(result => {

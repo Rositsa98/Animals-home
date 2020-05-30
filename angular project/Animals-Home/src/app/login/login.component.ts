@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication/authentication.service'
+import { NavbarService } from '../navigation/navbar.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,10 @@ export class LoginComponent implements OnInit {
   });
 
   isInvalidLogin = false;
-  constructor(private authService: AuthenticationService, private route: Router) { }
+  constructor(private authService: AuthenticationService, private route: Router, private navigation: NavbarService) { }
 
   ngOnInit() {
+    this.navigation.hide();
   }
 
   login() {

@@ -5,6 +5,7 @@ import { Gender } from '../model/gender';
 import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog.service';
 import { AlertService } from '../alert/alert.service';
 import { Router } from '@angular/router';
+import { NavbarService } from '../navigation/navbar.service';
 
 @Component({
   selector: 'app-user-ads',
@@ -21,11 +22,12 @@ export class UserAdsComponent implements OnInit {
   gender: Gender;
   petAds: PetAdDto[] = [];
 
-  constructor(private adService: AdService, private alert: AlertService,
+  constructor(private adService: AdService, private alert: AlertService, private navigation: NavbarService,
     private confirmationDialogService: ConfirmationDialogService, private router: Router) {
   }
 
   ngOnInit() {
+    this.navigation.show();
    this.getAllNewAds()
   }
 

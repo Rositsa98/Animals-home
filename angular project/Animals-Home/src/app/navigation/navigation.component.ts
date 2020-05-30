@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog.service';
+import { NavbarService } from './navbar.service';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, DoCheck {
   name: string;
   isLoggedInUser: boolean = false;
 
-  constructor(private authService: AuthenticationService, private confirmationDialogService: ConfirmationDialogService, private router: Router) { }
+  constructor(private authService: AuthenticationService, private confirmationDialogService: ConfirmationDialogService, public nav: NavbarService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ngDoCheck() {
     if (this.authService.isAuthenticated()) {
-      this.name = this.authService.username;
+      this.name = this.authService.getUsername();
       this.isLoggedInUser = true;
     } else {
       this.isLoggedInUser = false;
@@ -48,6 +52,10 @@ export class NavigationComponent implements OnInit {
           this.router.navigate(['/registration'])
         }
       });
+  }
+
+  getAdsByType(type: string) {
+    this.router.navigate(['/all/type/', type]);
   }
 
 }
