@@ -6,14 +6,12 @@ import fmi.course.hcmi.animalshome.enums.VisitRequestAnswer;
 import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.model.VisitRequest;
-import fmi.course.hcmi.animalshome.model.authentication.VisitShelterRequest;
 import fmi.course.hcmi.animalshome.service.IVisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

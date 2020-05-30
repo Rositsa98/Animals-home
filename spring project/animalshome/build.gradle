@@ -23,7 +23,15 @@ configurations {
 	}
 }
 
+jar {
+	manifest {
+		attributes "Main-Class": "fmi.course.hcmi.animalshome.AnimalshomeApplication"
+	}
 
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
 
 //Get dependencies from Maven central repository
 repositories {
