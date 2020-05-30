@@ -24,11 +24,11 @@ public class VisitRequest {
     private String petName;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="fk_user")
+    @JoinColumn(name="user_id")
     private User user; // sent from user
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="fk_shelter")
+    @JoinColumn(name="shelter_id")
     private Shelter shelter; //add is for shelter
 
     @Column(name="date")

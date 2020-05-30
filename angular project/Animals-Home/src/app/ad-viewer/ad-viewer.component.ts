@@ -136,6 +136,14 @@ export class AdViewerComponent implements OnInit {
     }
   }
 
+  chatWithOwner(){
+    if (this.isLoggedInUser) {
+      this.router.navigate(['/chat'])
+    } else {
+      this.showLoggedInMessage('You must sign in order to chat with the owner.');
+    }
+  }
+
   getIdOfAd() {
     return +this.activatedRoute.snapshot.paramMap.get('id');
   }
@@ -159,5 +167,4 @@ export class AdViewerComponent implements OnInit {
         this.router.navigate(['error/internal-server-error']);
       });
   }
-
 }

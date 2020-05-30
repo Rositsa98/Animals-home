@@ -105,7 +105,6 @@ export class RegistrationShelterComponent implements OnInit {
     password: new FormControl(''),
     phoneNumber: new FormControl(''),
     email: new FormControl(''),
-    imageUrls: new FormControl(''),
     address: new FormControl(''),
     shelterCode: new FormControl(''),
     description: new FormControl('')
@@ -120,7 +119,6 @@ export class RegistrationShelterComponent implements OnInit {
       phoneNumber: this.registrationFormShelter.get("phoneNumber").value,
       roles: "ROLE_SHELTER",
       email: this.registrationFormShelter.get("email").value,
-      imageUrls: this.registrationFormShelter.get("imageUrls").value,
       address: this.registrationFormShelter.get("address").value,
       active: true,
       shelterCode: this.registrationFormShelter.get("shelterCode").value,

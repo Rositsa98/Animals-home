@@ -12,7 +12,7 @@ export class ShelterGuardComponent {
     console.log(localStorage.getItem("token"));
 
     if (localStorage.getItem("token")==null || localStorage.getItem("token")==""
-          || localStorage.getItem("shelterName")==null) {
+          || localStorage.getItem("username")==null) {
       this.router.navigate(['login']);
       alert("Wrong username or password!")
       return false;

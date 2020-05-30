@@ -140,9 +140,7 @@ export class ProcessRequestsComponent implements OnInit {
     if (localStorage.getItem("token") != null) {
       localStorage.removeItem("token");
 
-      if (localStorage.getItem("shelterName") != null) {
-        localStorage.removeItem("shelterName");
-      } else if (localStorage.getItem("username") != null) {
+      if (localStorage.getItem("username") != null) {
         localStorage.removeItem("username");
       }
 

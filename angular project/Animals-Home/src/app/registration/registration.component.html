@@ -24,9 +24,6 @@
                         <input class="input--style-2" type="text" placeholder="Email*" formControlName="email" required>
                     </div>
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Image url" formControlName="imageUrls">
-                    </div>
-                    <div class="input-group">
                         <input class="input--style-2" type="text" placeholder="Address*" formControlName="address" required>
                     </div>
                     <div class="input-group">
@@ -34,28 +31,24 @@
                     </div>
 
                     <div class="genderRadioBtns">
-                        <input type="radio" id="male" name="gender" formControlName="gender" class="input-group-radio"
-                            value="MALE">
+                        <input type="radio" id="male" name="gender" formControlName="gender" class="input-group-radio" value="MALE">
                         <label for="male">Male</label>
 
-                        <input type="radio" id="female" name="gender" formControlName="gender" class="input-group-radio"
-                            value="FEMALE">
+                        <input type="radio" id="female" name="gender" formControlName="gender" class="input-group-radio" value="FEMALE">
                         <label for="female">Female</label>
                     </div>
                     <div>
-                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR"
-                            class="input-group-checkbox" name="gdpr" />
+                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR" class="input-group-checkbox" name="gdpr" />
                         <label for="gdpr"><button>I agree my data will be consumed according
                                 GDPR.</button></label>
                     </div>
                     <div>
-                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies"
-                            class="input-group-checkbox" name="policies" />
+                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies" class="input-group-checkbox" name="policies" />
                         <label for="policies"><button>I agree according to the website
                                 policies.</button></label>
                     </div>
                     <div class="p-t-30">
-                        <button class="btn btn--radius btn--green" type="submit" (click)="sumbitData()">Submit</button>
+                        <button class="btn btn--radius btn--green" type="submit" (click)="sumbitData()">Register</button>
                     </div>
                 </form>
             </div>

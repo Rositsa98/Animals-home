@@ -40,7 +40,6 @@ export class RegistrationComponent implements OnInit {
     lastName: new FormControl(''),
     phoneNumber: new FormControl(''),
     email: new FormControl(''),
-    imageUrls: new FormControl(''),
 
     address: new FormControl(''),
     birthday: new FormControl(''),
@@ -57,13 +56,12 @@ export class RegistrationComponent implements OnInit {
     var phoneNumber = this.registrationForm.get("phoneNumber").value;
     var roles = "ROLE_USER";
     var email = this.registrationForm.get("email").value;
-    var imageUrls = this.registrationForm.get("imageUrls").value;
     var address = this.registrationForm.get("address").value;
     var birthday = this.registrationForm.get("birthday").value;
     var gender = this.registrationForm.get("gender").value;
 
     var result = this.registrationService.registerUser(username, password, firstName, lastName,
-      phoneNumber, roles, email, imageUrls, address, birthday, gender)
+      phoneNumber, roles, email, address, birthday, gender)
       .then(result => {
         if (result === true) {
           this.route.navigateByUrl("/all");

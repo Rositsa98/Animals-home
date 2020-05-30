@@ -16,8 +16,8 @@ export class NavigationComponent implements OnInit, DoCheck {
   isLoggedInUser: boolean = false;
 
   constructor(private authService: AuthenticationService, public nav: NavbarService,
-    private confirmationDialogService: ConfirmationDialogService, private router: Router, private dialog:MatDialog,
-    private notificationsDialogService:NotificationsDialogService) { }
+    private confirmationDialogService: ConfirmationDialogService, private router: Router, private dialog: MatDialog,
+    private notificationsDialogService: NotificationsDialogService) { }
 
   ngOnInit() {
   }
@@ -58,30 +58,32 @@ export class NavigationComponent implements OnInit, DoCheck {
       });
   }
 
-  processReq(){
+  processReq() {
     this.router.navigate(['/process-requests']).then(() => window.location.reload());
   }
-//TODO
+ 
   logout() {
 
     if (localStorage.getItem("token") != null) {
       localStorage.removeItem("token");
 
-      if (localStorage.getItem("shelterName") != null) {
-        localStorage.removeItem("shelterName");
-      } else if (localStorage.getItem("username") != null) {
+      if (localStorage.getItem("username") != null) {
         localStorage.removeItem("username");
       }
 
-      this.router.navigate(['/login']).then(() => window.location.reload());
+      if (localStorage.getItem("role") != null) {
+        localStorage.removeItem("role");
+      }
+
+      this.router.navigate(['/all']).then(() => window.location.reload());
 
     }
 
   }
 
-  openNofitificationsModal(){
+  openNofitificationsModal() {
     this.notificationsDialogService.notify()
-    .then(()=> window.location.reload)
+      .then(() => window.location.reload)
 
   }
 

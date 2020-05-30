@@ -11,14 +11,14 @@ export class RegistrationService {
 
   registerUser(
     username, password, firstName, lastName, phoneNumber, roles,
-    email, imageUrls, address, birthday, gender
+    email, address, birthday, gender
   ): Promise<boolean> {
 
     var active = true;
 
     const body = {
       username, password, firstName, lastName, phoneNumber, roles, email,
-      imageUrls, address, active, birthday, gender
+       address, active, birthday, gender
     };
     const registerUrl = '/api/user/registerUser';
     const headers = new HttpHeaders({
@@ -40,13 +40,12 @@ export class RegistrationService {
     var phoneNumber = shelter.phoneNumber;
     var roles = shelter.roles;
     var email = shelter.email;
-    var imageUrls = shelter.imageUrls;
     var address = shelter.address;
     var active = true;
     var description = shelter.description;
     var shelterCode = shelter.shelterCode;
 
-    const body = { username, password, phoneNumber, roles, email, imageUrls, address, active, description, shelterCode };
+    const body = { username, password, phoneNumber, roles, email, address, active, description, shelterCode };
     const registerUrl = '/api/user/registerShelter';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
