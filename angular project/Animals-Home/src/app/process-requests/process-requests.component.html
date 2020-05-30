@@ -16,6 +16,7 @@
 
     <section class="request-information">
      <img src="../assets/images/bell.png" id="notifications" (click)="openNofitificationsModal()">
+     <button class="btn btn--radius btn--black"  (click)="logout()">Logout</button>
 
       <div  class="reqInfo" *ngIf="shouldDisplayRequestInformation">
         
@@ -23,11 +24,13 @@
           <div class="leftReqPart">
           <p>Id:</p>
           <p>Name: {{displayedReq.petName}}</p>
+          <div *ngFor="let checkbox of checkboxes">
           <p id="calendarCompatibility">
-            <input id="calCompCheck" type="checkbox" disabled="true">
-            Calendar compatibility
-            <button class="btn btn--radius btn--blue" (click)="checkCalendarCompatibility()">Check</button>
+            <input id="calCompCheck"  [(ngModel)]="checkbox.checked" [value]="checkbox.value" type="checkbox" disabled="true">
+            Calendar compatibility  
+            <button class="btn btn--radius btn--blue" (click)="CheckAllOptions()">Check</button>
           </p>
+        </div>
           </div>
 
           <div class="rightReqPart">
@@ -39,13 +42,24 @@
     </div>
 
     <div class="bottomLeftReqPart">
+      <div *ngFor="let checkbox2 of checkboxes2">
         <p>
-          <input type="checkbox" disabled="true">
+          <input type="checkbox" [(ngModel)]="checkbox2.checked" [value]="checkbox2.value" disabled="true">
           Animal - Person compatibility
-          <button class="btn btn--radius btn--blue">Check</button>
+          <button class="btn btn--radius btn--blue" (click) = "animalPersonCompatibility()">Check</button>
         </p>    
-
-        <img id="mockDiagram" src="../../assets/images/diagram.png">
+        </div>
+        <div id="line_chart" >
+          <google-chart #chart
+          [title]="title"
+          [type]="type"
+          [data]="data"
+          [options]="options"
+          [width]="width"
+          [height]="height">
+        </google-chart>
+      </div> 
+        <!-- <img *ngIf="showDiagram" id="mockDiagram" src="../../assets/images/diagram.png"> -->
       </div>
         <div class="bottomRightReqPart">
         <div id="notes"><span>Notes:</span>
@@ -86,11 +100,7 @@
                   </tr>
               
           </tbody>
-      </table>
-
-      
-        <!--div id="line_chart" [chartData]="line_ChartData" [chartOptions]= "line_ChartOptions" chartType="LineChart" GoogleChart></div-->
-      
+      </table>      
     </div>
 
   </section>
