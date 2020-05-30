@@ -1,5 +1,5 @@
 <mat-card class="card">
-    <img class="rounded imageStyle" (click)="showPetAd()" md-card-image src="{{ petAd.photosDto[0].photoName }}">
+    <img class="rounded imageStyle" (click)="showPetAd()" *ngIf="haveLoadedPets" md-card-image src="{{ petAd.photosDto[0].photoName }}">
     <div class="content">
         <mat-card-content *ngIf="! isHidenContent">
             <h6>Name: {{ petAd.petDto.petDetailsDto.petName }}</h6>

@@ -1,4 +1,4 @@
-package fmi.course.hcmi.animalshome.service;
+package fmi.course.hcmi.animalshome.service.impl;
 
 import fmi.course.hcmi.animalshome.dao.PetAdRepository;
 import fmi.course.hcmi.animalshome.dao.UserRepository;
@@ -25,6 +25,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import fmi.course.hcmi.animalshome.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

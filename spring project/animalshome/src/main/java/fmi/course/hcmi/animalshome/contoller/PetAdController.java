@@ -2,12 +2,12 @@ package fmi.course.hcmi.animalshome.contoller;
 
 import fmi.course.hcmi.animalshome.dto.FilterCriteria;
 import fmi.course.hcmi.animalshome.dto.PetAdDto;
+import fmi.course.hcmi.animalshome.service.impl.PetAdService;
 import fmi.course.hcmi.animalshome.dto.PetAdWithUser;
 import fmi.course.hcmi.animalshome.dto.PetType;
 import fmi.course.hcmi.animalshome.dto.PhotoDto;
 import fmi.course.hcmi.animalshome.exception.DeletePetPhotoException;
 import fmi.course.hcmi.animalshome.exception.ResourceNotFoundException;
-import fmi.course.hcmi.animalshome.service.PetAdService;
 
 import java.io.IOException;
 import java.util.List;

@@ -33,12 +33,16 @@
                         <input class="input--style-2" type="text" placeholder="Description*" formControlName="description" required>
                     </div>
                     <div>
-                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR" class="input-group-checkbox" name="gdpr" />
-                        <label for="gdpr">I agree my data will be consumed according GDPR.</label>
+                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR"
+                            class="input-group-checkbox" name="gdpr" />
+                        <label for="gdpr"><button>I agree my data will be consumed according
+                                GDPR.</button></label>
                     </div>
                     <div>
-                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies" class="input-group-checkbox" name="policies" />
-                        <label for="policies">I agree according to the website policies.</label>
+                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies"
+                            class="input-group-checkbox" name="policies" />
+                        <label for="policies"><button>I agree according to the website
+                                policies.</button></label>
                     </div>
                     <div class="p-t-30">
                         <button class="btn btn--radius btn--green" type="submit" (click)="sumbitData()">Submit</button>

@@ -1,8 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { PetAdDto } from 'src/app/model/petAdDto';
 import { PhotoDto } from 'src/app/model/photoDto';
 import { PetAdWithUser } from 'src/app/model/petAdWithUser';
+import { VisitRequest } from 'src/app/model/request';
+
+const httpOptionsShelter = {
+  headers: new HttpHeaders({'Content-Type': 'application/json', 
+  Authorization: 'Bearer ' + localStorage.getItem('token'),
+  username: localStorage.getItem("shelterName") })
+};
+
+const httpOptionsUser = {
+  headers: new HttpHeaders({'Content-Type': 'application/json', 
+  Authorization: 'Bearer ' + localStorage.getItem('token'),
+  username: localStorage.getItem("username")
+ })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +26,68 @@ export class RequestService {
 
   constructor(private http: HttpClient) { }
 
-  getRequests(): Promise<Request> {
-    return null;
+  getRequests() {
+    const requestsUrl = '/api/visit/getRequests';
+
+    return this.http.get(requestsUrl, httpOptionsShelter);
   }
+
+  getNotifications(){
+    const requestsUrl = '/api/user/getNotifications';
+
+    return this.http.get(requestsUrl, httpOptionsShelter);
+  }
+
+
+  sendRequest(request: VisitRequest):Promise<VisitRequest>{
+
+    var petName = request.petName;
+    var userName = request.userName;
+    var shelterName = request.shelterName;
+    var visitRequestAnswer = request.visitRequestAnswer;
+    var date = request.date;
+
+    const body = {petName, userName, shelterName, visitRequestAnswer, date};
+    const sendRequestUrl = "/api/visit/sendRequest";
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    });
+
+    return this.http.post<VisitRequest>(sendRequestUrl, body, {
+      headers,
+    }).toPromise().then(result => { 
+      console.log(body);
+      console.log(result); return result;})
+    .catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return null;
+    });
+  }
+
+  answerRequest(request:VisitRequest):Promise<VisitRequest>{
+
+    var petName = request.petName;
+    var userName = request.userName;
+    var shelterName = request.shelterName;
+    var visitRequestAnswer = request.visitRequestAnswer;
+    var date = request.date;
+
+    const body = {petName, userName, shelterName, visitRequestAnswer, date};
+    const url = "/api/visit/answerRequest";
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    });
+
+    return this.http.put<VisitRequest>(url, body, {
+      headers,
+    }).toPromise().then(result => { 
+      console.log(body);
+      console.log(result); return result;})
+    .catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return null;
+    });
+}
 
   getAllAds() {
     return this.http.get<PetAdDto[]>(`${this.baseUrl}/all`);

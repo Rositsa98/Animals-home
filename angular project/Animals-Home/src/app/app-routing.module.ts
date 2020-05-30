@@ -17,6 +17,10 @@ import { InternalServerErrorComponent } from './internal-server-error/internal-s
 import { NavigationComponent } from './navigation/navigation.component';
 import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
 import { FinderComponent } from './finder/finder.component';
+import { ChatComponent } from './chat/chat.component';
+import { SendRequestComponent } from './send-request/send-request.component';
+import { ShelterGuardComponent } from './guard/shelter-guard/shelter-guard.component';
+import { UserGuardComponent } from './guard/user-guard/user-guard.component';
 
 const routes: Routes = [
   {
@@ -34,15 +38,13 @@ const routes: Routes = [
   },
   {
     path: 'process-requests',
-    component: ProcessRequestsComponent
+    component: ProcessRequestsComponent,
+    canActivate: [ShelterGuardComponent]
   },
   {
-    path: 'admin',
-    component: AdminPanelComponent
-  },
-  {
-    path: 'main',
-    component: MainPanelComponent
+    path: 'send-request',
+    component: SendRequestComponent,
+    canActivate: [UserGuardComponent]
   },
   {
     path: 'registration',
@@ -51,6 +53,12 @@ const routes: Routes = [
   {
     path: 'shelterRegistration',
     component: RegistrationShelterComponent
+  },
+  {
+    path:'chat',
+    component:ChatComponent,
+    canActivate: [UserGuardComponent]
+
   },
   {
     path: 'all',

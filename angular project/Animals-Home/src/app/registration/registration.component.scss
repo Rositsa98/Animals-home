@@ -194,25 +194,30 @@ input {
     width: 100%;
     font-size: 14px;
     font-family: inherit;
-}
-
-
-/* input group 1 */
-
-
-/* end input group 1 */
-
-.input-group {
+  }
+  
+  /* input group 1 */
+  /* end input group 1 */
+  .input-group {
     position: relative;
-    margin-bottom: 22px;
+    margin-bottom: 12px;
     border-bottom: 1px solid #e5e5e5;
 }
 
-.input-group-checkbox {
+  .input-group-checkbox {
     width: 20px;
-}
+  }
 
-.input-icon {
+  .input-group-radio {
+    width: 20px;
+    margin-right: 5px;
+  }
+
+  .genderRadioBtns{
+    margin-bottom: 5px;
+  }
+
+  .input-icon {
     position: absolute;
     font-size: 18px;
     color: #ccc;
@@ -282,7 +287,7 @@ input {
     -moz-border-radius: 10px;
     border-radius: 10px;
     display: table;
-    margin-top: -150px;
+    margin-top: -175px;
 }
 
 #regForm {

@@ -4,6 +4,8 @@ import fmi.course.hcmi.animalshome.entity.PetAd;
 import fmi.course.hcmi.animalshome.entity.WorkDay;
 import io.jsonwebtoken.lang.Collections;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +17,35 @@ import java.util.stream.Collectors;
 
 @Entity
 @DiscriminatorValue(value = "shelter")
+@Getter
+@Setter
 public class Shelter extends User implements UserDetails {
+
+    public Shelter() {
+
+    }
+
+    public Shelter(Long id,
+                   String username,
+                   String password,
+                   String phoneNumber,
+                   String roles,
+                   String email,
+                   String imageUrl,
+                   String address,
+                   boolean active,
+                   List<PetAd> favouritePets,
+                   String shelterCode,
+                   String description,
+                   WorkDay workDay,
+                   List<VisitRequest> shelterVisitRequests) {
+        super(id, username, password, phoneNumber, roles, email, imageUrl, address, active, favouritePets);
+        this.shelterCode = shelterCode;
+        this.description = description;
+        this.workDay = workDay;
+        this.visitRequests = shelterVisitRequests;
+    }
+
     @Column(name = "shelter_code")
     private String shelterCode;
 
@@ -26,31 +56,14 @@ public class Shelter extends User implements UserDetails {
     @JoinColumn(name = "work_day_id", referencedColumnName = "id")
     private WorkDay workDay;
 
+
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    private List<VisitRequest> visitRequests; // received visit requests
+
     //    @Transient
     //    private List<String> visitRequests;//TODO
 
-    public Shelter() {
-
-    }
-
-    public Shelter(final Long id,
-                   final String username,
-                   final String password,
-                   final String phoneNumber,
-                   final String roles,
-                   final String email,
-                   final String imageUrl,
-                   final String address,
-                   final boolean active,
-                   final List<PetAd> favouritePets,
-                   final String shelterCode,
-                   final String description,
-                   final WorkDay workDay) {
-        super(id, username, password, phoneNumber, roles, email, imageUrl, address, active, favouritePets);
-        this.shelterCode = shelterCode;
-        this.description = description;
-        this.workDay = workDay;
-    }
 
     public String getShelterCode() {
         return shelterCode;

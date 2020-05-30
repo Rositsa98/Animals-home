@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,36 @@ import java.util.stream.Collectors;
 @Table(name = "user", schema = "animalsHome")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
+@Getter
+@Setter
 public abstract class User implements UserDetails {
+
+    public User() {
+
+    }
+
+    public User(final Long id,
+                String username,
+                String password,
+                final String phoneNumber,
+                final String roles,
+                final String email,
+                final String imageUrls,
+                final String address,
+                boolean active,
+                List<PetAd> favouritePets){
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+        this.email = email;
+        this.imageUrls = imageUrls;
+        this.address = address;
+        this.active = active;
+        this.favouritePets = favouritePets;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,33 +88,10 @@ public abstract class User implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "favourites_id", referencedColumnName = "id")})
     private List<PetAd> favouritePets;
 
+    @ElementCollection
+    private List<String> notifications;
+
     protected boolean active;
-
-    public User() {
-
-    }
-
-    public User(final Long id,
-                final String username,
-                final String password,
-                final String phoneNumber,
-                final String roles,
-                final String email,
-                final String imageUrls,
-                final String address,
-                final boolean active,
-                final List<PetAd> favouritePets) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.roles = roles;
-        this.email = email;
-        this.imageUrls = imageUrls;
-        this.address = address;
-        this.active = active;
-        this.favouritePets = favouritePets;
-    }
 
     public Long getId() {
         return id;

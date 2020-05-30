@@ -30,20 +30,29 @@
                         <input class="input--style-2" type="text" placeholder="Address*" formControlName="address" required>
                     </div>
                     <div class="input-group">
-                        <input class="input--style-2" type="text" placeholder="Birthday*" formControlName="birthday" required>
+                        <input class="input--style-2" type="date" placeholder="Birthday*" formControlName="birthday" required>
                     </div>
-                    <div class="input-group">
-                        <select class="form-control" formControlName="gender" required>
-                            <option *ngFor="let gender of genderTypes">{{gender}}</option>
-                        </select>
+
+                    <div class="genderRadioBtns">
+                        <input type="radio" id="male" name="gender" formControlName="gender" class="input-group-radio"
+                            value="MALE">
+                        <label for="male">Male</label>
+
+                        <input type="radio" id="female" name="gender" formControlName="gender" class="input-group-radio"
+                            value="FEMALE">
+                        <label for="female">Female</label>
                     </div>
                     <div>
-                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR" class="input-group-checkbox" name="gdpr" />
-                        <label for="gdpr">I agree my data will be consumed according GDPR.</label>
+                        <input type="checkbox" [checked]="agreeGDPR" (change)="agreeGDPR = !agreeGDPR"
+                            class="input-group-checkbox" name="gdpr" />
+                        <label for="gdpr"><button>I agree my data will be consumed according
+                                GDPR.</button></label>
                     </div>
                     <div>
-                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies" class="input-group-checkbox" name="policies" />
-                        <label for="policies">I agree according to the website policies.</label>
+                        <input type="checkbox" [checked]="agreePolicies" (change)="agreePolicies = !agreePolicies"
+                            class="input-group-checkbox" name="policies" />
+                        <label for="policies"><button>I agree according to the website
+                                policies.</button></label>
                     </div>
                     <div class="p-t-30">
                         <button class="btn btn--radius btn--green" type="submit" (click)="sumbitData()">Submit</button>

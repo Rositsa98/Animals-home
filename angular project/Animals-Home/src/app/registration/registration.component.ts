@@ -44,7 +44,7 @@ export class RegistrationComponent implements OnInit {
 
     address: new FormControl(''),
     birthday: new FormControl(''),
-    gender: new FormControl(Gender["MALE"])
+    gender: new FormControl('')
 
   });
 

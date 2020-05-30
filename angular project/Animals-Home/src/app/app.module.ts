@@ -37,6 +37,19 @@ import { DialogContentComponent } from './dialog-content/dialog-content.componen
 import { ConfirmationDialogService } from './dialog-content/confirmation-dialog.service';
 import { AdViewerComponent } from './ad-viewer/ad-viewer.component';
 import { FinderComponent } from './finder/finder.component';
+import { DatePipe } from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SendRequestComponent } from './send-request/send-request.component';
+import { ChatComponent } from './chat/chat.component';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { SendRequestDialogComponent } from './send-request-dialog/send-request-dialog.component';
+import {GoogleChartsModule} from 'angular-google-charts';
+import { UserGuardComponent } from './guard/user-guard/user-guard.component';
+import {NotificationsDialogService} from "./dialog-content/notifications-dialog.service";
+import { NotificationsDialogComponent } from './dialog-content/notifications-dialog/notifications-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +75,12 @@ import { FinderComponent } from './finder/finder.component';
     DialogContentComponent,
     AdViewerComponent,
     FinderComponent
+    AdViewerComponent,
+    SendRequestComponent,
+    ChatComponent,
+    NotificationsDialogComponent,
+    SendRequestDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -79,10 +98,19 @@ import { FinderComponent } from './finder/finder.component';
       apiKey: 'AIzaSyCifSZ4mMeZTYbNXAoIB802ot5UT_9IJSI',
       libraries: ['places']
     }),
-    NgbModule
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgbModule,
+    MatDialogModule,
+    NgbModule,
+    GoogleChartsModule
   ],
-  providers: [AuthenticationService, RegistrationService, RequestService, ConfirmationDialogService],
+  providers: [AuthenticationService, RegistrationService, RequestService, ConfirmationDialogService,
+    SendRequestDialogComponent, MatDatepickerModule, DatePipe, NotificationsDialogComponent,
+     NotificationsDialogService],
   bootstrap: [AppComponent],
-  entryComponents: [ DialogContentComponent ]
+  entryComponents:[DialogContentComponent, NotificationsDialogComponent]
 })
 export class AppModule { }

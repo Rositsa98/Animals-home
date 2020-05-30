@@ -35,10 +35,13 @@
             <div *ngIf="isLoggedInUser" class="dropdown show">
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" [routerLink]="['/my-ads']">My ads</a>
-                    <a class="dropdown-item" [routerLink]="['/edit-profil']">Edit my profil</a>
-                    <a class="dropdown-item" [routerLink]="['/logout']">Log out</a>
+                    <a class="dropdown-item" [routerLink]="['/edit-profil']">Edit my profile</a>
+                    <button *ngIf="isShelter" class="dropdown-item" (click)="processReq()">Process requests</button>
+                    <button class="dropdown-item" (click)="logout()">Logout</button>
                 </div>
             </div>
+            <img src="../assets/images/bell.png" *ngIf="isLoggedInUser" id="notifications" (click)="openNofitificationsModal()">
+
       </span>
     </div>
 </nav>

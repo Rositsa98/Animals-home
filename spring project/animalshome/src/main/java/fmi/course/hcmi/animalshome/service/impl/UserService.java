@@ -6,6 +6,7 @@ import fmi.course.hcmi.animalshome.exception.InvalidUserException;
 import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
+import fmi.course.hcmi.animalshome.model.VisitRequest;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import io.jsonwebtoken.lang.Collections;
 
@@ -111,5 +112,17 @@ public class UserService implements IUserService {
                         User resUser = addShelter((Shelter) user);
                     }
                 });
+    }
+
+    @Override
+    public List<String> getNotificationsForUser(String username) {
+
+        User user = userRepository.findByUsername(username).get();
+
+        if(user != null){
+            return user.getNotifications();
+        }
+
+        return null;
     }
 }
