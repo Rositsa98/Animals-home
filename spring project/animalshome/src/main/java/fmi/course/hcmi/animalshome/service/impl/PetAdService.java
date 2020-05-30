@@ -119,6 +119,7 @@ public class PetAdService {
 
     public List<PetAdDto> getAllPetAdsByPetType(PetType petType) {
         List<PetAd> allPetAds = (List<PetAd>) petAdRepository.findAll();
+
         List<PetAd> petAdsByPetType = allPetAds.stream()
                 .filter(ad -> ad.getPet()
                         .getPetDetails()
@@ -126,7 +127,13 @@ public class PetAdService {
                         .equals(petType))
                 .collect(Collectors.toList());
 
-        return Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByPetType);
+        final List<PetAdDto> petAdDtos = Mapper.INSTANCE.petAdsToPetAdsDto(petAdsByPetType);
+        for (int i = 0; i < petAdDtos.size(); i++) {
+            setRootImageFolder(petAdDtos.get(i)
+                    .getPhotosDto());
+        }
+
+        return petAdDtos;
     }
 
     public List<PetAdDto> getCurrentUserFavoritePetAds() {

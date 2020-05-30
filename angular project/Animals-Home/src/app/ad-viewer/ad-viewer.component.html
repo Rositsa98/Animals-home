@@ -17,8 +17,8 @@
                 <label><i class="fa fa-envelope"></i> {{owner.email}}</label>
                 <label><i class="fa fa-phone"></i> {{owner.phoneNumber}}</label>
                 <label *ngIf="!isAdFromUser"><i class="fa fa-clock-o"></i> {{workDayDto.startWork}} - {{workDayDto.endWork}} h.</label>
-                <label *ngIf="!isAdFromUser">Visit the shelter: <button type="button" class="btn btn-info" (click)="requestToVisitShelter()"> Send Request</button></label>
-                <label *ngIf="!isAdFromUser">Chat with the owner: <button type="button" class="btn btn-info" (click)="chatWithOwner()"> Chat</button></label>
+                <label *ngIf="isAdFromUser">Visit the shelter: <button type="button" class="btn btn-info" (click)="requestToVisitShelter()"> Send Request</button></label>
+                <label>Chat with the owner: <button type="button" class="btn btn-info" (click)="chatWithOwner()"> Chat</button></label>
             </div>
         </div>
     </div>

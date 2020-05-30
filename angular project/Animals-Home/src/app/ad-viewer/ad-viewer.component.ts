@@ -74,7 +74,7 @@ export class AdViewerComponent implements OnInit {
     this.petAd = this.petAdWithUser.petAdDto;
     this.owner = this.petAdWithUser.owner;
 
-    if (this.petAdWithUser.owner.roles === 'ROLE_USER') {
+    if (this.owner.roles === 'ROLE_USER') {
       this.isAdFromUser = true;
     } else {
       this.workDayDto = this.owner.workDayDto;
