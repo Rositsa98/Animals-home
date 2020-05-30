@@ -13,6 +13,7 @@ import { NotificationsDialogService } from '../dialog-content/notifications-dial
 })
 export class NavigationComponent implements OnInit, DoCheck {
   name: string;
+  isShelter: boolean;
   isLoggedInUser: boolean = false;
 
   constructor(private authService: AuthenticationService, public nav: NavbarService,
@@ -26,8 +27,14 @@ export class NavigationComponent implements OnInit, DoCheck {
     if (this.authService.isAuthenticated()) {
       this.name = this.authService.getUsername();
       this.isLoggedInUser = true;
+      if (localStorage.getItem("role") === "Shelter") {
+        this.isShelter = true;
+      } else {
+        this.isShelter = false;
+      }
     } else {
       this.isLoggedInUser = false;
+      this.isShelter = false;
     }
   }
 
@@ -61,7 +68,7 @@ export class NavigationComponent implements OnInit, DoCheck {
   processReq() {
     this.router.navigate(['/process-requests']).then(() => window.location.reload());
   }
- 
+
   logout() {
 
     if (localStorage.getItem("token") != null) {
