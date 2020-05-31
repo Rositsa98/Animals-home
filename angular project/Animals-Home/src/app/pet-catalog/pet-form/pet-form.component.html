@@ -33,19 +33,19 @@
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="{{breedIcon}}" class="icon"> Breed:</label>
-                    <input type="text" [(ngModel)]="petDetails.breed" required>
+                    <input type="text" class="form-control" [(ngModel)]="petDetails.breed" required>
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="../assets/images/name.png" class="icon"> Name:</label>
-                    <input type="text" [(ngModel)]="petDetails.petName" required>
+                    <input type="text" class="form-control" [(ngModel)]="petDetails.petName" required>
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="../assets/images/cityIcon.png" class="icon"> City:</label>
-                    <input type="text" [(ngModel)]="petDetails.city" required>
+                    <input type="text" class="form-control" [(ngModel)]="petDetails.city" required>
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="../assets/images/color.png" class="icon"> Color:</label>
-                    <input type="color" [(ngModel)]="petDetails.color" required>
+                    <input type="color" class="form-control" [(ngModel)]="petDetails.color" required>
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="../assets/images/age.png" class="icon"> Age:</label>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="../assets/images/weight.png" class="icon"> Weight:</label>
-                    <input type="text" [(ngModel)]="petDetails.weight" required>
+                    <input type="text" class="form-control" [(ngModel)]="petDetails.weight" required>
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="../assets/images/gender.png" class="icon"> Gender:</label>
@@ -75,15 +75,15 @@
             <div class="card-header ">My Info:</div>
             <div class="card-body ">
                 <div class="info-wrapper">
-                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isNeutered"> Neutered</label>
-                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isHouseTrained"> House trained</label>
+                    <label class="card-text "><input class="checkbox" type="checkbox" [(ngModel)]="petHabits.isNeutered"> Neutered</label>
+                    <label class="card-text "><input class="checkbox" type="checkbox" [(ngModel)]="petHabits.isHouseTrained"> House trained</label>
                 </div>
                 <div class="info-wrapper">
-                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isGoodWithKids"> Good with Kids</label>
-                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isGoodWithDogs"> Good with Dogs</label>
+                    <label class="card-text "><input class="checkbox" type="checkbox" [(ngModel)]="petHabits.isGoodWithKids"> Good with Kids</label>
+                    <label class="card-text "><input class="checkbox" type="checkbox" [(ngModel)]="petHabits.isGoodWithDogs"> Good with Dogs</label>
                 </div>
                 <div class="info-wrapper">
-                    <label class="card-text "><input type="checkbox" [(ngModel)]="petHabits.isGoodWithCats"> Good with Cats</label>
+                    <label class="card-text "><input class="checkbox" type="checkbox" [(ngModel)]="petHabits.isGoodWithCats"> Good with Cats</label>
                 </div>
             </div>
         </div>

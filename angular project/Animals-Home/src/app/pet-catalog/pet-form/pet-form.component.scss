@@ -99,6 +99,7 @@ input[type="file"] {
 
 input {
     margin-left: 8px;
+    width: 174px;
 }
 
 textarea {
@@ -120,4 +121,8 @@ textarea {
     margin-top: 10px;
     margin-bottom: 20px;
     display: inline-block;
+}
+
+.checkbox {
+    width: 20px;
 }

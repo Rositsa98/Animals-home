@@ -6,6 +6,7 @@ import { Shelter } from '../model/shelter';
 import { MapsAPILoader } from '@agm/core';
 import { NavbarService } from '../navigation/navbar.service';
 import { AlertService } from '../alert/alert.service';
+import { WorkDay } from '../model/workDay';
 
 @Component({
   selector: 'app-registration-shelter',
@@ -107,11 +108,15 @@ export class RegistrationShelterComponent implements OnInit {
     email: new FormControl(''),
     address: new FormControl(''),
     shelterCode: new FormControl(''),
-    description: new FormControl('')
+    description: new FormControl(''),
+    startWork: new FormControl(''),
+    endWork: new FormControl('')
   });
 
   sumbitData() {
-
+    let workDay: WorkDay = new WorkDay();
+    workDay.setStartWork(this.registrationFormShelter.get("startWork").value);
+    workDay.setEndWork(this.registrationFormShelter.get("endWork").value);
     this.shelter =
     {
       username: this.registrationFormShelter.get("username").value,
@@ -122,7 +127,8 @@ export class RegistrationShelterComponent implements OnInit {
       address: this.registrationFormShelter.get("address").value,
       active: true,
       shelterCode: this.registrationFormShelter.get("shelterCode").value,
-      description: this.registrationFormShelter.get("description").value
+      description: this.registrationFormShelter.get("description").value,
+      workDay: workDay
     }
 
     var result = this.registrationService.registerShelter(this.shelter)

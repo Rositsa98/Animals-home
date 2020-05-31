@@ -44,8 +44,9 @@ export class RegistrationService {
     var active = true;
     var description = shelter.description;
     var shelterCode = shelter.shelterCode;
+    var workDay = shelter.workDay;
 
-    const body = { username, password, phoneNumber, roles, email, address, active, description, shelterCode };
+    const body = { username, password, phoneNumber, roles, email, address, active, description, shelterCode, workDay };
     const registerUrl = '/api/user/registerShelter';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'

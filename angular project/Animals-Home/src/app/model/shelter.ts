@@ -1,3 +1,6 @@
+import { WorkDayDto } from './workDayDto';
+import { WorkDay } from './workDay';
+
 export interface Shelter {
         username:string;
         password:string;
@@ -8,5 +11,5 @@ export interface Shelter {
         active:boolean;
         shelterCode:string;
         description:string;
-    
+        workDay: WorkDayDto
 }
