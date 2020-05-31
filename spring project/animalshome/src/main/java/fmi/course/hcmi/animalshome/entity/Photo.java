@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "photo", schema = "animalsHome")
+@Table(name = "photo", schema = "dko8s14veb65m")
 @Entity
 @Getter
 @Setter

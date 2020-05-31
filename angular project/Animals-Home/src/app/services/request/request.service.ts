@@ -8,7 +8,7 @@ import { VisitRequest } from 'src/app/model/request';
 const httpOptionsShelter = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 
   Authorization: 'Bearer ' + localStorage.getItem('token'),
-  username: localStorage.getItem("shelterName") })
+  username: localStorage.getItem("username") })
 };
 
 const httpOptionsUser = {
