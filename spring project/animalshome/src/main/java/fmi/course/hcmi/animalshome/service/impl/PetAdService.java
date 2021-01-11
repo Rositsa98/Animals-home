@@ -72,7 +72,7 @@ public class PetAdService {
     }
 
     private void setRootImageFolder(final List<PhotoDto> photos) {
-        photos.forEach(photo -> photo.setPhotoName(PET_AD_PHOTOS_PATH + photo.getPhotoName()));
+        photos.forEach(photo -> photo.setPhotoName("http://localhost:8080" + PET_AD_PHOTOS_PATH + photo.getPhotoName()));
     }
 
     public List<PetAdDto> getPetAdsOfCurrentUser() {
