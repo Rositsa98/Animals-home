@@ -94,9 +94,7 @@ export class NavigationComponent implements OnInit, DoCheck {
 
   }
 
-
   getAdsByType(type: string) {
     this.router.navigate(['/all/type/', type]);
   }
-
 }

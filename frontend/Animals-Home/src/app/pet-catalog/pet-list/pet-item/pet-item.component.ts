@@ -10,6 +10,7 @@ import { ConfirmationDialogService } from 'src/app/dialog-content/confirmation-d
   styleUrls: ['./pet-item.component.scss']
 })
 export class PetItemComponent implements OnInit {
+  DEFAULT_IMAGE: string = '../assets/images/default-img.jpg';
 
   @Input() petAd: PetAdDto;
   @Input() isHiddenFavoriteButton: boolean;
@@ -52,5 +53,13 @@ export class PetItemComponent implements OnInit {
 
   showPetAd() {
     this.router.navigate(['view-ad/', this.petAd.id]);
+  }
+
+  getImagePath() {
+    if(this.petAd.photosDto && this.petAd.photosDto.length > 0) {
+      return this.petAd.photosDto[0].photoName;
+    }
+
+    return this.DEFAULT_IMAGE;
   }
 }
