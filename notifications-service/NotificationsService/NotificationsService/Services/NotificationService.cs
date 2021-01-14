@@ -3,36 +3,35 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using NotificationsService.Entities;
-using NotificationsService.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NotificationsService.Services
 {
     public interface INotificationService
     {
-        Task<IEnumerable<Notification>> GetAsync(int userId);
+        Task<IEnumerable<string>> GetAsync(string username);
     }
 
     internal class NotificationService : INotificationService
     {
         private readonly string _connectionString;
-        private readonly IMapper _mapper;
-        public NotificationService(IConfiguration configuration, IMapper mapper)
-        {
-            _connectionString = configuration.GetConnectionString("Main");
-            _mapper = mapper;
-        }
 
-        public async Task<IEnumerable<Notification>> GetAsync(int userId)
+        public NotificationService(IConfiguration configuration) =>
+            _connectionString = configuration.GetConnectionString("Main");
+
+        public async Task<IEnumerable<string>> GetAsync(string username)
         {
             var sql = $"SELECT `{NotificationEntity.COLUMN_USERID}`, `{NotificationEntity.COLUMN_NOTIFICATIONS}` " +
-                $"FROM `{NotificationEntity.TABLE_NAME}` WHERE `{NotificationEntity.COLUMN_USERID}` = @UserId;";
-            
-            using var connection = new MySqlConnection(_connectionString);
-            var notifications = await connection.QueryAsync<NotificationEntity>(sql, new { UserId = userId });
+                $"FROM `{NotificationEntity.TABLE_NAME}` as n JOIN `{UserEntity.TABLE_NAME}` as u " +
+                $"on `n`.`{NotificationEntity.COLUMN_USERID}`=`u`.`{UserEntity.COLUMN_ID}` " +
+                $"WHERE `{UserEntity.COLUMN_NAME}` = @Username";
 
-            return _mapper.Map<IEnumerable<Notification>>(notifications);
+            using var connection = new MySqlConnection(_connectionString);
+            var notifications = await connection.QueryAsync<NotificationEntity>(sql, new { Username = username });
+
+            return notifications.Select(n => n.Content).ToList();
         }
     }
 }

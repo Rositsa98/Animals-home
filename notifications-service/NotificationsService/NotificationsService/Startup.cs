@@ -1,17 +1,21 @@
-using AutoMapper;
 using Dapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using NotificationsService.Entities;
-using NotificationsService.Models;
 using NotificationsService.Services;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NotificationsService
 {
@@ -27,12 +31,40 @@ namespace NotificationsService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IdentityModelEventSource.ShowPII = true;
+
             services.AddControllers();
             services.AddSignalR();
+            services.AddAuthentication(options => {                
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(ConfigureJwtBearerOptions);
+
             services.AddTransient<INotificationService, NotificationService>();
-            
             MapDbEntities();
-            RegisterMappingConfiguration(services);         
+        }
+
+        private void ConfigureJwtBearerOptions(JwtBearerOptions options)
+        {           
+            var key = Configuration.GetValue<string>("JwtSymmetricKey");
+
+            var jwtHandler = new JwtSecurityTokenHandler();
+            jwtHandler.InboundClaimTypeMap.Clear();
+
+            options.SecurityTokenValidators.Clear();
+            options.SecurityTokenValidators.Add(jwtHandler);
+
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                RequireSignedTokens = true,
+                RequireExpirationTime = true,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true
+            };
         }
 
         private void MapDbEntities()
@@ -43,17 +75,6 @@ namespace NotificationsService
 
             SqlMapper.SetTypeMap(typeof(NotificationEntity),
                 new CustomPropertyTypeMap(typeof(NotificationEntity), ColumnAttributeMapper));
-        }
-
-        private void RegisterMappingConfiguration(IServiceCollection services)
-        {
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<NotificationEntity, Notification>();
-            });
-
-            var mapper = configuration.CreateMapper();
-            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +89,7 @@ namespace NotificationsService
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,37 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MySql.Data.MySqlClient;
-using NotificationsService.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NotificationsService.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NotificationsService.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class NotificationsController : ControllerBase
     {
         private readonly INotificationService _notificationsService;
 
-        public NotificationsController(INotificationService notificationsService) 
+        public NotificationsController(INotificationService notificationsService)
             => _notificationsService = notificationsService;
-        
 
-        [HttpGet("Get/{userId}")]     
-        public async Task<IActionResult> Get(int? userId)
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> Get()
         {
-           if(!userId.HasValue || userId.Value == default)
+            var usernameClaim = HttpContext.User.FindFirst("sub");
+            if (usernameClaim == null || string.IsNullOrWhiteSpace(usernameClaim.Value))
             {
                 return BadRequest();
             }
 
-            var notifications = await _notificationsService.GetAsync(userId.Value);
+            var notifications = await _notificationsService.GetAsync(usernameClaim.Value);
             return new JsonResult(notifications);
         }
-
-
     }
 }
