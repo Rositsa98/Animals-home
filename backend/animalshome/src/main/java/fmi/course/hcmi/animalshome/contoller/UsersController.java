@@ -3,7 +3,7 @@ package fmi.course.hcmi.animalshome.contoller;
 import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
-import fmi.course.hcmi.animalshome.model.VisitRequest;
+import fmi.course.hcmi.animalshome.notifications.NotificationsServiceClient;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -71,8 +71,7 @@ public class UsersController {
         return userService.getNotificationsForUser(username);
     }
 
-
-
-    //TODO update user profile
+    //TODO update user profi
+    // le
     //TODO delete user profile
 }

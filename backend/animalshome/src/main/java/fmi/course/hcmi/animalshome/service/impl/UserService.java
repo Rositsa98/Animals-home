@@ -7,6 +7,7 @@ import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.SingleUser;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.model.VisitRequest;
+import fmi.course.hcmi.animalshome.notifications.NotificationsServiceClient;
 import fmi.course.hcmi.animalshome.service.IUserService;
 import io.jsonwebtoken.lang.Collections;
 
@@ -29,6 +30,8 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private NotificationsServiceClient notificationsServiceClient;
 
     @Override
     public User findUserByUsername(String username) {
@@ -116,13 +119,6 @@ public class UserService implements IUserService {
 
     @Override
     public List<String> getNotificationsForUser(String username) {
-
-        User user = userRepository.findByUsername(username).get();
-
-        if(user != null){
-            return user.getNotifications();
-        }
-
-        return null;
+        return notificationsServiceClient.getNotifications(username);
     }
 }
