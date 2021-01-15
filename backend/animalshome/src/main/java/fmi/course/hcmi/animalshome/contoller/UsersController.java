@@ -20,9 +20,6 @@ public class UsersController {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private NotificationsServiceClient notificationsServiceClient;
-
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
     public String getUserRoles(@RequestHeader String username) {
         List<String> roles = userService.findUserRoles(username);
@@ -70,9 +67,8 @@ public class UsersController {
     }
 
     @RequestMapping(value="/getNotifications", method=RequestMethod.GET)
-    public List<String> getNotifications(@RequestHeader("Authorization") String authHeader){
-        String jwt = authHeader.substring(7);
-        return notificationsServiceClient.getNotifications(jwt);
+    public List<String> getNotifications(@RequestHeader String username){
+        return userService.getNotificationsForUser(username);
     }
 
     //TODO update user profi

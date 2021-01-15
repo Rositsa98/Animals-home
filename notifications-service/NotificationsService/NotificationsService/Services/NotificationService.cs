@@ -3,6 +3,7 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using NotificationsService.Entities;
+using NotificationsService.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace NotificationsService.Services
     public interface INotificationService
     {
         Task<IEnumerable<string>> GetAsync(string username);
+        Task AddAsync(AddNotificationModel notification);
     }
 
     internal class NotificationService : INotificationService
@@ -20,6 +22,16 @@ namespace NotificationsService.Services
 
         public NotificationService(IConfiguration configuration) =>
             _connectionString = configuration.GetConnectionString("Main");
+
+        public async Task AddAsync(AddNotificationModel notification)
+        {
+            var sql = $"INSERT INTO `{NotificationEntity.TABLE_NAME}` " +
+                $"(`{NotificationEntity.COLUMN_USERID}`, `{NotificationEntity.COLUMN_NOTIFICATIONS}`) " +
+                $"VALUES (@UserId, @Content)";
+
+            using var connection = new MySqlConnection(_connectionString);
+            await connection.ExecuteAsync(sql, new { UserId = notification.UserId, Content = notification.Content });
+        }
 
         public async Task<IEnumerable<string>> GetAsync(string username)
         {

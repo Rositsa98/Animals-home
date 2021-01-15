@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NotificationsService.Models;
 using NotificationsService.Services;
 using System.Threading.Tasks;
 
@@ -16,17 +17,19 @@ namespace NotificationsService.Controllers
             => _notificationsService = notificationsService;
 
 
-        [HttpGet("Get")]
-        public async Task<IActionResult> Get()
+        [HttpGet("Get/{username}")]
+        public async Task<IActionResult> Get(string username)
         {
-            var usernameClaim = HttpContext.User.FindFirst("sub");
-            if (usernameClaim == null || string.IsNullOrWhiteSpace(usernameClaim.Value))
-            {
-                return BadRequest();
-            }
-
-            var notifications = await _notificationsService.GetAsync(usernameClaim.Value);
+            var notifications = await _notificationsService.GetAsync(username);
             return new JsonResult(notifications);
+        }
+
+        [HttpPost("Add")]
+        [Consumes("application/json")]
+        public async Task<IActionResult> Add([FromBody] AddNotificationModel notification)
+        {
+            await _notificationsService.AddAsync(notification);
+            return new EmptyResult();
         }
     }
 }

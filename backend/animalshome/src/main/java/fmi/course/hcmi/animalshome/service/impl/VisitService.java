@@ -6,6 +6,8 @@ import fmi.course.hcmi.animalshome.enums.VisitRequestAnswer;
 import fmi.course.hcmi.animalshome.model.Shelter;
 import fmi.course.hcmi.animalshome.model.User;
 import fmi.course.hcmi.animalshome.model.VisitRequest;
+import fmi.course.hcmi.animalshome.notifications.Notification;
+import fmi.course.hcmi.animalshome.notifications.NotificationsServiceClient;
 import fmi.course.hcmi.animalshome.service.IVisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class VisitService implements IVisitService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NotificationsServiceClient notificationsServiceClient;
 
     @Override
     public List<VisitRequest> getAllRequests() {
@@ -87,21 +92,13 @@ public class VisitService implements IVisitService {
         User user = visitRequest.getUser();
 
         if(user != null){
-            List<String> userNotifications = user.getNotifications();
+            String notificationContent = "Your visit request for: " + visitRequest.getPetName()
+                    + " in shelter: " + visitRequest.getShelter().getUsername() + " for date: " +
+                    visitRequest.getDate() + " was " + visitRequest.getVisitRequestAnswer();
 
-            if(userNotifications == null){
-                userNotifications = new ArrayList<>();
-            }
-
-            userNotifications.add("Your visit request for: " + visitRequest.getPetName() + " in shelter: " +
-                    visitRequest.getShelter().getUsername() + " for date: " +
-                    visitRequest.getDate()
-                    + " was " + visitRequest.getVisitRequestAnswer());
-            user.setNotifications(userNotifications);
-
+            Notification notification = new Notification(user.getId(), notificationContent);
+            this.notificationsServiceClient.sendNotification(notification);
         }
-
-        userRepository.save(user);
     }
 
     @Override
@@ -109,21 +106,14 @@ public class VisitService implements IVisitService {
 
         Shelter shelter = visitRequest.getShelter();
 
-        if(shelter != null){
-            List<String> notifications = shelter.getNotifications();
+        if(shelter != null) {
+            String notificationContent = "You have a new visit request for: "
+                    + visitRequest.getPetName() + " for date: " + visitRequest.getDate()
+                    + " from user: " + visitRequest.getUser().getUsername();
 
-            if(notifications == null){
-                notifications = new ArrayList<>();
-            }
-
-            notifications.add("You have a new visit request for: " + visitRequest.getPetName() + " for date: " +
-                    visitRequest.getDate() + " from user: " + visitRequest.getUser().getUsername());
-
-            shelter.setNotifications(notifications);
-
+            Notification notification = new Notification(shelter.getId(), notificationContent);
+            this.notificationsServiceClient.sendNotification(notification);
         }
-
-        userRepository.save(shelter);
     }
 
     private boolean petExists(VisitRequest visitRequest){

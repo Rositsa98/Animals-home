@@ -57,10 +57,10 @@ namespace NotificationsService
 
             options.TokenValidationParameters = new TokenValidationParameters
             {
+                ValidAudience = "notifications-service",
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                 RequireSignedTokens = true,
                 RequireExpirationTime = true,
-                ValidateAudience = false,
                 ValidateLifetime = true,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true
