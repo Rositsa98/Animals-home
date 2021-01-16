@@ -10,13 +10,11 @@ export class NotificationsDialogService {
 
   constructor(private modalService: NgbModal) { }
 
-  public notify(
-
-    dialogSize: 'sm'|'lg' = 'lg'): Promise<boolean> {
+  public notify(dialogSize: 'sm'|'lg' = 'lg'): Promise<boolean> {
     const modalRef = this.modalService.open(NotificationsDialogComponent, { size: dialogSize });
     
     window.location.reload;
 
     return modalRef.result;
-  }
+  }  
 }

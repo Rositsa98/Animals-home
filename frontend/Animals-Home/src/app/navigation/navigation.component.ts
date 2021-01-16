@@ -5,6 +5,7 @@ import { ConfirmationDialogService } from '../dialog-content/confirmation-dialog
 import { NavbarService } from './navbar.service';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { NotificationsDialogService } from '../dialog-content/notifications-dialog.service';
+import { NotificationsService } from '../services/notifications/notifications.service';
 
 @Component({
   selector: 'app-navigation',
@@ -18,7 +19,7 @@ export class NavigationComponent implements OnInit, DoCheck {
 
   constructor(private authService: AuthenticationService, public nav: NavbarService,
     private confirmationDialogService: ConfirmationDialogService, private router: Router, private dialog: MatDialog,
-    private notificationsDialogService: NotificationsDialogService) { }
+    private notificationsDialogService: NotificationsDialogService, private notificationsService: NotificationsService) { }
 
   ngOnInit() {
   }
