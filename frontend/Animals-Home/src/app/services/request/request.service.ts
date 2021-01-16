@@ -4,6 +4,8 @@ import { PetAdDto } from 'src/app/model/petAdDto';
 import { PhotoDto } from 'src/app/model/photoDto';
 import { PetAdWithUser } from 'src/app/model/petAdWithUser';
 import { VisitRequest } from 'src/app/model/request';
+import { DogApiResponse } from 'src/app/model/dogApiResponse';
+import { CatFactApiResponse } from 'src/app/model/catFactApiResponse';
 
 const httpOptionsShelter = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 
@@ -140,6 +142,34 @@ export class RequestService {
       .set('id', id.toString());
 
     return this.http.patch<PetAdDto>(`${this.baseUrl}/remove/user/favorite/`, body, { headers: this.setUserHeaders() });
+  }
+
+  getCatFact() {
+    const requestsUrl = 'https://cat-fact.herokuapp.com/facts/random';
+
+    return this.http.get<CatFactApiResponse>(requestsUrl);
+  }
+
+  getRandomPhotoUrl(breed: string) {
+    let breedUrlPath: string = breed;
+    if (breed.includes(' ')) {
+      let breedParts = breed.split(' ');
+      breedUrlPath = `${breedParts[0]}/${breedParts[1]}`;
+    }
+
+    const requestsUrl = 'https://dog.ceo/api/breed/' + breedUrlPath + '/images/random';
+    
+    return this.http.get<DogApiResponse>(requestsUrl);
+  }    
+
+  getPhoto(url: string) {
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+  getDogBreeds() {
+    const requestsUrl = 'https://dog.ceo/api/breeds/list/all';
+
+    return this.http.get<DogApiResponse>(requestsUrl);
   }
 
   setUserHeaders() {

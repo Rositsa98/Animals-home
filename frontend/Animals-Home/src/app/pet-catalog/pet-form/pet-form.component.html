@@ -33,7 +33,10 @@
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="{{breedIcon}}" class="icon"> Breed:</label>
-                    <input type="text" class="form-control" [(ngModel)]="petDetails.breed" required>
+                    <select class="form-control"  *ngIf="petDetails.petType === 'DOG'" [(ngModel)]="petDetails.breed" required>
+                        <option *ngFor="let breed of dogBreeds" [value]="breed">{{breed}}</option>
+                    </select>
+                    <input type="text" *ngIf="petDetails.petType != 'DOG'" class="form-control" [(ngModel)]="petDetails.breed" required>
                 </div>
                 <div class="facts-wrapper">
                     <label class="card-text"><img src="../assets/images/name.png" class="icon"> Name:</label>

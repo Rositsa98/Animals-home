@@ -8,6 +8,7 @@ import { PetHabitsDto } from 'src/app/model/petHabitsDto';
 import { AdArguments } from 'src/app/model/adArguments';
 import { PhotoDto } from 'src/app/model/photoDto';
 import { NavbarService } from 'src/app/navigation/navbar.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-pet-form',
@@ -38,11 +39,13 @@ export class PetFormComponent implements OnChanges {
   pet: PetDto;
   petDetails: PetDetailsDto;
   petHabits: PetHabitsDto;
+  dogBreeds = new Array<string>();
 
-  constructor(private navigation: NavbarService) {
+  constructor(private navigation: NavbarService, private apiService: ApiService) {
     //TODO add validation
     //TODO show breed in select tag
     //TODO show city in select tag
+    this.fillDogBreeds();
   }
 
   ngOnChanges() {
@@ -52,6 +55,23 @@ export class PetFormComponent implements OnChanges {
     } else {
       this.displayDefaultPetInfo();
     }
+  }
+
+  fillDogBreeds() {
+    this.apiService.getDogBreeds().subscribe(response => {
+      if (response.status == "success") {
+        for (const property in response.message) {
+          if (response.message[property].length > 0) {
+            response.message[property].forEach(element => {
+              this.dogBreeds.push(`${property} ${element}`);
+            });
+          }
+          else {
+            this.dogBreeds.push(property);
+          }
+        }
+      } 
+    });
   }
 
   onFileChanged(event) {
