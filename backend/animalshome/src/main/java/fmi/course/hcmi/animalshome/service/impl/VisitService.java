@@ -96,7 +96,8 @@ public class VisitService implements IVisitService {
                     + " in shelter: " + visitRequest.getShelter().getUsername() + " for date: " +
                     visitRequest.getDate() + " was " + visitRequest.getVisitRequestAnswer();
 
-            Notification notification = new Notification(user.getId(), notificationContent);
+            Notification notification = new Notification(user.getId(), user.getUsername(),
+                    notificationContent);
             this.notificationsServiceClient.sendNotification(notification);
         }
     }
@@ -111,7 +112,8 @@ public class VisitService implements IVisitService {
                     + visitRequest.getPetName() + " for date: " + visitRequest.getDate()
                     + " from user: " + visitRequest.getUser().getUsername();
 
-            Notification notification = new Notification(shelter.getId(), notificationContent);
+            Notification notification = new Notification(shelter.getId(),
+                    shelter.getUsername(), notificationContent);
             this.notificationsServiceClient.sendNotification(notification);
         }
     }

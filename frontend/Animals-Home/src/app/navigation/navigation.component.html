@@ -44,7 +44,7 @@
                 </div>
             </div>
             <img src="../assets/images/bell.png" *ngIf="isLoggedInUser" id="notifications" (click)="openNofitificationsModal()">
-
-      </span>
+            <div class="circle" *ngIf="isLoggedInUser">{{notificationsService.notifications.length}}</div>
+        </span>
     </div>
 </nav>

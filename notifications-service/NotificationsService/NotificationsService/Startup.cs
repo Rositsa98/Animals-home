@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NotificationsService.Entities;
 using NotificationsService.Services;
@@ -15,7 +14,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NotificationsService
 {
@@ -31,7 +29,15 @@ namespace NotificationsService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IdentityModelEventSource.ShowPII = true;
+            var clientAppUrl = Configuration.GetValue<string>("ClientAppUrl");
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins(clientAppUrl)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
             services.AddControllers();
             services.AddSignalR();
@@ -43,6 +49,8 @@ namespace NotificationsService
 
             services.AddTransient<INotificationService, NotificationService>();
             MapDbEntities();
+
+
         }
 
         private void ConfigureJwtBearerOptions(JwtBearerOptions options)
@@ -57,13 +65,13 @@ namespace NotificationsService
 
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidAudience = "notifications-service",
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                 RequireSignedTokens = true,
                 RequireExpirationTime = true,
                 ValidateLifetime = true,
                 ValidateIssuer = false,
-                ValidateIssuerSigningKey = true
+                ValidateIssuerSigningKey = true,
+                ValidateAudience = false
             };
         }
 
@@ -89,6 +97,7 @@ namespace NotificationsService
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 

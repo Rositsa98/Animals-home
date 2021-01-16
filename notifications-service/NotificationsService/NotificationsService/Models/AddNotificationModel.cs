@@ -3,6 +3,7 @@
     public class AddNotificationModel
     {
         public long UserId { get; set; }
+        public string Username { get; set; }
         public string Content { get; set; }
     }
 }

@@ -15,6 +15,14 @@ button {
     margin-right: 70px;
 }
 
+#notifications{
+    float: right;
+    height: 30px;
+    margin-right: -50px;
+    margin-top: -40px;
+    cursor: pointer;
+}
+
 .nav-label {
     height: 60px;
     width: 40%;
@@ -32,9 +40,17 @@ button {
     font-family: sans-serif;
 }
 
-#notifications{
-    float: right;
-    height: 30px;
-    margin-right: -50px;
-    margin-top: -40px;
+.circle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: #117a8b;
+    color: white !important;
+    border: 2px solid #fff;
+    color: #666;
+    text-align: center;
+    position: absolute;
+    right: 38px;
+    top: 20px;
+    font-size: 10px;
 }

@@ -34,7 +34,7 @@ export class RequestService {
     return this.http.get(requestsUrl, httpOptionsShelter);
   }
 
-  getNotifications(){
+  getNotifications() {
     const requestsUrl = '/api/user/getNotifications';
 
     return this.http.get(requestsUrl, httpOptionsShelter);

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { RequestService } from 'src/app/services/request/request.service';
 
 @Component({
@@ -10,19 +11,10 @@ import { RequestService } from 'src/app/services/request/request.service';
   styleUrls: ['./notifications-dialog.component.scss']
 })
 export class NotificationsDialogComponent implements OnInit {
-
-  public notifications; 
-  public haveLoadedNotifications = false;
   
-  constructor(private activeModal: NgbActiveModal, private requestService:RequestService) { }
+  constructor(private activeModal: NgbActiveModal, private notificationsService: NotificationsService) { }
 
-  ngOnInit() {
-    this.requestService.getNotifications().subscribe(notif => { 
-      console.log(notif);
-      this.notifications = notif;
-      this.haveLoadedNotifications = true;
-    });
-  }
+  ngOnInit() {}
 
   public decline() {
     this.activeModal.close(false);
