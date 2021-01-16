@@ -15,6 +15,23 @@ button {
     margin-right: 70px;
 }
 
+.nav-label {
+    height: 60px;
+    width: 40%;
+    margin: 0 auto;
+    display: inline-block;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#cat-fact-header {
+    font-weight: 20px;
+    font-size: small;
+    margin: 5px;
+    font-family: sans-serif;
+}
+
 #notifications{
     float: right;
     height: 30px;
