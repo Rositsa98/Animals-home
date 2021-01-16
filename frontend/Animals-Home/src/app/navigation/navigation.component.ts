@@ -6,6 +6,8 @@ import { NavbarService } from './navbar.service';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { NotificationsDialogService } from '../dialog-content/notifications-dialog.service';
 import { NotificationsService } from '../services/notifications/notifications.service';
+import { ApiService } from '../services/api.service';
+
 
 @Component({
   selector: 'app-navigation',
@@ -17,11 +19,19 @@ export class NavigationComponent implements OnInit, DoCheck {
   isShelter: boolean;
   isLoggedInUser: boolean = false;
 
-  constructor(private authService: AuthenticationService, public nav: NavbarService,
-    private confirmationDialogService: ConfirmationDialogService, private router: Router, private dialog: MatDialog,
-    private notificationsDialogService: NotificationsDialogService, private notificationsService: NotificationsService) { }
+  constructor(private authService: AuthenticationService, 
+    public nav: NavbarService,
+    private confirmationDialogService: ConfirmationDialogService, 
+    private router: Router, 
+    private dialog: MatDialog,
+    private notificationsDialogService: NotificationsDialogService,
+    private notificationsService: NotificationsService,
+    private apiService: ApiService) { }
 
   ngOnInit() {
+    this.apiService.getCatFact().subscribe(response => {
+      document.getElementById("cat-fact-header").innerText = response.text;
+    });
   }
 
   ngDoCheck() {
@@ -38,7 +48,7 @@ export class NavigationComponent implements OnInit, DoCheck {
       this.isShelter = false;
     }
   }
-
+  
   createAd() {
     if (this.isLoggedInUser) {
       this.router.navigate(['/create-ad']);

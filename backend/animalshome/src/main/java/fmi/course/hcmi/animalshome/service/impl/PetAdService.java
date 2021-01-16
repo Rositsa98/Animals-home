@@ -2,21 +2,14 @@ package fmi.course.hcmi.animalshome.service.impl;
 
 import fmi.course.hcmi.animalshome.dao.PetAdRepository;
 import fmi.course.hcmi.animalshome.dao.UserRepository;
-import fmi.course.hcmi.animalshome.dto.FilterCriteria;
-import fmi.course.hcmi.animalshome.dto.PetAdDto;
-import fmi.course.hcmi.animalshome.dto.PetAdWithUser;
-import fmi.course.hcmi.animalshome.dto.PetType;
-import fmi.course.hcmi.animalshome.dto.PhotoDto;
+import fmi.course.hcmi.animalshome.dto.*;
 import fmi.course.hcmi.animalshome.entity.PetAd;
 import fmi.course.hcmi.animalshome.entity.Photo;
 import fmi.course.hcmi.animalshome.exception.DeletePetPhotoException;
 import fmi.course.hcmi.animalshome.exception.ResourceNotFoundException;
 import fmi.course.hcmi.animalshome.mapper.Mapper;
-import fmi.course.hcmi.animalshome.model.Shelter;
-import fmi.course.hcmi.animalshome.model.SingleUser;
-import fmi.course.hcmi.animalshome.model.User;
+import fmi.course.hcmi.animalshome.model.*;
 import fmi.course.hcmi.animalshome.enums.Gender;
-import fmi.course.hcmi.animalshome.model.UserInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,6 +97,7 @@ public class PetAdService {
             owner = Mapper.INSTANCE.userToUserInfo((SingleUser) petAd.getOwner());
         } else {
             owner = Mapper.INSTANCE.userToUserInfo((Shelter) petAd.getOwner());
+            ((ShelterInfo) owner).setWorkDayDto (new WorkDayDto ());
         }
 
         return new PetAdWithUser(petAdDto, owner);

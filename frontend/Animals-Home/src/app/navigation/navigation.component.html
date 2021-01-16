@@ -29,6 +29,9 @@
                 <button class="btn btn-info" type="button" (click)="showFavoritePets()"><i class="fa fa-heart"></i> Favorite pets</button>
             </li>
         </ul>
+        <div class="nav-label">
+            <p id="cat-fact-header"></p>
+        </div>
         <span class="navbar-text">
             <button class="btn btn-info" type="button" *ngIf="!isLoggedInUser" [routerLink]="['/login']"><i class="fa fa-user"></i> Login/Signup</button>
             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="isLoggedInUser"><i class="fa fa-user"></i> {{name}}</button>

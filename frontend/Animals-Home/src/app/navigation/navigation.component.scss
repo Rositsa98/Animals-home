@@ -15,12 +15,29 @@ button {
     margin-right: 70px;
 }
 
-#notifications {
+#notifications{
     float: right;
     height: 30px;
     margin-right: -50px;
     margin-top: -40px;
     cursor: pointer;
+}
+
+.nav-label {
+    height: 60px;
+    width: 40%;
+    margin: 0 auto;
+    display: inline-block;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#cat-fact-header {
+    font-weight: 20px;
+    font-size: small;
+    margin: 5px;
+    font-family: sans-serif;
 }
 
 .circle {
